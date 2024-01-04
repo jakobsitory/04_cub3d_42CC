@@ -6,7 +6,7 @@
 #    By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/04 17:18:37 by lgrimmei          #+#    #+#              #
-#    Updated: 2024/01/04 17:31:52 by lgrimmei         ###   ########.fr        #
+#    Updated: 2024/01/04 19:23:16 by lgrimmei         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,8 @@ NAME		= cub3D
 
 # SOURCES
 SRCS := main.c\
+		utils.c\
+		parse_file.c
 
 # DIRECTORIES AND PATHS
 INCLDIR		:= include/

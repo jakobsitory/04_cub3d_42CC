@@ -6,7 +6,7 @@
 /*   By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 17:22:00 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/04 17:32:20 by lgrimmei         ###   ########.fr       */
+/*   Updated: 2024/01/04 19:25:59 by lgrimmei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,27 @@
 
 int	main(int argc, char *argv[])
 {
-	ft_printf("Hello\n");
-	if (argc && argv)
-		return (0);
+	t_data	*data;
+
+	data = NULL;
+	check_args(argc, argv);
+	printf("check_args succesfull\n");
+	parse_file(data);
+	return (0);
+}
+
+void	check_args(int argc, char **argv)
+{
+	int	fd;
+
+	if (argc != 2)
+		exit_error(USAGE_ERR);
+	if (ft_strlen(argv[1]) <= 5)
+		exit_error(USAGE_ERR);
+	if (!(ft_strncmp(".cub", argv[1] + (ft_strlen(argv[1]) - 4), 4) == 0))
+		exit_error(USAGE_ERR);
+	fd = open(argv[1], O_RDONLY);
+	if (fd < 0)
+		exit_error(FILE_ERR);
+	close(fd);
 }
