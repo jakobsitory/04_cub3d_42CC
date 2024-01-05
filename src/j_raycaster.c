@@ -29,10 +29,10 @@ char **init_map(void)
 
 	char temp[8][8] = {
 		{1, 1, 1, 1, 1, 1, 1, 1},
-		{1, 0, 0, 0, 0, 0, 0, 1},
-		{1, 0, 0, 0, 0, 0, 0, 1},
-		{1, 0, 0, 0, 0, 0, 0, 1},
-		{1, 0, 0, 0, 0, 0, 0, 1},
+		{1, 0, 1, 0, 0, 0, 0, 1},
+		{1, 0, 1, 0, 0, 0, 0, 1},
+		{1, 0, 1, 0, 1, 1, 0, 1},
+		{1, 0, 0, 'N', 1, 1, 0, 1},
 		{1, 0, 0, 0, 0, 0, 0, 1},
 		{1, 0, 0, 0, 0, 0, 0, 1},
 		{1, 1, 1, 1, 1, 1, 1, 1}
@@ -55,11 +55,21 @@ int	main(void)
 	if (!scene)
 		return (1);
 	win_init(scene);
+
 	scene->map = init_map();
-//	background_fill(scene);
-//	mlx_put_image_to_window(scene->window->mlx, scene->window->mlx_win, \
-//							scene->image->img, 0, 0);
+	scene->map_size[0] = 8;
+	scene->map_size[1] = 8;
+
+	scene->player_position[0] = 3;
+	scene->player_position[1] = 4;
+
+	background_fill(scene);
+	draw_map(scene);
+	mlx_put_image_to_window(scene->window->mlx, scene->window->mlx_win, \
+							scene->image->img, 0, 0);
 	key_events(scene);
 	mlx_loop(scene->window->mlx);
+
+	win_destroy(scene);
 	return (0);
 }

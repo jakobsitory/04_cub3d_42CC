@@ -6,7 +6,7 @@
 #    By: jschott <jschott@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/04 17:18:37 by lgrimmei          #+#    #+#              #
-#    Updated: 2024/01/05 12:42:36 by jschott          ###   ########.fr        #
+#    Updated: 2024/01/05 16:23:31 by jschott          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,9 @@ SRCS := j_raycaster.c\
 		window_init.c\
 		window_destroy.c\
 		draw_background.c\
-		input_controls.c
+		draw_map.c\
+		input_controls.c\
+		maths.c
 		
 
 # DIRECTORIES AND PATHS

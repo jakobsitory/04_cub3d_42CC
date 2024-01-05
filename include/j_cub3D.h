@@ -6,7 +6,7 @@
 /*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 17:23:15 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/05 12:42:18 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/05 16:46:14 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # define WIN_HEIGHT	768
 
 # define COLOR_CEILING 0x0033CCFF
-# define COLOR_FLOOR 0x004A5B6D
+# define COLOR_FLOOR 0x00C99547
 # define COLOR_WALL_N 0x00FF5733
 
 # define LOOK_LEFT 65361
@@ -39,9 +39,21 @@
 
 //////////////////////////////-----STRUCTURES-----//////////////////////////////
 
+typedef struct s_line
+{
+	int		start[2];
+	int		end[2];
+	int		dx;
+	int		dy;
+	int		sx;
+	int		sy;
+	int		err;
+	int		e2;
+	int		color;
+}			t_line;
+
 typedef struct s_image {
 	void	*img;
-	// void	*next_image;
 	char	*addr;
 	int		bits_per_pixel;
 	int		line_length;
@@ -62,6 +74,9 @@ typedef struct s_scene {
 	struct s_image	*image;
 
 	char			**map;
+	int				map_size[2];
+	float			player_position[2];
+	int				player_orientation;
 }			t_scene;
 
 /////////////////////////////////-----MAIN-----/////////////////////////////////
@@ -81,6 +96,13 @@ void	key_events(t_scene *scene);
 /////////////////////////////////-----DRAW-----/////////////////////////////////
 
 void	background_fill(t_scene *scene);
+void	rectangle_fill(t_image *image, int start[2], int end[2], int color);
+int		draw_map(t_scene *scene);
+
+/////////////////////////////////-----MATH-----/////////////////////////////////
+
+float	degr_to_rad(int degrees);
+int		ft_abs(int num);
 
 ///////////////////////////////-----MAP_CHECK-----//////////////////////////////
 

@@ -6,21 +6,36 @@
 /*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 12:12:27 by jschott           #+#    #+#             */
-/*   Updated: 2024/01/05 12:30:42 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/05 15:59:36 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/j_cub3D.h"
 
-void	my_mlx_pixel_put(t_scene *scene, int x, int y, int color)
+void	my_mlx_pixel_put(t_image *image, int x, int y, int color)
 {
 	char	*dst;
 
-	if (x >= 0 && y >= 0 && y <= WIN_HEIGHT && x <= WIN_HEIGHT)
+	if (x >= 0 && y >= 0 && y <= WIN_HEIGHT && x <= WIN_WIDTH)
 	{
-		dst = scene->image->addr + (y * scene->image->line_length + \
-							x * (scene->image->bits_per_pixel / 8));
+		dst = image->addr + (y * image->line_length + \
+							x * (image->bits_per_pixel / 8));
 		*(unsigned int *)dst = color;
+	}
+}
+
+void	rectangle_fill(t_image *image, int start[2], int end[2], int color)
+{
+	int	x;
+	int	y;
+
+	x = start[0] - 1;
+	y = start[1] - 1;
+	while (++y < end[1])
+	{
+		while (++x < end[0])
+			my_mlx_pixel_put(image, x, y, color);
+		x = start[0] - 1;
 	}
 }
 
@@ -38,7 +53,11 @@ void	background_fill(t_scene *scene)
 		if (y == WIN_HEIGHT / 2)
 			color = COLOR_FLOOR; // PLACEHOLDER
 		while (++x < WIN_WIDTH)
-			my_mlx_pixel_put(scene, x, y, COLOR_CEILING);
+			my_mlx_pixel_put(scene->image, x, y, color);
 		x = -1;
 	}
+
+	int start[2] = {20,334};
+	int end[2] = {120,434};
+	rectangle_fill(scene->image, start, end, 0xFFFFFF);
 }
