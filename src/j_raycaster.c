@@ -10,7 +10,7 @@
 /*																			*/
 /* ************************************************************************** */
 
-#include "../include/j_header.h"
+#include "../include/j_cub3D.h"
 
 char **init_map(void)
 {
