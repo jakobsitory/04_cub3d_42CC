@@ -6,11 +6,13 @@
 /*   By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 17:22:00 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/04 19:25:59 by lgrimmei         ###   ########.fr       */
+/*   Updated: 2024/01/05 12:54:54 by lgrimmei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "j_cub3D.h"
 #include "cub3D.h"
+
 
 int	main(int argc, char *argv[])
 {

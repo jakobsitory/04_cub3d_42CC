@@ -6,7 +6,7 @@
 #    By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/04 17:18:37 by lgrimmei          #+#    #+#              #
-#    Updated: 2024/01/04 19:23:16 by lgrimmei         ###   ########.fr        #
+#    Updated: 2024/01/05 12:53:00 by lgrimmei         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,10 +28,12 @@ INCS		:= -I ./include/ -I/usr/include
 SRCDIR		:= src/
 OBJDIR		:= obj/
 LIBFTDIR	:= libft/
-HEADER		:= include/cub3d.h
+LIBMLXDIR	:= libmlx/
+HEADER		:= include/j_cub3d.h
 
 # LIBRARIES
 LIBFT		:= $(LIBFTDIR)libft.a
+LIBMLX		:= $(LIBMLXDIR)libmlx.a
 
 # COMPILER & COMMANDS
 CC			:= cc
@@ -42,8 +44,11 @@ HEADERS		:= $(addprefix $(INCLDIR)/, cub3d.h libft.h get_next_line.h ft_printf.h
 
 # FLAGS
 CFLAGS		:= -Wall -Wextra -Werror
-LIBFLAG		:= -L$(LIBFTDIR)
+LIBFTFLAG	:= -L$(LIBFTDIR)
 LIBFTLIB	:= -lft
+LIBMLXFLAG	:= -L$(LIBMLXDIR)
+LIBMLXLIB	:= -lmlx -lXext -lX11
+
 
 # OBJECTS
 OBJ			:= $(SRCS:.c=.o)
@@ -61,7 +66,7 @@ $(LIBFT): $(LIBFTDIR)*.c
 	@$(MAKE) -C $(LIBFTDIR) all --no-print-directory
 
 $(NAME): $(HEADERS) $(LIBFT) $(OBJDIR) $(OBJS) 
-		@$(CC) $(CFLAGS) $(OBJS) $(INCS) -o $(NAME) $(LIBFLAG) $(LIBFTLIB) $(RLFLAG)
+		@$(CC) $(CFLAGS) $(OBJS) $(INCS) -o $(NAME) $(LIBFTFLAG) $(LIBMFTLIB) $(LIBMLXFLAG) $(LIBMLXLIB) $(RLFLAG)
 		@echo "$(GREEN)./$(NAME) is ready!$(RESET)"
 
 $(OBJDIR):
@@ -72,9 +77,9 @@ $(OBJDIR)%.o: $(SRCDIR)%.c
 
 # Create links of headers in incl folder
 $(HEADERS):
-		ln $(LIBFTDIR)libft.h $(INCLDIR)libft.h
-		ln $(LIBFTDIR)ft_printf.h $(INCLDIR)ft_printf.h
-		ln $(LIBFTDIR)get_next_line.h $(INCLDIR)get_next_line.h
+		ln -f $(LIBFTDIR)libft.h $(INCLDIR)libft.h
+		ln -f $(LIBFTDIR)ft_printf.h $(INCLDIR)ft_printf.h
+		ln -f $(LIBFTDIR)get_next_line.h $(INCLDIR)get_next_line.h
 
 clean:
 		$(RM) $(OBJS)
