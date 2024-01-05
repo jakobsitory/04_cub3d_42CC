@@ -6,7 +6,7 @@
 #    By: jschott <jschott@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/04 17:18:37 by lgrimmei          #+#    #+#              #
-#    Updated: 2024/01/05 09:41:06 by jschott          ###   ########.fr        #
+#    Updated: 2024/01/05 12:42:36 by jschott          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,11 +18,16 @@ RESET = \033[0m
 NAME		= cub3D
 
 # SOURCES
-SRCS := main.c\
+SRCS := j_raycaster.c\
+		window_init.c\
+		window_destroy.c\
+		draw_background.c\
+		input_controls.c
+		
 
 # DIRECTORIES AND PATHS
 INCLDIR		:= include/
-INCS		:= -I ./include/ -I/usr/include
+INCS		:= -I include/ -I /usr/include
 SRCDIR		:= src/
 OBJDIR		:= obj/
 LIBFTDIR	:= libft/
@@ -42,6 +47,7 @@ HEADERS		:= $(addprefix $(INCLDIR)/, cub3d.h libft.h get_next_line.h ft_printf.h
 
 # FLAGS
 CFLAGS		:= -Wall -Wextra -Werror
+DEBUGFLAGS	:= -g -fsanitize=address
 LIBFTFLAG	:= -L$(LIBFTDIR)
 LIBFTLIB	:= -lft
 LIBMLXFLAG	:= -L$(LIBMLXDIR)
@@ -64,14 +70,14 @@ $(LIBFT): $(LIBFTDIR)*.c
 	@$(MAKE) -C $(LIBFTDIR) all --no-print-directory
 
 $(NAME): $(HEADERS) $(LIBFT) $(OBJDIR) $(OBJS) 
-		@$(CC) $(CFLAGS) $(OBJS) $(INCS) -o $(NAME) $(LIBFTFLAG) $(LIBMFTLIB) $(LIBMLXFLAG) $(LIBMLXLIB) $(RLFLAG)
+		@$(CC) $(CFLAGS) $(DEBUGFLAGS) $(OBJS) $(INCS) -o $(NAME) $(LIBFTFLAG) $(LIBFTLIB) $(LIBMLXFLAG) $(LIBMLXLIB) $(RLFLAG)
 		@echo "$(GREEN)./$(NAME) is ready!$(RESET)"
 
 $(OBJDIR):
 		mkdir $(OBJDIR)
 
 $(OBJDIR)%.o: $(SRCDIR)%.c
-		$(CC) $(CFLAGS) $(INCS) -c $< -o $@
+		$(CC) $(CFLAGS) $(DEBUGFLAGS) $(INCS) -c $< -o $@
 
 # Create links of headers in incl folder
 $(HEADERS):

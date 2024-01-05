@@ -49,8 +49,17 @@ char **init_map(void)
 
 int	main(void)
 {
-	char **map;
+	t_scene	*scene;
 
-	map = init_map();
+	scene = (t_scene *) malloc (sizeof (t_scene));
+	if (!scene)
+		return (1);
+	win_init(scene);
+	scene->map = init_map();
+//	background_fill(scene);
+//	mlx_put_image_to_window(scene->window->mlx, scene->window->mlx_win, \
+//							scene->image->img, 0, 0);
+	key_events(scene);
+	mlx_loop(scene->window->mlx);
 	return (0);
 }
