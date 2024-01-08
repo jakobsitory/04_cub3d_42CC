@@ -6,7 +6,7 @@
 #    By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/04 17:18:37 by lgrimmei          #+#    #+#              #
-#    Updated: 2024/01/05 12:53:00 by lgrimmei         ###   ########.fr        #
+#    Updated: 2024/01/08 18:08:02 by lgrimmei         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ NAME		= cub3D
 # SOURCES
 SRCS := main.c\
 		utils.c\
-		parse_file.c
+		parse_file.c parse_textures_help.c parse_colors_help.c
 
 # DIRECTORIES AND PATHS
 INCLDIR		:= include/
@@ -29,7 +29,7 @@ SRCDIR		:= src/
 OBJDIR		:= obj/
 LIBFTDIR	:= libft/
 LIBMLXDIR	:= libmlx/
-HEADER		:= include/j_cub3d.h
+HEADER		:= include/cub3d.h
 
 # LIBRARIES
 LIBFT		:= $(LIBFTDIR)libft.a
@@ -43,12 +43,11 @@ RM			:= rm -f
 HEADERS		:= $(addprefix $(INCLDIR)/, cub3d.h libft.h get_next_line.h ft_printf.h)
 
 # FLAGS
-CFLAGS		:= -Wall -Wextra -Werror
-LIBFTFLAG	:= -L$(LIBFTDIR)
+CFLAGS		:= -Wall -Wextra -Werror -g -O3
+LIBFLAG		:= -L$(LIBFTDIR)
 LIBFTLIB	:= -lft
 LIBMLXFLAG	:= -L$(LIBMLXDIR)
 LIBMLXLIB	:= -lmlx -lXext -lX11
-
 
 # OBJECTS
 OBJ			:= $(SRCS:.c=.o)
@@ -65,8 +64,8 @@ all: $(NAME) $(LIBFT)
 $(LIBFT): $(LIBFTDIR)*.c
 	@$(MAKE) -C $(LIBFTDIR) all --no-print-directory
 
-$(NAME): $(HEADERS) $(LIBFT) $(OBJDIR) $(OBJS) 
-		@$(CC) $(CFLAGS) $(OBJS) $(INCS) -o $(NAME) $(LIBFTFLAG) $(LIBMFTLIB) $(LIBMLXFLAG) $(LIBMLXLIB) $(RLFLAG)
+$(NAME): $(LIBFT) $(OBJDIR) $(OBJS) 
+		@$(CC) $(CFLAGS) $(OBJS) $(INCS) -o $(NAME) $(LIBFLAG) $(LIBFTLIB) $(LIBMFTLIB) $(LIBMLXFLAG)
 		@echo "$(GREEN)./$(NAME) is ready!$(RESET)"
 
 $(OBJDIR):
@@ -77,9 +76,9 @@ $(OBJDIR)%.o: $(SRCDIR)%.c
 
 # Create links of headers in incl folder
 $(HEADERS):
-		ln -f $(LIBFTDIR)libft.h $(INCLDIR)libft.h
-		ln -f $(LIBFTDIR)ft_printf.h $(INCLDIR)ft_printf.h
-		ln -f $(LIBFTDIR)get_next_line.h $(INCLDIR)get_next_line.h
+		ln $(LIBFTDIR)libft.h $(INCLDIR)libft.h
+		ln $(LIBFTDIR)ft_printf.h $(INCLDIR)ft_printf.h
+		ln $(LIBFTDIR)get_next_line.h $(INCLDIR)get_next_line.h
 
 clean:
 		$(RM) $(OBJS)
@@ -94,5 +93,8 @@ fclean: clean
 		$(RM) $(INCLDIR)get_next_line.h
 
 re:		fclean all
+
+val: $(NAME)
+	valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./cub3D
 
 .PHONY:	all clean fclean re
