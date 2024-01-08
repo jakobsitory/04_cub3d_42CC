@@ -6,7 +6,7 @@
 /*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 15:03:18 by jschott           #+#    #+#             */
-/*   Updated: 2024/01/05 16:43:22 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/08 12:03:54 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@ int	map_scale(int map_size[2])
 	float	win_aspect;
 	float	map_aspect;
 
-	win_aspect = (float) WIN_WIDTH / (int) WIN_HEIGHT;
+	win_aspect = (float) WINDOW_W / (int) WINDOW_H;
 	map_aspect = (float) map_size[0] / (float) map_size[1];
 	if(win_aspect < map_aspect)
-		return (WIN_WIDTH / map_size[0]);
-	return (WIN_HEIGHT / map_size[1]);
+		return (WINDOW_W / map_size[0]);
+	return (WINDOW_H / map_size[1]);
 }
 
 /* int	draw_ray(t_image *image, int start[2], int dist, int direction)
@@ -36,12 +36,20 @@ int	draw_player(t_scene *scene)
 	int		start[2];
 	int		end[2];
 
-	player_size = 0.4;
+	player_size = 0.1;
 	scale = 0.5 * map_scale(scene->map_size);
-	start[0] = 1 + scale * scene->player_position[0] + scale * player_size;
-	start[1] = 1 + scale * scene->player_position[1] + scale * player_size;
-	end[0] = (scale * scene->player_position[0] + scale) - scale * player_size;
-	end[1] = (scale * scene->player_position[1] + scale) - scale * player_size;
+	// printf("scale: %i\n", scale);
+	
+	start[0] = 1 + scale * scene->player_position[0] / scene->map_square_scale;
+	start[1] = 1 + scale * scene->player_position[1] / scene->map_square_scale;
+	end[0] = start[0] + player_size * scale;
+	end[1] = start[1] + player_size * scale;
+	
+	start[0] -= 0.5 * player_size * scale;
+	start[1] -= 0.5 * player_size * scale;
+	end[0] -= 0.5 * player_size * scale;
+	end[1] -= 0.5 * player_size * scale;
+	// printf("start: %i,%i\nend:   %i,%i\n", start[0], start[1], end[0], end[1]);
 	rectangle_fill(scene->image, start, end, 0xFF0000);
 	return (0);
 }
@@ -65,7 +73,7 @@ int	draw_map(t_scene *scene)
 	{
 		while(++x < scene->map_size[0])
 		{
-			if (scene->map[y][x] == 1)
+			if (scene->map[y][x] == '1')
 				rectangle_fill(scene->image, start, end, 0x000000);
 			else
 				rectangle_fill(scene->image, start, end, 0xFFFFFF);

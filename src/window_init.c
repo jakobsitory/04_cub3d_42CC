@@ -6,7 +6,7 @@
 /*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 10:25:00 by jschott           #+#    #+#             */
-/*   Updated: 2024/01/05 14:59:12 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/08 11:28:02 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	win_init(t_scene *scene)
 	}
 	scene->window->mlx = mlx_init();
 	scene->window->mlx_win = mlx_new_window(scene->window->mlx, \
-											WIN_WIDTH, WIN_HEIGHT, "cub3d");
+											WINDOW_W, WINDOW_H, "cub3d");
 	scene->image = (void *) malloc (sizeof(t_image));
 	if (!scene->image)
 	{
@@ -31,7 +31,7 @@ int	win_init(t_scene *scene)
 		mlx_destroy_display(scene->window->mlx);
 		return (1);
 	}
-	scene->image->img = mlx_new_image(scene->window->mlx, WIN_WIDTH, WIN_HEIGHT);
+	scene->image->img = mlx_new_image(scene->window->mlx, WINDOW_W, WINDOW_H);
 	scene->image->line_length = 100;
 	scene->image->addr = mlx_get_data_addr(scene->image->img, \
 											&scene->image->bits_per_pixel, \

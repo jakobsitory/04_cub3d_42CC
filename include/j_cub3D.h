@@ -6,7 +6,7 @@
 /*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 17:23:15 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/05 16:46:14 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/08 11:28:12 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@
 # include "libft.h"
 # include "ft_printf.h"
 
-# define WIN_WIDTH 	1024
-# define WIN_HEIGHT	768
+# define WINDOW_W 	1024
+# define WINDOW_H	768
 
 # define COLOR_CEILING 0x0033CCFF
 # define COLOR_FLOOR 0x00C99547
@@ -75,7 +75,9 @@ typedef struct s_scene {
 
 	char			**map;
 	int				map_size[2];
-	float			player_position[2];
+	int				map_square_scale;
+
+	int				player_position[2];
 	int				player_orientation;
 }			t_scene;
 
