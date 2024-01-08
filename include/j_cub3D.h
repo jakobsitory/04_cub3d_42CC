@@ -6,7 +6,7 @@
 /*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 17:23:15 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/08 11:28:12 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/08 17:19:07 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,10 @@
 # define COLOR_CEILING 0x0033CCFF
 # define COLOR_FLOOR 0x00C99547
 # define COLOR_WALL_N 0x00FF5733
+# define COLOR_MAP_PLAYER 0xFF0000
+# define COLOR_MAP_FLOOR 0xFFFFFF
+# define COLOR_MAP_WALL 0x000000
+
 
 # define LOOK_LEFT 65361
 # define LOOK_RIGHT 65363
@@ -84,7 +88,7 @@ typedef struct s_scene {
 /////////////////////////////////-----MAIN-----/////////////////////////////////
 
 // int	main(int argc, char *argv[]);
-int	main(void);
+int		main(void);
 
 ////////////////////////////////-----WINDOW-----////////////////////////////////
 
@@ -97,9 +101,13 @@ void	key_events(t_scene *scene);
 
 /////////////////////////////////-----DRAW-----/////////////////////////////////
 
+void	my_mlx_pixel_put(t_image *image, int x, int y, int color);
 void	background_fill(t_scene *scene);
 void	rectangle_fill(t_image *image, int start[2], int end[2], int color);
 int		draw_map(t_scene *scene);
+void	draw_line(t_image *img, int start[2], int end[2], int color);
+int		cast_ray(t_scene *scene, int angle);
+int		map_scale(int map_size[2]);
 
 /////////////////////////////////-----MATH-----/////////////////////////////////
 

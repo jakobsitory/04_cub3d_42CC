@@ -6,7 +6,7 @@
 /*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 10:25:00 by jschott           #+#    #+#             */
-/*   Updated: 2024/01/08 11:28:02 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/08 12:41:16 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ int	win_init(t_scene *scene)
 		mlx_destroy_display(scene->window->mlx);
 		return (1);
 	}
-	scene->image->img = mlx_new_image(scene->window->mlx, WINDOW_W, WINDOW_H);
 	scene->image->line_length = 100;
+	scene->image->img = mlx_new_image(scene->window->mlx, WINDOW_W, WINDOW_H);
 	scene->image->addr = mlx_get_data_addr(scene->image->img, \
 											&scene->image->bits_per_pixel, \
 											&scene->image->line_length, \

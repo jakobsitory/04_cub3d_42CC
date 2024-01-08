@@ -6,7 +6,7 @@
 #    By: jschott <jschott@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/04 17:18:37 by lgrimmei          #+#    #+#              #
-#    Updated: 2024/01/05 16:23:31 by jschott          ###   ########.fr        #
+#    Updated: 2024/01/08 16:26:13 by jschott          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,8 @@ SRCS := j_raycaster.c\
 		window_destroy.c\
 		draw_background.c\
 		draw_map.c\
+		draw_line.c\
+		cast_ray.c\
 		input_controls.c\
 		maths.c
 		

@@ -6,7 +6,7 @@
 /*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 09:35:27 by jschott           #+#    #+#             */
-/*   Updated: 2024/01/08 12:12:18 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/08 17:23:11 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	img_update(t_scene *scene)
 											&scene->image->endian);
 	background_fill(scene);
 	draw_map(scene);
+	cast_ray(scene, 0);
 	mlx_put_image_to_window(scene->window->mlx, scene->window->mlx_win, \
 							scene->image->img, 0, 0);
 	mlx_destroy_image(scene->window->mlx, img_temp->img);
@@ -67,13 +68,9 @@ int	collision(t_scene *scene, int keycode)
 		new_pos[0] = --new_pos[0];
 	if (keycode == MOVE_RIGHT)
 		new_pos[0] = ++new_pos[0];
-	printf("new_pos: %i, %i", new_pos[1], new_pos[0]);
 	new_pos[0] /= scene->map_square_scale;
 	new_pos[1] /= scene->map_square_scale;
-	printf("; val: %c\n", scene->map[new_pos[1]][new_pos[0]]);
-	
 	if (scene->map[new_pos[1]][new_pos[0]] == '1')
-		// printf("COLLISION\n");
 		return (1);
 	return (0);
 }

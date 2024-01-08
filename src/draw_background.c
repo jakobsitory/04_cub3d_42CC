@@ -6,7 +6,7 @@
 /*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 12:12:27 by jschott           #+#    #+#             */
-/*   Updated: 2024/01/05 15:59:36 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/08 12:37:27 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	my_mlx_pixel_put(t_image *image, int x, int y, int color)
 {
 	char	*dst;
 
-	if (x >= 0 && y >= 0 && y <= WIN_HEIGHT && x <= WIN_WIDTH)
+	if (x >= 0 && y >= 0 && y <= WINDOW_H && x <= WINDOW_W)
 	{
 		dst = image->addr + (y * image->line_length + \
 							x * (image->bits_per_pixel / 8));
@@ -48,16 +48,12 @@ void	background_fill(t_scene *scene)
 	x = -1;
 	y = -1;
 	color = COLOR_CEILING; // PLACEHOLDER
-	while (++y < WIN_HEIGHT)
+	while (++y < WINDOW_H)
 	{
-		if (y == WIN_HEIGHT / 2)
+		if (y == WINDOW_H / 2)
 			color = COLOR_FLOOR; // PLACEHOLDER
-		while (++x < WIN_WIDTH)
+		while (++x < WINDOW_W)
 			my_mlx_pixel_put(scene->image, x, y, color);
 		x = -1;
 	}
-
-	int start[2] = {20,334};
-	int end[2] = {120,434};
-	rectangle_fill(scene->image, start, end, 0xFFFFFF);
 }

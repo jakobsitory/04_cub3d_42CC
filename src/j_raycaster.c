@@ -67,6 +67,7 @@ int	main(void)
 
 	background_fill(scene);
 	draw_map(scene);
+	cast_ray(scene, 45);
 	mlx_put_image_to_window(scene->window->mlx, scene->window->mlx_win, \
 							scene->image->img, '0', 0);
 	key_events(scene);
