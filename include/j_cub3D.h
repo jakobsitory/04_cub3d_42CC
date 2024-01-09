@@ -6,7 +6,7 @@
 /*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 17:23:15 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/08 17:19:07 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/09 16:36:18 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@
 # include "libft.h"
 # include "ft_printf.h"
 
-# define WINDOW_W 	1024
-# define WINDOW_H	768
+# define WINDOW_W 	640
+# define WINDOW_H	480
 
 # define COLOR_CEILING 0x0033CCFF
 # define COLOR_FLOOR 0x00C99547
@@ -113,6 +113,7 @@ int		map_scale(int map_size[2]);
 
 float	degr_to_rad(int degrees);
 int		ft_abs(int num);
+float	get_distance(int p_1[2], int p_2[2]);
 
 ///////////////////////////////-----MAP_CHECK-----//////////////////////////////
 

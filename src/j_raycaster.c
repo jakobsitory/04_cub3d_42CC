@@ -59,15 +59,16 @@ int	main(void)
 	scene->map = init_map();
 	scene->map_size[0] = 8;
 	scene->map_size[1] = 8;
-	scene->map_square_scale = 10;
+
+	scene->map_square_scale = 100;
 
 	scene->player_position[0] = (3.5 * scene->map_square_scale);
 	scene->player_position[1] = (4.5 * scene->map_square_scale);
-	scene->player_orientation = 0;
+	scene->player_orientation = 30;
 
 	background_fill(scene);
 	draw_map(scene);
-	cast_ray(scene, 45);
+	cast_ray(scene, scene->player_orientation);
 	mlx_put_image_to_window(scene->window->mlx, scene->window->mlx_win, \
 							scene->image->img, '0', 0);
 	key_events(scene);
