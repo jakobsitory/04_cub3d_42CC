@@ -6,7 +6,7 @@
 /*   By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 19:12:26 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/08 19:49:24 by lgrimmei         ###   ########.fr       */
+/*   Updated: 2024/01/09 15:41:01 by lgrimmei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ void	save_identifier(char *identifier, char *line, t_data *data)
 	char *line_trimmed;
 
 	line += ft_strlen(identifier);
-	line_trimmed = ft_strtrim(line, " \n");
 	check_texture_file(line, data);
+	line_trimmed = ft_strtrim(line, " \n");
 	if (ft_strncmp(identifier, NORTH_ID, ft_strlen(identifier)) == 0)
 		data->res->north_text_path = ft_strdup(line_trimmed);
 	else if (ft_strncmp(identifier, EAST_ID, ft_strlen(identifier)) == 0)
@@ -37,7 +37,10 @@ void	check_texture_file(char *path, t_data *data)
 	path = ft_strtrim(path, " \n");
 	fd = open(path, O_RDONLY);
 	if (fd < 1)
+	{
+		free(path);
 		exit_error(TEXTURE_ERR, data);
+	}
 	close(fd);
 	free(path);
 }

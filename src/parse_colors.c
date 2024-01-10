@@ -6,11 +6,33 @@
 /*   By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 17:56:12 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/08 20:05:59 by lgrimmei         ###   ########.fr       */
+/*   Updated: 2024/01/10 15:26:48 by lgrimmei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
+
+void	save_color(char *identifier, char *line, t_data *data)
+{
+	char *line_trimmed;
+	char *line_trimmed_whitesp;
+
+	line += ft_strlen(identifier);
+	line_trimmed = ft_strtrim(line, "\n");
+	while (*line == ' ')
+		line++;
+	valid_number_format(line_trimmed, data);
+	ft_printf("---valid numbers\n");
+	line_trimmed_whitesp = remove_whitespace(line_trimmed, data);
+	free(line_trimmed);
+	valid_chars_color(line_trimmed_whitesp, data);
+	ft_printf("---valid chars\n");
+	if (ft_strncmp(identifier, CEILING_ID, ft_strlen(identifier)) == 0)
+		save_next_hex(line_trimmed_whitesp, data->res->ceiling_colors, data);
+	else if (ft_strncmp(identifier, FLOOR_ID, ft_strlen(identifier)) == 0)
+		save_next_hex(line_trimmed_whitesp, data->res->floor_colors, data);
+	free(line_trimmed_whitesp);
+}
 
 char	*save_next_hex(char *line, int *array, t_data *data)
 {
@@ -44,7 +66,7 @@ int		valid_chars_color(char *str, t_data *data)
 	i = 0;
 	while(str[i])
 	{
-		if (str[i] != ',' && (str[i] < 48 && str[i] > 57))
+		if (str[i] != ',' && (str[i] < '0' || str[i] > '9'))
 			exit_error(COLOR_ERR, data);
 		i++;
 	}
@@ -77,7 +99,6 @@ void	valid_number_format(char *str, t_data *data)
 	}
 	if ((numbers == 3 && commas == 2))
 		return ;
-	free(line);
 	exit_error(COLOR_ERR, data);
 }
 
@@ -102,5 +123,13 @@ void	check_hex_range(t_data *data)
 			exit_error(COLOR_ERR, data);
 		i++;
 	}
+}
+
+int	convert_to_hex(int rgb[3])
+{
+	int	hex;
+
+	hex = (rgb[0] << 16) | (rgb[1] << 8) | rgb[2];
+	return (hex);
 }
 

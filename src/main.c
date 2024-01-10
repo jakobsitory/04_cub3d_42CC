@@ -6,7 +6,7 @@
 /*   By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 17:22:00 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/08 20:03:01 by lgrimmei         ###   ########.fr       */
+/*   Updated: 2024/01/10 19:39:12 by lgrimmei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,10 @@ int	main(int argc, char *argv[])
 	t_data	*data;
 
 	check_args(argc, argv);
-	data = malloc(sizeof(t_data));
-	if (!data)
-		exit_error(MALLOC_ERR, data);
+	data = init_data();
 	parse_file(data, argv[1]);
 	print_res(data->res);
+	print_map(data->map);
 	free_data(data);
 	return (0);
 }
