@@ -6,7 +6,7 @@
 /*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 17:23:15 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/09 16:36:18 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/10 14:02:48 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@
 # define COLOR_CEILING 0x0033CCFF
 # define COLOR_FLOOR 0x00C99547
 # define COLOR_WALL_N 0x00FF5733
-# define COLOR_MAP_PLAYER 0xFF0000
-# define COLOR_MAP_FLOOR 0xFFFFFF
-# define COLOR_MAP_WALL 0x000000
+# define COLOR_MAP_PLAYER 0x00FF0000
+# define COLOR_MAP_FLOOR 0x00FFFFFF
+# define COLOR_MAP_WALL 0x00000000
 
 
 # define LOOK_LEFT 65361

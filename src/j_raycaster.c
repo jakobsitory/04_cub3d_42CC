@@ -62,9 +62,9 @@ int	main(void)
 
 	scene->map_square_scale = 100;
 
-	scene->player_position[0] = (3.5 * scene->map_square_scale);
-	scene->player_position[1] = (4.5 * scene->map_square_scale);
-	scene->player_orientation = 30;
+	scene->player_position[0] = (4.5 * scene->map_square_scale);
+	scene->player_position[1] = (6.5 * scene->map_square_scale);
+	scene->player_orientation = 0;
 
 	background_fill(scene);
 	draw_map(scene);
