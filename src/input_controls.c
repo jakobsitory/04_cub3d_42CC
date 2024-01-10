@@ -6,7 +6,7 @@
 /*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 09:35:27 by jschott           #+#    #+#             */
-/*   Updated: 2024/01/09 15:41:21 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/10 11:56:54 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,13 @@ int	win_close(t_window *window)
 void	update_orienation(t_scene *scene, int keycode)
 {
 	if (keycode == LOOK_LEFT)
-		scene->player_orientation += 1;
-	if (keycode == LOOK_RIGHT)
 		scene->player_orientation -= 1;
+	if (keycode == LOOK_RIGHT)
+		scene->player_orientation += 1;
 	if (scene->player_orientation < 0)
 		scene->player_orientation += 360;
 	scene->player_orientation %= 360;
-	ft_printf("orientation: %i\n", scene->player_orientation);
+	// ft_printf("orientation: %i\n", scene->player_orientation);
 	img_update(scene);
 	// cast_ray(scene, scene->player_orientation);
 }
