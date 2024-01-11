@@ -44,16 +44,16 @@ void	draw_line(t_image *img, int start[2], int end[2], int color)
 	line->start[1] = start[1];
 	line->end[0] = end[0];
 	line->end[1] = end[1];
-	line->dx = ft_abs(end[0] - start[0]);
-	line->dy = ft_abs(end[1] - start[1]);
+	line->dx = ft_abs(line->end[0] - line->start[0]);
+	line->dy = ft_abs(line->end[1] - line->start[1]);
 	line->err = line->dx - line->dy;
 	line->e2 = 2 * line->err;
 	line->color = color;
-	if (start[0] < end[0])
+	if (start[0] < line->end[0])
 		line->sx = 1;
 	else
 		line->sx = -1;
-	if (start[1] < end[0])
+	if (start[1] < line->end[1])
 		line->sy = 1;
 	else
 		line->sy = -1;

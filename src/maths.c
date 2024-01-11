@@ -6,15 +6,24 @@
 /*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 16:22:30 by jschott           #+#    #+#             */
-/*   Updated: 2024/01/09 14:30:30 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/11 18:05:26 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/j_cub3D.h"
 
-float	get_distance(int p_1[2], int p_2[2])
+#define M_PI		3.14159265358979323846
+
+float	get_distance(int point_1[2], int point_2[2])
 {
 	float	distance;
+	int		p_1[2];
+	int		p_2[2];
+
+	p_1[0] = point_1[0];
+	p_1[1] = point_1[1];
+	p_2[0] = point_2[0];
+	p_2[1] = point_2[1];
 
 	distance = sqrt (pow (p_2[0] - p_1[0], 2) + pow(p_2[1] - p_1[1], 2));
 	return (distance);

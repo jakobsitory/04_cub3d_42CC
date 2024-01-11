@@ -6,7 +6,7 @@
 /*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 09:35:27 by jschott           #+#    #+#             */
-/*   Updated: 2024/01/10 16:29:11 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/11 16:17:08 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ void	img_update(t_scene *scene)
 											&scene->image->endian);
 	background_fill(scene);
 	draw_map(scene);
+	// for (int i = 0; i < 360; i++)
+	// 	cast_ray(scene, i);
 	cast_ray(scene, scene->player_orientation);
 	mlx_put_image_to_window(scene->window->mlx, scene->window->mlx_win, \
 							scene->image->img, 0, 0);
@@ -51,7 +53,7 @@ void	update_orienation(t_scene *scene, int keycode)
 	if (scene->player_orientation < 0)
 		scene->player_orientation += 360;
 	scene->player_orientation %= 360;
-	// ft_printf("orientation: %i\n", scene->player_orientation);
+	ft_printf("orientation: %i\n", scene->player_orientation);
 	img_update(scene);
 }
 

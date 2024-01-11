@@ -6,7 +6,7 @@
 /*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 17:23:15 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/10 14:02:48 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/11 17:14:37 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@
 # include "libft.h"
 # include "ft_printf.h"
 
-# define WINDOW_W 	640
-# define WINDOW_H	480
+# define WINDOW_W 	560
+# define WINDOW_H	560
 
 # define COLOR_CEILING 0x0033CCFF
 # define COLOR_FLOOR 0x00C99547
