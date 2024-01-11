@@ -6,13 +6,11 @@
 /*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 16:22:30 by jschott           #+#    #+#             */
-/*   Updated: 2024/01/11 18:05:26 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/11 18:33:47 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/j_cub3D.h"
-
-#define M_PI		3.14159265358979323846
 
 float	get_distance(int point_1[2], int point_2[2])
 {

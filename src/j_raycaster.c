@@ -32,9 +32,9 @@ char **init_map(void)
 		{'1', '0', '1', '0', '0', '0', '0', '1'},
 		{'1', '0', '1', '0', '0', '0', '0', '1'},
 		{'1', '0', '1', '0', '1', '1', '0', '1'},
-		{'1', '0', '1', 'N', '1', '1', '0', '1'},
-		{'1', '0', '0', '0', '0', '0', '0', '1'},
-		{'1', '0', '0', '0', '0', '0', '0', '1'},
+		{'1', '1', '1', 'N', '1', '1', '0', '1'},
+		{'1', '0', '1', '0', '0', '0', '0', '1'},
+		{'1', '0', '1', '0', '0', '0', '0', '1'},
 		{'1', '1', '1', '1', '1', '1', '1', '1'}
 	};
 
@@ -64,21 +64,13 @@ int	main(void)
 
 	scene->player_position[0] = (1.5 * scene->map_square_scale);
 	scene->player_position[1] = (2.5 * scene->map_square_scale);
-	scene->player_orientation = 0;
+	scene->player_orientation = 180;
 
 	background_fill(scene);
 	draw_map(scene);
-	for (int i = 0; i < 360; i++)
+	for (int i = 0; i < 270; i++)
 		cast_ray(scene, i);
-	/* for (int i = 0; i < 90; i++)
-		cast_ray(scene, i);
-	for (int i = 91; i < 105; i++)
-		cast_ray(scene, i);
-	for (int i = 180; i < 259; i++)
-		cast_ray(scene, i);
-	for (int i = 345; i < 360; i++)
-		cast_ray(scene, i); */
-	//cast_ray(scene, scene->player_orientation);
+	// cast_ray(scene, scene->player_orientation);
 	mlx_put_image_to_window(scene->window->mlx, scene->window->mlx_win, \
 							scene->image->img, 0, 0);
 	key_events(scene);
