@@ -6,7 +6,7 @@
 /*   By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 15:18:32 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/10 19:59:21 by lgrimmei         ###   ########.fr       */
+/*   Updated: 2024/01/11 16:35:30 by lgrimmei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void	read_map(t_data *data)
 {
+	char *tmp;
+
 	data->fd = open(data->filepath, O_RDONLY);
 	data->line = get_next_line(data->fd);
 	while (data->line)
@@ -25,13 +27,15 @@ void	read_map(t_data *data)
 		}
 		while (data->line)
 		{
-			data->map->map_string = ft_strjoin(data->map->map_string, data->line);
+			tmp = ft_strdup(data->map->map_string);
+			free(data->map->map_string);
+			data->map->map_string = ft_strjoin(tmp, data->line);
+			free(tmp);
 			free(data->line);
 			data->line = get_next_line(data->fd);
 
 		}
-		calc_no_lines(data->map);
-		calc_line_length(data->map);
+		calc_map_size(data->map);
 		data->map->map = create_map_arr(data, 0, 0, 0);
 		data->map->map_copy = create_map_arr(data, 0, 0, 0);
 	}
@@ -58,9 +62,9 @@ void	get_player_pos(t_data *data)
 	x = 0;
 	y = 0;
 	map = data->map->map;
-	while (map[y])
+	while (y < data->map->map_size[1])
 	{
-		while (map[y][x])
+		while (x < data->map->map_size[0])
 		{
 			if (map[y][x] == 'N' || map[y][x] == 'E' || map[y][x] == 'S' || map[y][x] == 'W')
 			{

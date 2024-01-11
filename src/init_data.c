@@ -6,7 +6,7 @@
 /*   By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 19:06:18 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/10 19:39:51 by lgrimmei         ###   ########.fr       */
+/*   Updated: 2024/01/11 19:43:24 by lgrimmei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,5 +71,13 @@ t_data	*init_data(void)
 	data->map->map_copy = NULL;
 	data->map->x_moves = create_possible_moves_x(data);
 	data->map->y_moves = create_possible_moves_y(data);
+	data->res->ceiling_colors[0] = -1;
+	data->res->ceiling_colors[1] = -1;
+	data->res->ceiling_colors[2] = -1;
+	data->res->floor_colors[0] = -1;
+	data->res->floor_colors[1] = -1;
+	data->res->floor_colors[2] = -1;
+	data->res->ceiling_hex = -1;
+	data->res->floor_hex = -1;
 	return (data);
 }

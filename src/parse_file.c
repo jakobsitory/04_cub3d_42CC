@@ -6,11 +6,27 @@
 /*   By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 17:57:43 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/10 19:36:42 by lgrimmei         ###   ########.fr       */
+/*   Updated: 2024/01/11 20:19:27 by lgrimmei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
+
+void	parse_successful(t_data *data)
+{
+	if (!data->res->floor_hex)
+		exit_error(COLOR_ERR, data);
+	if (!data->res->ceiling_hex)
+		exit_error(COLOR_ERR, data);
+	if (!data->res->north_text_path)
+		exit_error(TEXTURE_ERR, data);
+	if (!data->res->east_text_path)
+		exit_error(TEXTURE_ERR, data);
+	if (!data->res->south_text_path)
+		exit_error(TEXTURE_ERR, data);
+	if (!data->res->west_text_path)
+		exit_error(TEXTURE_ERR, data);
+}
 
 void	parse_file(t_data *data, char *filepath)
 {
@@ -18,7 +34,7 @@ void	parse_file(t_data *data, char *filepath)
 	parse_textures(data);
 	parse_colors(data);
 	parse_map(data);
-	//parse_successful(data);
+	parse_successful(data);
 }
 
 void	parse_textures(t_data *data)

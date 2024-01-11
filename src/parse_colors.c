@@ -1,32 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_colors_help.c                                :+:      :+:    :+:   */
+/*   parse_colors.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 17:56:12 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/10 15:26:48 by lgrimmei         ###   ########.fr       */
+/*   Updated: 2024/01/11 20:15:19 by lgrimmei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
+
+void	check_color_saved(t_data *data, char *identifier)
+{
+	if (ft_strncmp(identifier, CEILING_ID, ft_strlen(identifier)) == 0)
+	{
+		if (data->res->ceiling_colors[0] != -1)
+			exit_error(MULTIPLE_COLOR, data);
+	}
+	else if (ft_strncmp(identifier, FLOOR_ID, ft_strlen(identifier)) == 0)
+	{
+		if (data->res->floor_colors[0] != -1)
+			exit_error(MULTIPLE_COLOR, data);
+	}
+}
 
 void	save_color(char *identifier, char *line, t_data *data)
 {
 	char *line_trimmed;
 	char *line_trimmed_whitesp;
 
+	check_color_saved(data, identifier);
 	line += ft_strlen(identifier);
 	line_trimmed = ft_strtrim(line, "\n");
 	while (*line == ' ')
 		line++;
 	valid_number_format(line_trimmed, data);
-	ft_printf("---valid numbers\n");
 	line_trimmed_whitesp = remove_whitespace(line_trimmed, data);
 	free(line_trimmed);
 	valid_chars_color(line_trimmed_whitesp, data);
-	ft_printf("---valid chars\n");
 	if (ft_strncmp(identifier, CEILING_ID, ft_strlen(identifier)) == 0)
 		save_next_hex(line_trimmed_whitesp, data->res->ceiling_colors, data);
 	else if (ft_strncmp(identifier, FLOOR_ID, ft_strlen(identifier)) == 0)
@@ -82,7 +95,7 @@ void	valid_number_format(char *str, t_data *data)
 	numbers = 0;
 	commas = 0;
 	i = 0;
-	while (str[i])
+	while (i < (int)ft_strlen(str))
 	{
 		while (str[i] > 47 && str[i] < 57)
 		{
@@ -110,14 +123,18 @@ void	check_hex_range(t_data *data)
 	i = 0;
 	while (i < 3)
 	{
+		if (!data->res->ceiling_colors[i])
+				exit_error(COLOR_ERR, data);
 		n = data->res->ceiling_colors[i];
-		if (n > 255 || n < 0)
+		if (n > 255 || n < 0 )
 			exit_error(COLOR_ERR, data);
 		i++;
 	}
 	i = 0;
 	while (i < 3)
 	{
+		if (!data->res->floor_colors[i])
+				exit_error(COLOR_ERR, data);
 		n = data->res->floor_colors[i];
 		if (n > 255 || n < 0)
 			exit_error(COLOR_ERR, data);

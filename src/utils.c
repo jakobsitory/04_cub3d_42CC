@@ -6,7 +6,7 @@
 /*   By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 18:57:45 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/10 18:08:38 by lgrimmei         ###   ########.fr       */
+/*   Updated: 2024/01/11 17:13:49 by lgrimmei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	print_map(t_map *map)
 	ft_printf("Player Orientation in degree: %i\n", map->player_orientation);
 }
 
-void	free_data(t_data *data)
+void	free_res(t_data *data)
 {
 	if (data->res->north_text_path)
 		free(data->res->north_text_path);
@@ -52,6 +52,55 @@ void	free_data(t_data *data)
 		free(data->res->west_text_path);
 	if (data->res)
 		free(data->res);
+}
+
+/* typedef struct map
+{
+	char		*map_string;
+	int			map_size[2];
+	int			map_square_scale;
+	char		**map;
+	char		**map_copy;
+	int			player_position[2];
+	int			player_orientation;
+	int			*x_moves;
+	int			*y_moves;
+}	t_map;
+ */
+
+void	free_str_arr(char **arr)
+{
+	int	i;
+
+	i = 0;
+	while (arr[i])
+	{
+		free(arr[i]);
+		i++;
+	}
+	free(arr);
+}
+
+void	free_map(t_data *data)
+{
+	if (data->map->map_string)
+		free(data->map->map_string);
+	if (data->map->x_moves)
+		free(data->map->x_moves);
+	if (data->map->y_moves)
+		free(data->map->y_moves);
+	if (data->map->map)
+		free_str_arr(data->map->map);
+	if (data->map->map_copy)
+		free_str_arr(data->map->map_copy);
+	if (data->map)
+		free(data->map);
+}
+
+void	free_data(t_data *data)
+{
+	free_res(data);
+	free_map(data);
 	if (data->filepath)
 		free(data->filepath);
 	if (data->line)

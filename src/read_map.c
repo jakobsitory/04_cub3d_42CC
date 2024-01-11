@@ -6,7 +6,7 @@
 /*   By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 15:55:31 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/10 19:56:21 by lgrimmei         ###   ########.fr       */
+/*   Updated: 2024/01/11 16:35:17 by lgrimmei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ char	**create_map_arr(t_data *data, int i, int j, int k)
 	}
 	while (k < data->map->map_size[0])
 		map[j][k++] = '-';
+	map[j][k] = '\0';
 	return (map);
 }
 
@@ -46,12 +47,14 @@ char	**init_map(t_data *data)
 	char	**map;
 
 	i = 0;
-	map = malloc(sizeof(char *) * data->map->map_size[1] + 1);
+	map = malloc(sizeof(char *) * (data->map->map_size[1] + 1));
 	if (!map)
 		exit_error(MALLOC_ERR, data);
 	while (i < data->map->map_size[1])
 	{
-		map[i] = malloc(sizeof(char) * data->map->map_size[0]);
+		map[i] = malloc(sizeof(char) * (data->map->map_size[0] + 1));
+		if (!map[i])
+			exit_error(MALLOC_ERR, data);
 		i++;
 	}
 	map[i] = NULL;
@@ -70,6 +73,12 @@ int	is_valid_map_line(char *line)
 	if (line[i] == '\0'|| line[i] == '\n')
 		return (1);
 	return (0);
+}
+
+void	calc_map_size(t_map *map)
+{
+	calc_no_lines(map);
+	calc_line_length(map);
 }
 
 void calc_no_lines(t_map *map)
@@ -96,6 +105,7 @@ void calc_line_length(t_map *map)
 
 	i = 0;
 	current_line_length = 0;
+	map->map_size[0] = 0;
 	while (map->map_string[i])
 	{
 		if (map->map_string[i] == '\n')

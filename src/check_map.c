@@ -6,7 +6,7 @@
 /*   By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 19:57:38 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/10 20:01:22 by lgrimmei         ###   ########.fr       */
+/*   Updated: 2024/01/11 16:58:58 by lgrimmei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,9 @@
 
 void	check_map(t_data *data)
 {
-	if (!check_valid_chars(data->map->map_copy))
+	if (!check_valid_chars(data->map->map, data))
 		exit_error(CHARS_ERR, data);
 	flood_fill(data, data->map->map_copy, data->map->player_position[0], data->map->player_position[1]);
-	ft_printf("Flood Filled Map:\n");
-	print_string_array(data->map->map_copy);
 }
 
 void	flood_fill(t_data *data, char **map, int x, int y)
@@ -45,7 +43,7 @@ int	is_valid_pos(char **map, int x, int y)
 	return (0);
 }
 
-int	check_valid_chars(char **map)
+int	check_valid_chars(char **map, t_data *data)
 {
 	int	x;
 	int	y;
@@ -54,9 +52,9 @@ int	check_valid_chars(char **map)
 	x = 0;
 	y = 0;
 	flag = 0;
-	while (map[y])
+	while (y < data->map->map_size[1])
 	{
-		while (map[y][x])
+		while (x < data->map->map_size[0])
 		{
 			if (!is_valid_char(map[y][x]))
 				return (0);

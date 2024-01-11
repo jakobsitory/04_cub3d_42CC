@@ -6,7 +6,7 @@
 /*   By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 17:23:15 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/10 20:05:49 by lgrimmei         ###   ########.fr       */
+/*   Updated: 2024/01/11 20:11:22 by lgrimmei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ int		convert_to_hex(int rgb[3]);
 
 void	parse_map(t_data *data);
 int		is_valid_map_line(char *line);
+void	calc_map_size(t_map *map);
 void	calc_no_lines(t_map *map);
 void	calc_line_length(t_map *map);
 char	**init_map(t_data *data);
@@ -116,7 +117,7 @@ void	get_player_orientation(t_data *data);
 void	check_map(t_data *data);
 void	flood_fill(t_data *data, char **map, int x, int y);
 int		is_valid_pos(char **map, int x, int y);
-int		check_valid_chars(char **map);
+int		check_valid_chars(char **map, t_data *data);
 int		is_valid_char(char c);
 
 ////////////////////////////////-----DEFINES-----///////////////////////////////
@@ -126,11 +127,11 @@ int		is_valid_char(char c);
 # define TEXTURE_ERR "Unable to locate or read texture file\n"
 # define COLOR_ERR "Invalid Color Definition\n"
 # define MALLOC_ERR "Failed to allocate memory\n"
-# define MISSING_EL "Missing Element in map\n"
 # define CHARS_ERR "Invalid Chars in map\n"
 # define SURR_ERR "Map not surrounded by walls\n"
 # define MAP_ERR "Invalid map\n"
-
+# define MULTIPLE_TEXT "Multiple Definitions of Textures\n"
+# define MULTIPLE_COLOR "Multiple Definitions of Colors\n"
 
 # define NORTH_ID "NO "
 # define EAST_ID "EA "
@@ -138,6 +139,5 @@ int		is_valid_char(char c);
 # define WEST_ID "WE "
 # define FLOOR_ID "F "
 # define CEILING_ID "C "
-
 
 #endif

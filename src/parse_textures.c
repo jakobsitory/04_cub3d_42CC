@@ -1,16 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_textures_help.c                              :+:      :+:    :+:   */
+/*   parse_textures.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 19:12:26 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/09 15:41:01 by lgrimmei         ###   ########.fr       */
+/*   Updated: 2024/01/11 20:11:38 by lgrimmei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
+
+void	save_text_if_empty(t_data *data, char *identifier, char *value)
+{
+	if (ft_strncmp(identifier, NORTH_ID, ft_strlen(identifier)) == 0)
+	{
+		if (data->res->north_text_path != NULL)
+			exit_error(MULTIPLE_TEXT, data);
+		data->res->north_text_path = ft_strdup(value);
+	}
+	else if (ft_strncmp(identifier, EAST_ID, ft_strlen(identifier)) == 0)
+	{
+		if (data->res->east_text_path != NULL)
+			exit_error(MULTIPLE_TEXT, data);
+		data->res->east_text_path = ft_strdup(value);
+	}
+	else if (ft_strncmp(identifier, SOUTH_ID, ft_strlen(identifier)) == 0)
+	{
+		if (data->res->south_text_path != NULL)
+			exit_error(MULTIPLE_TEXT, data);
+		data->res->south_text_path = ft_strdup(value);
+	}
+	else if (ft_strncmp(identifier, WEST_ID, ft_strlen(identifier)) == 0)
+	{
+		if (data->res->west_text_path != NULL)
+			exit_error(MULTIPLE_TEXT, data);
+		data->res->west_text_path = ft_strdup(value);
+	}
+}
 
 void	save_identifier(char *identifier, char *line, t_data *data)
 {
@@ -20,13 +48,13 @@ void	save_identifier(char *identifier, char *line, t_data *data)
 	check_texture_file(line, data);
 	line_trimmed = ft_strtrim(line, " \n");
 	if (ft_strncmp(identifier, NORTH_ID, ft_strlen(identifier)) == 0)
-		data->res->north_text_path = ft_strdup(line_trimmed);
+		save_text_if_empty(data, identifier, line_trimmed);
 	else if (ft_strncmp(identifier, EAST_ID, ft_strlen(identifier)) == 0)
-		data->res->east_text_path = ft_strdup(line_trimmed);
+		save_text_if_empty(data, identifier, line_trimmed);
 	else if (ft_strncmp(identifier, SOUTH_ID, ft_strlen(identifier)) == 0)
-		data->res->south_text_path = ft_strdup(line_trimmed);
+		save_text_if_empty(data, identifier, line_trimmed);
 	else if (ft_strncmp(identifier, WEST_ID, ft_strlen(identifier)) == 0)
-		data->res->west_text_path = ft_strdup(line_trimmed);
+		save_text_if_empty(data, identifier, line_trimmed);
 	free(line_trimmed);
 }
 
