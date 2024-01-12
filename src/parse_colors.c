@@ -6,30 +6,16 @@
 /*   By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 17:56:12 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/11 20:15:19 by lgrimmei         ###   ########.fr       */
+/*   Updated: 2024/01/12 15:57:42 by lgrimmei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-void	check_color_saved(t_data *data, char *identifier)
-{
-	if (ft_strncmp(identifier, CEILING_ID, ft_strlen(identifier)) == 0)
-	{
-		if (data->res->ceiling_colors[0] != -1)
-			exit_error(MULTIPLE_COLOR, data);
-	}
-	else if (ft_strncmp(identifier, FLOOR_ID, ft_strlen(identifier)) == 0)
-	{
-		if (data->res->floor_colors[0] != -1)
-			exit_error(MULTIPLE_COLOR, data);
-	}
-}
-
 void	save_color(char *identifier, char *line, t_data *data)
 {
-	char *line_trimmed;
-	char *line_trimmed_whitesp;
+	char	*line_trimmed;
+	char	*line_trimmed_whitesp;
 
 	check_color_saved(data, identifier);
 	line += ft_strlen(identifier);
@@ -45,6 +31,20 @@ void	save_color(char *identifier, char *line, t_data *data)
 	else if (ft_strncmp(identifier, FLOOR_ID, ft_strlen(identifier)) == 0)
 		save_next_hex(line_trimmed_whitesp, data->res->floor_colors, data);
 	free(line_trimmed_whitesp);
+}
+
+void	check_color_saved(t_data *data, char *identifier)
+{
+	if (ft_strncmp(identifier, CEILING_ID, ft_strlen(identifier)) == 0)
+	{
+		if (data->res->ceiling_colors[0] != -1)
+			exit_error(MULTIPLE_COLOR, data);
+	}
+	else if (ft_strncmp(identifier, FLOOR_ID, ft_strlen(identifier)) == 0)
+	{
+		if (data->res->floor_colors[0] != -1)
+			exit_error(MULTIPLE_COLOR, data);
+	}
 }
 
 char	*save_next_hex(char *line, int *array, t_data *data)
@@ -72,12 +72,12 @@ char	*save_next_hex(char *line, int *array, t_data *data)
 	return (NULL);
 }
 
-int		valid_chars_color(char *str, t_data *data)
+int	valid_chars_color(char *str, t_data *data)
 {
 	int	i;
 
 	i = 0;
-	while(str[i])
+	while (str[i])
 	{
 		if (str[i] != ',' && (str[i] < '0' || str[i] > '9'))
 			exit_error(COLOR_ERR, data);
@@ -107,46 +107,10 @@ void	valid_number_format(char *str, t_data *data)
 		{
 			i++;
 			commas++;
-		}	
+		}
 		i++;
 	}
 	if ((numbers == 3 && commas == 2))
 		return ;
 	exit_error(COLOR_ERR, data);
 }
-
-void	check_hex_range(t_data *data)
-{
-	int	i;
-	int	n;
-
-	i = 0;
-	while (i < 3)
-	{
-		if (!data->res->ceiling_colors[i])
-				exit_error(COLOR_ERR, data);
-		n = data->res->ceiling_colors[i];
-		if (n > 255 || n < 0 )
-			exit_error(COLOR_ERR, data);
-		i++;
-	}
-	i = 0;
-	while (i < 3)
-	{
-		if (!data->res->floor_colors[i])
-				exit_error(COLOR_ERR, data);
-		n = data->res->floor_colors[i];
-		if (n > 255 || n < 0)
-			exit_error(COLOR_ERR, data);
-		i++;
-	}
-}
-
-int	convert_to_hex(int rgb[3])
-{
-	int	hex;
-
-	hex = (rgb[0] << 16) | (rgb[1] << 8) | rgb[2];
-	return (hex);
-}
-

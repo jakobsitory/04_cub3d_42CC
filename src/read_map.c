@@ -6,7 +6,7 @@
 /*   By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 15:55:31 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/11 16:35:17 by lgrimmei         ###   ########.fr       */
+/*   Updated: 2024/01/12 15:54:47 by lgrimmei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 char	**create_map_arr(t_data *data, int i, int j, int k)
 {
-	char **map;
+	char	**map;
 
 	map = init_map(data);
 	while (data->map->map_string[i])
@@ -41,26 +41,6 @@ char	**create_map_arr(t_data *data, int i, int j, int k)
 	return (map);
 }
 
-char	**init_map(t_data *data)
-{
-	int		i;
-	char	**map;
-
-	i = 0;
-	map = malloc(sizeof(char *) * (data->map->map_size[1] + 1));
-	if (!map)
-		exit_error(MALLOC_ERR, data);
-	while (i < data->map->map_size[1])
-	{
-		map[i] = malloc(sizeof(char) * (data->map->map_size[0] + 1));
-		if (!map[i])
-			exit_error(MALLOC_ERR, data);
-		i++;
-	}
-	map[i] = NULL;
-	return (map);
-}
-
 int	is_valid_map_line(char *line)
 {
 	int	i;
@@ -68,9 +48,10 @@ int	is_valid_map_line(char *line)
 	i = 0;
 	if (ft_strncmp(line, "\n", 1) == 0)
 		return (0);
-	while (line[i] == '1' || line[i] == '0' || line[i] == ' ' || line[i] == 'N' || line[i] == 'S' || line[i] == 'W' || line[i] == 'E')
+	while (line[i] == '1' || line[i] == '0' || line[i] == ' ' \
+	|| line[i] == 'N' || line[i] == 'S' || line[i] == 'W' || line[i] == 'E')
 		i++;
-	if (line[i] == '\0'|| line[i] == '\n')
+	if (line[i] == '\0' || line[i] == '\n')
 		return (1);
 	return (0);
 }
@@ -81,7 +62,7 @@ void	calc_map_size(t_map *map)
 	calc_line_length(map);
 }
 
-void calc_no_lines(t_map *map)
+void	calc_no_lines(t_map *map)
 {
 	int	i;
 	int	lines;
@@ -98,10 +79,10 @@ void calc_no_lines(t_map *map)
 	map->map_size[1] = lines;
 }
 
-void calc_line_length(t_map *map)
+void	calc_line_length(t_map *map)
 {
-	int i;
-	int current_line_length;
+	int	i;
+	int	current_line_length;
 
 	i = 0;
 	current_line_length = 0;
@@ -121,4 +102,3 @@ void calc_line_length(t_map *map)
 	if (current_line_length > map->map_size[0])
 		map->map_size[0] = current_line_length;
 }
-

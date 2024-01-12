@@ -6,7 +6,7 @@
 /*   By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 17:22:00 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/11 16:56:54 by lgrimmei         ###   ########.fr       */
+/*   Updated: 2024/01/12 15:39:53 by lgrimmei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ int	main(int argc, char *argv[])
 	check_args(argc, argv);
 	data = init_data();
 	parse_file(data, argv[1]);
-	//print_res(data->res);
-	//print_map(data->map);
 	free_data(data);
 	return (0);
 }

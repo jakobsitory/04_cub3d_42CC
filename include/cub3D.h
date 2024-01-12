@@ -6,7 +6,7 @@
 /*   By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 17:23:15 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/11 20:11:22 by lgrimmei         ###   ########.fr       */
+/*   Updated: 2024/01/12 15:59:46 by lgrimmei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ typedef struct map
 	int			*y_moves;
 }	t_map;
 
-
 typedef struct data
 {
 	int		fd;
@@ -67,20 +66,29 @@ void	check_args(int argc, char **argv);
 ///////////////////////////////-----INIT DATA-----//////////////////////////////
 
 t_data	*init_data(void);
+void	init_res(t_data *data);
 int		*create_possible_moves_x(t_data *data);
 int		*create_possible_moves_y(t_data *data);
+char	**init_map(t_data *data);
 
 ////////////////////////////////-----UTILS-----/////////////////////////////////
 
 void	exit_error(char *msg, t_data *data);
 void	print_res(t_res *res);
-void	free_data(t_data *data);
 void	print_string_array(char **array);
 void	print_map(t_map *map);
+
+////////////////////////////////-----FREE-----/////////////////////////////////
+
+void	free_data(t_data *data);
+void	free_res(t_data *data);
+void	free_str_arr(char **arr);
+void	free_map(t_data *data);
 
 ////////////////////////////////-----PARSE-----/////////////////////////////////
 
 void	parse_file(t_data *data, char *filepath);
+void	check_invalid_lines(t_data *data);
 
 ///////////////////////////-----PARSE TEXTURES-----/////////////////////////////
 
@@ -93,24 +101,29 @@ char	*remove_whitespace(char *src, t_data *data);
 
 void	parse_colors(t_data *data);
 void	save_color(char *identifier, char *line, t_data *data);
+void	check_color_saved(t_data *data, char *identifier);
 char	*save_next_hex(char *line, int *array, t_data *data);
 int		valid_chars_color(char *str, t_data *data);
 void	valid_number_format(char *str, t_data *data);
 void	check_hex_range(t_data *data);
 int		convert_to_hex(int rgb[3]);
 
-/////////////////////////////-----PARSE MAP-----/////////////////////////////////
+/////////////////////////////-----PARSE MAP-----////////////////////////////////
 
 void	parse_map(t_data *data);
 int		is_valid_map_line(char *line);
 void	calc_map_size(t_map *map);
 void	calc_no_lines(t_map *map);
 void	calc_line_length(t_map *map);
-char	**init_map(t_data *data);
 char	**create_map_arr(t_data *data, int i, int j, int k);
 void	read_map(t_data *data);
 void	get_player_pos(t_data *data);
 void	get_player_orientation(t_data *data);
+
+/////////////////////////////-----PARSE HELP-----///////////////////////////////
+
+void	parse_successful(t_data *data);
+int		only_spaces(char *line);
 
 ///////////////////////////////-----MAP_CHECK-----//////////////////////////////
 
@@ -132,6 +145,8 @@ int		is_valid_char(char c);
 # define MAP_ERR "Invalid map\n"
 # define MULTIPLE_TEXT "Multiple Definitions of Textures\n"
 # define MULTIPLE_COLOR "Multiple Definitions of Colors\n"
+# define ONLY_SPACES "Line with only spaces outside of map found\n"
+# define INV_LINE "Invalid Line found\n"
 
 # define NORTH_ID "NO "
 # define EAST_ID "EA "

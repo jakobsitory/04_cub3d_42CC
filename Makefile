@@ -6,7 +6,7 @@
 #    By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/04 17:18:37 by lgrimmei          #+#    #+#              #
-#    Updated: 2024/01/10 20:04:20 by lgrimmei         ###   ########.fr        #
+#    Updated: 2024/01/12 16:02:06 by lgrimmei         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,8 @@ NAME		= cub3D
 # SOURCES
 SRCS := main.c\
 		utils.c\
-		parse_file.c parse_textures.c parse_colors.c parse_map.c read_map.c init_data.c check_map.c
+		parse_file.c parse_textures.c parse_colors.c parse_map.c read_map.c init_data.c check_map.c parse_helpers.c\
+		free.c
 
 # DIRECTORIES AND PATHS
 INCLDIR		:= include/

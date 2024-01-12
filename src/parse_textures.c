@@ -6,7 +6,7 @@
 /*   By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 19:12:26 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/11 20:11:38 by lgrimmei         ###   ########.fr       */
+/*   Updated: 2024/01/12 15:49:05 by lgrimmei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	save_text_if_empty(t_data *data, char *identifier, char *value)
 
 void	save_identifier(char *identifier, char *line, t_data *data)
 {
-	char *line_trimmed;
+	char	*line_trimmed;
 
 	line += ft_strlen(identifier);
 	check_texture_file(line, data);
@@ -99,6 +99,5 @@ char	*remove_whitespace(char *src, t_data *data)
 			res[j++] = src[i];
 		i++;
 	}
-	res[j] = '\0';
-	return (res);
+	return (res[j] = '\0', res);
 }

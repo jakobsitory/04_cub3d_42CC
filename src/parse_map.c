@@ -6,7 +6,7 @@
 /*   By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 15:18:32 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/11 16:35:30 by lgrimmei         ###   ########.fr       */
+/*   Updated: 2024/01/12 15:41:10 by lgrimmei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	read_map(t_data *data)
 {
-	char *tmp;
+	char	*tmp;
 
 	data->fd = open(data->filepath, O_RDONLY);
 	data->line = get_next_line(data->fd);
@@ -33,7 +33,6 @@ void	read_map(t_data *data)
 			free(tmp);
 			free(data->line);
 			data->line = get_next_line(data->fd);
-
 		}
 		calc_map_size(data->map);
 		data->map->map = create_map_arr(data, 0, 0, 0);
@@ -43,13 +42,17 @@ void	read_map(t_data *data)
 
 void	get_player_orientation(t_data *data)
 {
-	if (data->map->map[data->map->player_position[1]][data->map->player_position[0]] == 'N')
+	if (data->map->map[data->map->player_position[1]] \
+	[data->map->player_position[0]] == 'N')
 		data->map->player_orientation = 0;
-	else	if (data->map->map[data->map->player_position[1]][data->map->player_position[0]] == 'E')
+	else if (data->map->map[data->map->player_position[1]] \
+	[data->map->player_position[0]] == 'E')
 		data->map->player_orientation = 90;
-	else	if (data->map->map[data->map->player_position[1]][data->map->player_position[0]] == 'S')
+	else if (data->map->map[data->map->player_position[1]] \
+	[data->map->player_position[0]] == 'S')
 		data->map->player_orientation = 180;
-	else	if (data->map->map[data->map->player_position[1]][data->map->player_position[0]] == 'W')
+	else if (data->map->map[data->map->player_position[1]] \
+	[data->map->player_position[0]] == 'W')
 		data->map->player_orientation = 270;
 }
 
@@ -66,7 +69,8 @@ void	get_player_pos(t_data *data)
 	{
 		while (x < data->map->map_size[0])
 		{
-			if (map[y][x] == 'N' || map[y][x] == 'E' || map[y][x] == 'S' || map[y][x] == 'W')
+			if (map[y][x] == 'N' || map[y][x] == 'E' \
+			|| map[y][x] == 'S' || map[y][x] == 'W')
 			{
 				data->map->player_position[0] = x;
 				data->map->player_position[1] = y;
@@ -78,5 +82,3 @@ void	get_player_pos(t_data *data)
 		y++;
 	}
 }
-
-

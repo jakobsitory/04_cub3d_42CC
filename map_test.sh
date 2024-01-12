@@ -7,6 +7,7 @@ map_paths=(
     "resources/valid_map_3.cub"
     "resources/valid_map_4.cub"
     "resources/error_map_borders.cub"
+    "resources/error_map_chars_on_line.cub"
     "resources/error_map_chars.cub"
     "resources/error_map_colors_oor.cub"
     "resources/error_map_empty.cub"
@@ -18,6 +19,9 @@ map_paths=(
     "resources/error_map_missing_text.cub"
     "resources/error_map_multiple_player_pos.cub"
     "resources/error_map_order.cub"
+    "resources/error_map_player_in_wall.cub"
+    "resources/error_map_player_outside_wall.cub"
+    "resources/error_map_spaces_on_line.cub"
     "resources/error_map_wrong_identifier.cub"
     "resources/error_map_wrong_texture.cub"
 )
