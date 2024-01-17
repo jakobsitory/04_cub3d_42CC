@@ -6,7 +6,7 @@
 /*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 17:23:15 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/17 14:31:18 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/17 17:59:19 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # define WINDOW_H	560
 
 # ifndef FOV
-#  define FOV	90
+#  define FOV	60
 # endif
 
 # define COLOR_CEILING		0x0033CCFF

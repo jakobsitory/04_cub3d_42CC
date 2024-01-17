@@ -6,7 +6,7 @@
 /*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 09:35:27 by jschott           #+#    #+#             */
-/*   Updated: 2024/01/17 17:45:00 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/17 17:57:42 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ void	img_update(t_scene *scene)
 	// for (int i = 0; i < 360; i++)
 	// 	cast_ray(scene, i);
 	
-	for (int i = scene->player_orientation; i < (scene->player_orientation + FOV) % 360; i++)
-		cast_ray(scene, i);
+	for (int i = scene->player_orientation; i < scene->player_orientation + FOV; i++)
+		cast_ray(scene, i % 360);
 	// cast_ray(scene, scene->player_orientation);
 	mlx_put_image_to_window(scene->window->mlx, scene->window->mlx_win, \
 							scene->image->img, 0, 0);

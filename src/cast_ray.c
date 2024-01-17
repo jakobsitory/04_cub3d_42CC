@@ -6,7 +6,7 @@
 /*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 15:03:37 by jschott           #+#    #+#             */
-/*   Updated: 2024/01/17 17:50:29 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/17 18:00:15 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,6 +184,6 @@ int	cast_ray(t_scene *scene, int angle)
 	if (angle > 270 && angle < 360)
 		color = COLOR_FLOOR;
 	
-	draw_line(scene->image, player_tmp, next_square, color);
+	draw_line(scene->image, player_tmp, next_square, COLOR_MAP_PLAYER);
 	return ((int) distance);
 }
