@@ -6,7 +6,7 @@
 /*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 11:08:22 by jschott           #+#    #+#             */
-/*   Updated: 2024/01/05 14:45:34 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/17 14:42:38 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,9 @@ int	win_destroy(t_scene *scene)
 	free (scene->window->mlx);
 	free (scene->window);
 	free (scene->image);
+	for (int i =0; i < FOV; i++)
+		free (scene->rays[i]);
+	free (scene->rays);
 	free (scene);
 	return (0);
 }

@@ -6,19 +6,19 @@
 /*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 15:03:37 by jschott           #+#    #+#             */
-/*   Updated: 2024/01/11 19:54:37 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/17 17:17:54 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/j_cub3D.h"
 
-#define HALT 0
-#define UP 1
-#define DOWN 2
-#define LEFT 3
-#define RIGHT 4
-#define COLOR_GREEN 0x0020fc03
-#define COLOR_BLUE 0x00003cff
+#define HALT		0
+#define UP			1
+#define DOWN		-1
+#define LEFT		1
+#define RIGHT		-1
+#define COLOR_GREEN	0x0020fc03
+#define COLOR_BLUE	0x00003cff
 
 int	ray_collision(t_scene *scene, int pos[2], int dir_x, int dir_y)
 {
@@ -70,11 +70,12 @@ int	find_next (int start, int square_scale, int dir) // REPLACE DIR WITH ANG?
 	int	distance;
 
 	distance = start;
-	if (dir == HALT)
+	if (dir == HALT){
+		printf("%i\n", distance);
 		return (distance);
+		}
 	while (1)
 	{
-// printf("%i ", distance);
 		if (dir == DOWN || dir == RIGHT)
 			distance ++;
 		if (dir == UP || dir == LEFT)
@@ -82,7 +83,7 @@ int	find_next (int start, int square_scale, int dir) // REPLACE DIR WITH ANG?
 		if (0 == distance % square_scale)
 			break ;
 	}
-printf("%i ", distance);
+printf("%i\n", distance);
 	return (distance);
 }
 
@@ -130,59 +131,36 @@ int	cast_ray(t_scene *scene, int angle)
 
 		square_0[1] = find_next(square_0[1], scene->map_square_scale, dir_y);
 		if (dir_y == HALT && dir_x == LEFT)
-			square_0[0] = scene->player_position[0]; //scene->map_square_scale;
+			square_0[0] = scene->map_square_scale;
 		else if (dir_y == HALT && dir_x == RIGHT)
-			square_0[0] = (scene->map_size[0] - 1) * scene->map_square_scale;
+			square_0[0] = find_next(square_0[0], scene->map_square_scale, dir_x);
 		else
 			square_0[0] = ft_abs((float) ft_abs(ft_abs(square_0[1] - scene->player_position[1]) \
-							* tanf(degr_to_rad(angle))) + scene->player_position[0]);
-							/* printf("square_0: \t%f,\t", (float) \
-											(ft_abs(square_0[1] - scene->player_position[1]) \
-											* tanf(degr_to_rad(angle)) + scene->player_position[0])); */
-							// printf("%i\n", square_0[1]);
-							// printf("\t\t%i,\t\t%i\n", square_0[0], square_0[1]);
+							* tanf(degr_to_rad(angle))) - dir_x * scene->player_position[0]);
 		
 		square_1[0] = find_next(square_1[0], scene->map_square_scale, dir_x);
 		if (dir_x == HALT && dir_y == UP)
 			square_1[1] = scene->map_square_scale;
 		else if (dir_x == HALT && dir_y == DOWN)
-			square_1[1] = (scene->map_size[1] - 1) * scene->map_square_scale;
+			square_1[1] = find_next(square_1[1], scene->map_square_scale, dir_y);//(scene->map_size[1] - 1) * scene->map_square_scale;
 		else
-			square_1[1] = ft_abs((float) (ft_abs(square_1[0] - scene->player_position[0])) \
-							/ tanf(degr_to_rad(angle)) - scene->player_position[1]);
+			square_1[1] = ft_abs((float) ft_abs(ft_abs(square_1[0] - scene->player_position[0])) \
+							/ tanf(degr_to_rad(angle)) + dir_y * scene->player_position[1]);
 
-							// printf("square_1: \t%i,\t\t", square_1[0]);
-							/* printf("%d\n", ft_abs ((float) \
-										(square_1[0] - scene->player_position[0]) \
-										* tanf(degr_to_rad(angle)) + scene->player_position[1])); */
-							// printf("\t\t%i,\t\t%i\n", square_1[0], square_1[1]);
-							/* printf("distance A:\t%f\ndistance B:\t%f\n", \
-										get_distance(scene->player_position, square_0),\
-										get_distance(scene->player_position, square_1)); */
 		printf("square_0:\t%i, %i\n", square_0[0], square_0[1]);
-		printf("square_1:\t%i, %i\n\n", square_1[0], square_1[1]);
+		printf("square_1:\t%i, %i\n", square_1[0], square_1[1]);
 	
 		if((get_distance(scene->player_position, square_0) \
 			<= get_distance(scene->player_position, square_1)))
 			next_square = square_0;
-		else //if (!((int) get_distance(scene->player_position, square_0)))
+		else
 			next_square = square_1;
-		// printf("new square:\t%i, %i\n\n", next_square[0], next_square[1]);
+		printf("new square:\t%i, %i\n\n", next_square[0], next_square[1]);
 		if (ray_collision(scene, next_square, dir_x, dir_y))
 			break ;
 	}
 	distance = get_distance(scene->player_position, next_square);
-/* 	printf("\nPLAYER DATA\nposition:\t%i, %i\norientation:\t%i\nwall:\t\t%i, %i\ndistance:\t%f\n", \
-			scene->player_position[0], scene->player_position[1], scene->player_orientation, next_square[0], next_square[1], distance);
-*/
-/* 	printf("square_0:\t%i, %i\nsquare_1:\t%i, %i\nnext_square:\t%i, %i\n\n",\
-		square_0[0],\
-		square_0[1],\
-		square_1[0],\
-		square_1[1],\
-		next_square[0],\
-		next_square[1]);
-*/
+
 	int scale = map_scale(scene->map_size);
 	next_square[0] *= scale;
 	next_square[1] *= scale;
@@ -194,6 +172,8 @@ int	cast_ray(t_scene *scene, int angle)
 	player_tmp[0] = scale * scene->player_position[0] / scene->map_square_scale;
 	// printf("draw to: %i, %i\n\n\n", next_square[0], next_square[1]);
 
+	// write_to_ray_results(scene->rays[angle], next_square, distance, angle);
+	
 	int color;
 	if (angle < 90)
 		color = COLOR_BLUE;

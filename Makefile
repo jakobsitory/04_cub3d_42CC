@@ -6,7 +6,7 @@
 #    By: jschott <jschott@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/04 17:18:37 by lgrimmei          #+#    #+#              #
-#    Updated: 2024/01/08 16:26:13 by jschott          ###   ########.fr        #
+#    Updated: 2024/01/17 14:03:04 by jschott          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,7 @@ SRCS := j_raycaster.c\
 		draw_line.c\
 		cast_ray.c\
 		input_controls.c\
+		write_to_rayresult.c\
 		maths.c
 		
 

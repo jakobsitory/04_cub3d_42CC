@@ -60,6 +60,12 @@ int	main(void)
 	scene->map_size[0] = 8;
 	scene->map_size[1] = 8;
 
+	scene->rays = (t_ray_result **) malloc (FOV * sizeof(t_ray_result *));
+	if (!scene->rays)
+		return (1);
+	for (int i = 0; i < FOV; i++)
+		scene->rays[i] = (t_ray_result *) malloc (sizeof(t_ray_result));
+
 	scene->map_square_scale = 100;
 
 	scene->player_position[0] = (1.5 * scene->map_square_scale);
@@ -70,7 +76,17 @@ int	main(void)
 	draw_map(scene);
 	for (int i = 0; i < 270; i++)
 		cast_ray(scene, i);
+	for (int i = 271; i < 360; i++)
+		cast_ray(scene, i);
 	// cast_ray(scene, scene->player_orientation);
+/* 
+	for (int i = 0; i< FOV; i++) {
+		printf("rays[%i].degree = %i;\n", i, i);
+		printf("rays[%i].distance = %f\n", i, scene->rays[i]->distance);
+		printf("rays[%i].x = %f\n", i, scene->rays[i]->x);
+		printf("rays[%i].y = %f\n", i, scene->rays[i]->y);
+	} */
+
 	mlx_put_image_to_window(scene->window->mlx, scene->window->mlx_win, \
 							scene->image->img, 0, 0);
 	key_events(scene);
