@@ -6,7 +6,7 @@
 /*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 15:03:37 by jschott           #+#    #+#             */
-/*   Updated: 2024/01/17 17:17:54 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/17 17:50:29 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,8 +144,8 @@ int	cast_ray(t_scene *scene, int angle)
 		else if (dir_x == HALT && dir_y == DOWN)
 			square_1[1] = find_next(square_1[1], scene->map_square_scale, dir_y);//(scene->map_size[1] - 1) * scene->map_square_scale;
 		else
-			square_1[1] = ft_abs((float) ft_abs(ft_abs(square_1[0] - scene->player_position[0])) \
-							/ tanf(degr_to_rad(angle)) + dir_y * scene->player_position[1]);
+			square_1[1] = ft_abs((float) ft_abs(ft_abs(square_1[0] - scene->player_position[0]) \
+							/ tanf(degr_to_rad(angle))) - dir_y * scene->player_position[1]);
 
 		printf("square_0:\t%i, %i\n", square_0[0], square_0[1]);
 		printf("square_1:\t%i, %i\n", square_1[0], square_1[1]);

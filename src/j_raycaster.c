@@ -32,9 +32,9 @@ char **init_map(void)
 		{'1', '0', '1', '0', '0', '0', '0', '1'},
 		{'1', '0', '1', '0', '0', '0', '0', '1'},
 		{'1', '0', '1', '0', '1', '1', '0', '1'},
-		{'1', '1', '1', 'N', '1', '1', '0', '1'},
+		{'1', '0', '1', 'N', '1', '1', '0', '1'},
 		{'1', '0', '1', '0', '0', '0', '0', '1'},
-		{'1', '0', '1', '0', '0', '0', '0', '1'},
+		{'1', '0', '0', '0', '0', '0', '0', '1'},
 		{'1', '1', '1', '1', '1', '1', '1', '1'}
 	};
 
@@ -66,17 +66,17 @@ int	main(void)
 	for (int i = 0; i < FOV; i++)
 		scene->rays[i] = (t_ray_result *) malloc (sizeof(t_ray_result));
 
-	scene->map_square_scale = 100;
+	scene->map_square_scale = 10;
 
 	scene->player_position[0] = (1.5 * scene->map_square_scale);
-	scene->player_position[1] = (2.5 * scene->map_square_scale);
-	scene->player_orientation = 180;
+	scene->player_position[1] = (1.5 * scene->map_square_scale);
+	scene->player_orientation = 0;
 
 	background_fill(scene);
 	draw_map(scene);
-	for (int i = 0; i < 270; i++)
-		cast_ray(scene, i);
-	for (int i = 271; i < 360; i++)
+	// for (int i = 0; i < 360; i++)
+	// 	cast_ray(scene, i);
+	for (int i = scene->player_orientation; i < (scene->player_orientation + FOV) % 360; i++)
 		cast_ray(scene, i);
 	// cast_ray(scene, scene->player_orientation);
 /* 
