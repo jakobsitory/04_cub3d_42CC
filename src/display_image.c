@@ -6,23 +6,25 @@
 /*   By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 16:05:29 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/18 13:46:57 by lgrimmei         ###   ########.fr       */
+/*   Updated: 2024/01/18 16:09:20 by lgrimmei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
-#include <mlx.h>
-#include <math.h>
+
+// TODOS
+// - memory safe rays part
+// - malloc protections
+// - exit
+// - properly name and organize structs and variables
 
 int	get_pixel_color(t_ray_result ray, int y)
 {
 	float	rel_y;
-	float	y_offset;
-	int column;
-	int row;
-	char color_char;
-	char *color_hex_string;
-	int	color_hex;
+	int		column;
+	int		row;
+	char	*color_hex_string;
+	int		color_hex;
 
 	if (is_whole_number(ray.x))
 		rel_y = ray.y - (int)ray.y;
@@ -30,56 +32,30 @@ int	get_pixel_color(t_ray_result ray, int y)
 		rel_y = ray.x - (int)ray.x;
 	else
 		rel_y = 0;
-
-	column = ray.xpm->columns * rel_y;//
-	y_offset = y - ray.start_y; //  75 - 75 = 0 ; 80 - 75 = 5
-	row =  (y_offset / ray.line_height) * 10; // 5 / 150 = 30
-
-	color_char = ray.xpm->lines[row][column];
-	color_hex_string = get_hex_from_char(color_char, ray.xpm);
+	column = ray.xpm->columns * rel_y;
+	row = ((float)(y - ray.start_y) / ray.line_height) * 10;
+	color_hex_string = get_hex_from_char(ray.xpm->lines[row][column], ray.xpm);
 	color_hex = hex_to_int(color_hex_string);
-
 	return (color_hex);
 }
 
-/* void draw_image(void *mlx, void *win, t_ray_result *rays, t_window *window);
-
-void display_image(void *mlx, void *win, t_ray_result *rays, t_window *window)
-{
-	t_image	*img_temp;
-
-	img_temp = (void *) malloc (sizeof(t_image));
-	img_temp->img = mlx_new_image(scene->window->mlx, WINDOW_W, WINDOW_H);
-	img_temp->line_length = 100;
-	img_temp->addr = mlx_get_data_addr(scene->image->img, \
-											&scene->image->bits_per_pixel, \
-											&scene->image->line_length, \
-											&scene->image->endian);
-	draw_image
-} */
-
-void display_image(void *mlx, void *win, t_ray_result *rays, t_window *window)
+void	display_image(void *mlx, void *win, t_ray_result *rays, t_window *window)
 {
 	int	i;
 	int	x;
 	int	y;
-	int color;
+	int	color;
 
 	i = 0;
 	x = 0;
-	// go over every ray
 	while (i < window->fov_degrees)
 	{
-		// go over every row (width = 1px) in each ray
 		while (x < window->px_per_ray)
 		{
 			y = rays[i].start_y;
-			// go from start_y to end_y
 			while (y < rays[i].end_y)
 			{
-				//ft_printf("!\n");
-				//color = get_pixel_color(rays[i], y);
-				color = 0x000FF0;
+				color = get_pixel_color(rays[i], y);
 				mlx_pixel_put(mlx, win, i * window->px_per_ray + x, y, color);
 				y++;
 			}
@@ -89,21 +65,11 @@ void display_image(void *mlx, void *win, t_ray_result *rays, t_window *window)
 		x = 0;
 		i++;
 	}
-
 }
 
-void	get_texture(t_ray_result *ray);
 
-// fix fisheye
-// find distance between player angle and ray angle
-// dist = dist * cos(new angle) // 45 grad
-#define PI 3.14159265
-
-void assign_textures(t_ray_result rays[], int no_rays)
+void	assign_textures(t_ray_result rays[], int no_rays, int i)
 {
-	int	i;
-
-	i = 0;
 	while (i < no_rays)
 	{
 		if (rays[i].degree <= 90 || rays[i].degree >= 270)
@@ -130,58 +96,49 @@ void assign_textures(t_ray_result rays[], int no_rays)
 	}
 }
 
-t_ray_result	*prepare_rays(t_ray_result rays[], t_window *window)
+void	fix_fisheye(t_ray_result rays[], int no_rays)
 {
-	int	no_rays;
-	int	i;
+	int		i;
+	float	player_angle_rad;
+	float	ray_angle_rad;
+	float	diff_angle;
 
-	no_rays = window->fov_degrees;
+	player_angle_rad = 45 * PI / 180.0;
 	i = -1;
-
-	float player_angle_rad = 45 * PI / 180.0;  // Convert to radians
-
 	while (i++ < no_rays) 
 	{
-		float ray_angle_rad = rays[i].degree * PI / 180.0;
-		float diff_angle = ray_angle_rad - player_angle_rad;
+		ray_angle_rad = rays[i].degree * PI / 180.0;
+		diff_angle = ray_angle_rad - player_angle_rad;
 		while (diff_angle < -PI)
-			diff_angle += 2*PI;
+			diff_angle += 2 * PI;
 		while (diff_angle > PI)
-			diff_angle -= 2*PI;
+			diff_angle -= 2 * PI;
 		rays[i].distance = rays[i].distance * cos(diff_angle);
 	}
+}
 
+t_ray_result	*prepare_rays(t_ray_result rays[], t_window *window)
+{
+	int	i;
+
+	fix_fisheye(rays, window->fov_degrees);
 	i = -1;
-	while (i++ < no_rays - 1)
+	while (i++ < window->fov_degrees - 1)
 		rays[i].line_height = (25 * 900) / rays[i].distance;
 	i = -1;
-	while (i++ < no_rays - 1)
+	while (i++ < window->fov_degrees - 1)
 		rays[i].start_y = window->center_y - rays[i].line_height / 2;
 	i = -1;
-	while (i++ < no_rays - 1)
+	while (i++ < window->fov_degrees - 1)
 		rays[i].end_y = window->center_y + rays[i].line_height / 2;
 	i = -1;
-/* 	while (i++ < no_rays)
-		get_texture(&rays[i]);
-	i = -1; */
-
-
-	i = -1;
-	assign_textures(rays, no_rays);
-
-	i = - 1;
-	while (i++ < no_rays - 1)
+	assign_textures(rays, window->fov_degrees, 0);
+	while (i++ < window->fov_degrees - 1)
 		rays[i].xpm = parse_xpm(rays[i].texture_path);
-	/* i = -1;
-	while (i++ < no_rays)
-		ft_printf("height: %i, distance: %d\n", rays[i].line_height, rays[i].distance); */
 	return (rays);
 }
 
-t_ray_result	*init_rays();
-t_window *init_window(void);
-
-int	main(int argc, char **argv)
+int	main(void)
 {
 	void			*mlx;
 	void			*win;
@@ -190,40 +147,14 @@ int	main(int argc, char **argv)
 
 	window = init_window();
 	rays = init_rays();
-
 	rays = prepare_rays(rays, window);
 	mlx = mlx_init();
-	win = mlx_new_window(mlx, window->width_px, window->height_px, "My Image Window");
-
-	
+	win = mlx_new_window(mlx, window->width_px, window->height_px, "window");
 	display_image(mlx, win, rays, window);
-
 	mlx_loop(mlx);
-	if (!argc || argv)
-		return 0;
-	return 0;
+	return (0);
 }
 
-// TODOS
-// - seperate prepare and init rays
-// - combine mains
-// - memory safe rays part
-// - malloc protections and exit
-// - rename and organize structs and variables (rays linked list?)
-// - fisheye effect
-
-t_window *init_window(void)
-{
-	t_window	*window = malloc(sizeof(t_window));
-
-	window->fov_degrees = 90; // for now substitute for number of rays
-	window->height_px = 480;
-	window->width_px = 720;
-	window->center_x = window->width_px / 2;
-	window->center_y = window->height_px / 2;
-	window->px_per_ray = window->width_px / window->fov_degrees;
-	return (window);
-}
 
 void	get_texture(t_ray_result *ray)
 {
@@ -247,6 +178,19 @@ void	get_texture(t_ray_result *ray)
 		if (is_whole_number(ray->x))
 			ray->texture_path = ft_strdup(WEST_TEXTURE);
 	}
+}
+
+t_window *init_window(void)
+{
+	t_window	*window = malloc(sizeof(t_window));
+
+	window->fov_degrees = 90; // for now substitute for number of rays
+	window->height_px = 480;
+	window->width_px = 720;
+	window->center_x = window->width_px / 2;
+	window->center_y = window->height_px / 2;
+	window->px_per_ray = window->width_px / window->fov_degrees;
+	return (window);
 }
 
 t_ray_result	*init_rays()
