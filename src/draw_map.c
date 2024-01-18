@@ -6,7 +6,7 @@
 /*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 15:03:18 by jschott           #+#    #+#             */
-/*   Updated: 2024/01/17 17:51:43 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/18 12:54:32 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,11 @@ int	draw_map(t_scene *scene)
 	int	end[2];
 	int	x;
 	int	y;
-	int	scale;
 
-	scale = map_scale(scene->map_size);
 	start[0] = 1;
 	start[1] = 1;
-	end[0] = scale;
-	end[1] = scale;
+	end[0] = scene->map_scale;
+	end[1] = scene->map_scale;
 	x = -1;
 	y = -1;
 	while (++y < scene->map_size[1])
@@ -71,16 +69,16 @@ int	draw_map(t_scene *scene)
 				rectangle_fill(scene->image, start, end, COLOR_MAP_WALL);
 			else
 				rectangle_fill(scene->image, start, end, COLOR_MAP_FLOOR);
-			start[0] += scale;
-			end[0] += scale;
+			start[0] += scene->map_scale;
+			end[0] += scene->map_scale;
 		}
 		start[0] = 1;
-		start[1] += scale;
-		end[0] = scale;
-		end[1] += scale;
+		start[1] += scene->map_scale;
+		end[0] = scene->map_scale;
+		end[1] += scene->map_scale;
 		x = -1;
 	}
-	draw_player(scene, scale);
-	// draw_rays(scene, scale);
+	draw_player(scene, scene->map_scale);
+	draw_fov(scene->image, scene->rays, scene);
 	return (0);
 }

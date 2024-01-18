@@ -6,7 +6,7 @@
 #    By: jschott <jschott@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/04 17:18:37 by lgrimmei          #+#    #+#              #
-#    Updated: 2024/01/17 14:03:04 by jschott          ###   ########.fr        #
+#    Updated: 2024/01/18 14:57:01 by jschott          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,10 +19,12 @@ NAME		= cub3D
 
 # SOURCES
 SRCS := j_raycaster.c\
+		scene_init.c\
 		window_init.c\
 		window_destroy.c\
 		draw_background.c\
 		draw_map.c\
+		draw_fov.c\
 		draw_line.c\
 		cast_ray.c\
 		input_controls.c\

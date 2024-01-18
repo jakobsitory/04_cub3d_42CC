@@ -6,7 +6,7 @@
 /*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 17:23:15 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/17 17:59:19 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/18 16:15:42 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,14 @@
 # define WINDOW_W 	560
 # define WINDOW_H	560
 
-# ifndef FOV
-#  define FOV	60
-# endif
+# define FOV			30
+# define MINIMAP_SIZE	1
 
 # define COLOR_CEILING		0x0033CCFF
 # define COLOR_FLOOR		0x00C99547
 # define COLOR_WALL_N		0x00FF5733
 # define COLOR_MAP_PLAYER	0x00FF0000
+# define COLOR_MAP_FOV		0x00FF0000
 # define COLOR_MAP_FLOOR	0x00FFFFFF
 # define COLOR_MAP_WALL		0x00000000
 
@@ -87,7 +87,7 @@ typedef struct s_xpm {
 }				t_xpm;
 
 typedef struct s_ray_result {
-	int		degree;
+	float	degree;
 	float	distance;
 	float	x;
 	float	y;
@@ -110,10 +110,12 @@ typedef struct s_scene {
 	struct s_image		*image;
 
 	struct s_ray_result	**rays;
+	float				ray_resolution;
 
 	char				**map;
 	int					map_size[2];
 	int					map_square_scale;
+	float				map_scale;
 
 	int					player_position[2];
 	int					player_orientation;
@@ -135,22 +137,32 @@ void	key_events(t_scene *scene);
 
 /////////////////////////////////-----DRAW-----/////////////////////////////////
 
-void	my_mlx_pixel_put(t_image *image, int x, int y, int color);
 void	background_fill(t_scene *scene);
 void	rectangle_fill(t_image *image, int start[2], int end[2], int color);
 int		draw_map(t_scene *scene);
+int		draw_fov(t_image *image, t_ray_result **rays, t_scene *scene);
 void	draw_line(t_image *img, int start[2], int end[2], int color);
-int		cast_ray(t_scene *scene, int angle);
-int		map_scale(int map_size[2]);
+void	my_mlx_pixel_put(t_image *image, int x, int y, int color);
 
-void	write_to_ray_results(t_ray_result *rays, int next_square[2], float distance, int i);
+////////////////////////////////---CALC--RAYS---////////////////////////////////
+
+void	cast_all_rays(t_scene *scene);
+int		cast_ray(t_ray_result *ray,  t_scene *scene, float angle);
+int		find_next (int start[2], int square_scale, int dir[2]);
+void	write_to_ray_results(t_ray_result *rays, int square[2], float distance, int i);
+int		map_scale(int map_size[2]);
 
 /////////////////////////////////-----MATH-----/////////////////////////////////
 
-float	degr_to_rad(int degrees);
+float	degr_to_rad(float degrees);
 int		ft_abs(int num);
 float	get_distance(int p_1[2], int p_2[2]);
+float	ft_absf(float num);
 
-///////////////////////////////-----MAP_CHECK-----//////////////////////////////
+//////////////////////////////---INITIALIZATION---//////////////////////////////
+
+t_scene	*scene_init(void);
+char 	**map_init(void);
+
 
 #endif

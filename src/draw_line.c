@@ -12,13 +12,19 @@
 
 #include "../include/j_cub3D.h"
 
+/**
+ * Draws a line using the Bresenham's line algorithm.
+ *
+ * @param img The image to draw the line on.
+ * @param line The line to be drawn.
+ */
 void	draw_bresenham(t_image *img, t_line *line)
 {
 	while (1)
 	{
 		my_mlx_pixel_put(img, line->start[0], line->start[1], line->color);
 		if (line->start[0] == line->end[0] && line->start[1] == line->end[1])
-			break ;
+			break;
 		line->e2 = 2 * line->err;
 		if (line->e2 > -line->dy)
 		{
@@ -33,6 +39,14 @@ void	draw_bresenham(t_image *img, t_line *line)
 	}
 }
 
+/**
+ * Draws a line on the given image using Bresenham's line algorithm.
+ *
+ * @param img The image to draw the line on.
+ * @param start The starting coordinates of the line.
+ * @param end The ending coordinates of the line.
+ * @param color The color of the line.
+ */
 void	draw_line(t_image *img, int start[2], int end[2], int color)
 {
 	t_line	*line;

@@ -6,7 +6,7 @@
 /*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 16:22:30 by jschott           #+#    #+#             */
-/*   Updated: 2024/01/11 18:33:47 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/18 16:09:41 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,19 @@ float	get_distance(int point_1[2], int point_2[2])
 	return (distance);
 }
 
-float	degr_to_rad(int degrees)
+float	degr_to_rad(float degrees)
 {
 	return (degrees * (M_PI / 180));
 }
 
 int	ft_abs(int num)
+{
+	if (num < 0)
+		return (-num);
+	return (num);
+}
+
+float	ft_absf(float num)
 {
 	if (num < 0)
 		return (-num);

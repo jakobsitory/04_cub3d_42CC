@@ -6,7 +6,7 @@
 /*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 09:35:27 by jschott           #+#    #+#             */
-/*   Updated: 2024/01/17 17:57:42 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/18 16:37:59 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,10 @@ void	img_update(t_scene *scene)
 											&scene->image->bits_per_pixel, \
 											&scene->image->line_length, \
 											&scene->image->endian);
+	cast_all_rays(scene);
 	background_fill(scene);
+	//DRAW WALLS
 	draw_map(scene);
-	// for (int i = 0; i < 360; i++)
-	// 	cast_ray(scene, i);
-	
-	for (int i = scene->player_orientation; i < scene->player_orientation + FOV; i++)
-		cast_ray(scene, i % 360);
-	// cast_ray(scene, scene->player_orientation);
 	mlx_put_image_to_window(scene->window->mlx, scene->window->mlx_win, \
 							scene->image->img, 0, 0);
 	mlx_destroy_image(scene->window->mlx, img_temp->img);
@@ -50,9 +46,9 @@ int	win_close(t_window *window)
 void	update_orienation(t_scene *scene, int keycode)
 {
 	if (keycode == LOOK_LEFT)
-		scene->player_orientation -= 1;
+		scene->player_orientation -= 2;
 	if (keycode == LOOK_RIGHT)
-		scene->player_orientation += 1;
+		scene->player_orientation += 2;
 	if (scene->player_orientation < 0)
 		scene->player_orientation += 360;
 	scene->player_orientation %= 360;
@@ -67,13 +63,13 @@ int	collision(t_scene *scene, int keycode)
 	new_pos[0] = scene->player_position[0];
 	new_pos[1] = scene->player_position[1];
 	if (keycode == MOVE_FRWD)
-		new_pos[1] = --new_pos[1];
+		--new_pos[1];
 	if (keycode == MOVE_BACK)
-		new_pos[1] = ++new_pos[1];
+		++new_pos[1];
 	if (keycode == MOVE_LEFT)
-		new_pos[0] = --new_pos[0];
+		--new_pos[0];
 	if (keycode == MOVE_RIGHT)
-		new_pos[0] = ++new_pos[0];
+		++new_pos[0];
 	new_pos[0] /= scene->map_square_scale;
 	new_pos[1] /= scene->map_square_scale;
 	if (scene->map[new_pos[1]][new_pos[0]] == '1')
@@ -86,13 +82,13 @@ void	update_position(t_scene *scene, int keycode)
 	if (!scene || collision(scene, keycode))
 		return ;
 	if (keycode == MOVE_FRWD)
-		--scene->player_position[1];
+		scene->player_position[1] -= .05 * scene->map_square_scale;
 	if (keycode == MOVE_LEFT)
-		--scene->player_position[0];
+		scene->player_position[0] -= .05 * scene->map_square_scale;
 	if (keycode == MOVE_RIGHT)
-		++scene->player_position[0];
+		scene->player_position[0] += .05 * scene->map_square_scale;
 	if (keycode == MOVE_BACK)
-		++scene->player_position[1];
+		scene->player_position[1] += .05 * scene->map_square_scale;
 	img_update(scene);
 }
 
