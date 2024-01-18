@@ -6,13 +6,13 @@
 /*   By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 17:22:00 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/12 15:39:53 by lgrimmei         ###   ########.fr       */
+/*   Updated: 2024/01/12 16:04:31 by lgrimmei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-int	main(int argc, char *argv[])
+/* int	main(int argc, char *argv[])
 {
 	t_data	*data;
 
@@ -21,7 +21,7 @@ int	main(int argc, char *argv[])
 	parse_file(data, argv[1]);
 	free_data(data);
 	return (0);
-}
+} */
 
 void	check_args(int argc, char **argv)
 {

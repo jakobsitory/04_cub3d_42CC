@@ -6,7 +6,7 @@
 /*   By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 17:23:15 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/12 15:59:46 by lgrimmei         ###   ########.fr       */
+/*   Updated: 2024/01/18 13:41:33 by lgrimmei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include "../libft/libft.h"
 # include "../libft/ft_printf.h"
 # include "../libft/get_next_line.h"
+# include <mlx.h>
 
 //////////////////////////////-----STRUCTURES-----//////////////////////////////
 
@@ -58,12 +59,59 @@ typedef struct data
 	t_map	*map;
 }	t_data;
 
+typedef struct s_xpm_color {
+	char c;
+	char *hex_code;
+	struct s_xpm_color *next;
+} t_xpm_color;
+
+typedef struct s_xpm {
+	int rows;
+	int columns;
+	int colors_count;
+	int bytes_per_pixel;
+	t_xpm_color *colors;
+	char **lines;
+	int	fd;
+} t_xpm;
+
+typedef struct s_image {
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		width;
+	int		height;
+	int		endian;
+}			t_image;
+
+typedef struct s_ray_result {
+	int		degree;
+	float	distance;
+	float	x;
+	float	y;
+	int		line_height;
+	int		start_y;
+	int		end_y;
+	char	*texture_path;
+	t_xpm	*xpm;
+} t_ray_result;
+
+typedef struct s_window {
+	int		fov_degrees;
+	int		width_px;
+	int		height_px;
+	int		center_x;
+	int		center_y;
+	int		px_per_ray;
+} t_window;
+
 /////////////////////////////////-----MAIN-----/////////////////////////////////
 
 int		main(int argc, char *argv[]);
 void	check_args(int argc, char **argv);
 
-///////////////////////////////-----INIT DATA-----//////////////////////////////
+///////////////////////////////-----INIT DAT    A-----//////////////////////////////
 
 t_data	*init_data(void);
 void	init_res(t_data *data);
@@ -125,6 +173,13 @@ void	get_player_orientation(t_data *data);
 void	parse_successful(t_data *data);
 int		only_spaces(char *line);
 
+/////////////////////////////-----PARSE_XPM-----////////////////////////////////
+
+void	parse_xpm_info(t_xpm *xpm, char *line);
+void	add_new_color(t_xpm *xpm, char *line);
+void	print_xpm(t_xpm *xpm);
+t_xpm	*parse_xpm(char *filename);
+
 ///////////////////////////////-----MAP_CHECK-----//////////////////////////////
 
 void	check_map(t_data *data);
@@ -132,6 +187,13 @@ void	flood_fill(t_data *data, char **map, int x, int y);
 int		is_valid_pos(char **map, int x, int y);
 int		check_valid_chars(char **map, t_data *data);
 int		is_valid_char(char c);
+
+/////////////////////////////-----MATH_HELPER-----//////////////////////////////
+
+int	is_whole_number(float num);
+char	*get_hex_from_char(char c, t_xpm *xpm);
+int hex_digit_to_int(char ch);
+int hex_to_int(char *hex);
 
 ////////////////////////////////-----DEFINES-----///////////////////////////////
 
@@ -154,5 +216,10 @@ int		is_valid_char(char c);
 # define WEST_ID "WE "
 # define FLOOR_ID "F "
 # define CEILING_ID "C "
+
+#define NORTH_TEXTURE "resources/wall_empty.xpm"
+#define EAST_TEXTURE "resources/wall.xpm"
+#define SOUTH_TEXTURE "resources/wall_empty.xpm"
+#define WEST_TEXTURE "resources/wall.xpm"
 
 #endif

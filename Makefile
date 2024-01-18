@@ -6,7 +6,7 @@
 #    By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/04 17:18:37 by lgrimmei          #+#    #+#              #
-#    Updated: 2024/01/12 16:02:06 by lgrimmei         ###   ########.fr        #
+#    Updated: 2024/01/17 11:21:18 by lgrimmei         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,10 @@ NAME		= cub3D
 SRCS := main.c\
 		utils.c\
 		parse_file.c parse_textures.c parse_colors.c parse_map.c read_map.c init_data.c check_map.c parse_helpers.c\
-		free.c
+		free.c\
+		display_image.c\
+		math_helper.c\
+		parse_xpm.c
 
 # DIRECTORIES AND PATHS
 INCLDIR		:= include/
@@ -66,7 +69,7 @@ $(LIBFT): $(LIBFTDIR)*.c
 	@$(MAKE) -C $(LIBFTDIR) all --no-print-directory
 
 $(NAME): $(LIBFT) $(OBJDIR) $(OBJS) 
-		@$(CC) $(CFLAGS) $(OBJS) $(INCS) -o $(NAME) $(LIBFLAG) $(LIBFTLIB) $(LIBMFTLIB) $(LIBMLXFLAG)
+		@$(CC) $(CFLAGS) $(OBJS) $(INCS) -o $(NAME) $(LIBFTLIB) $(LIBMFTLIB) $(LIBMLXFLAG) $(LIBMLXLIB) $(LIBFLAG) -lm
 		@echo "$(GREEN)./$(NAME) is ready!$(RESET)"
 
 $(OBJDIR):
