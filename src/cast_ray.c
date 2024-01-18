@@ -6,7 +6,7 @@
 /*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 15:03:37 by jschott           #+#    #+#             */
-/*   Updated: 2024/01/18 16:36:34 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/18 16:44:54 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,14 +130,13 @@ void	cast_all_rays(t_scene *scene)
 	float	angle;
 	int		i;
 
-	angle = (float)(scene->player_orientation % 360);
+	angle = (float)((int)(scene->player_orientation - .5 * FOV)  % 360);
 	i = 0;
 	while (i < WINDOW_W)
 	{
 		angle += scene->ray_resolution;
 		if (angle >= 360)
 			angle -= 360;
-		// printf("%f\n", angle);
 		cast_ray(scene->rays[i], scene, angle);
 		i++;
 	}
