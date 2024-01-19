@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   j_raycaster.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jschott <jschott@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 10:00:33 by jschott           #+#    #+#             */
-/*   Updated: 2024/01/18 16:21:58 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/19 16:30:57 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,19 @@ char **map_init(void)
 
 	return map;
 }
+/*
+int	test(t_scene *scene)
+{
+	void			*mlx;
+	void			*win;
+	t_window		*window = scene->window;
+	t_ray_result	*rays = scene->rays;
+
+	//window = init_window();
+	prepare_rays(rays, window);
+	//display_image(mlx, win, rays, window);
+	return (0);
+}*/
 
 int	main(void)
 {
@@ -55,19 +68,12 @@ int	main(void)
 	win_init(scene);
 
 	cast_all_rays(scene);
+	prepare_rays(scene);
 	
 	/* Draw Scene */
 	background_fill(scene);
+	draw_walls(scene);
 	draw_map(scene);
-
-/* 
-	for (int i = 0; i< WINDOW_W; i++) {
-		printf("rays[%i].degree = %f;\n", i, scene->rays[i]->degree);
-		printf("rays[%i].distance = %f\n", i, scene->rays[i]->distance);
-		printf("rays[%i].x = %f\n", i, scene->rays[i]->x);
-		printf("rays[%i].y = %f\n", i, scene->rays[i]->y);
-	} */
-
 	mlx_put_image_to_window(scene->window->mlx, scene->window->mlx_win, \
 							scene->image->img, 0, 0);
 	key_events(scene);

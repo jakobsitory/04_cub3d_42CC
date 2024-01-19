@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cast_ray.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jschott <jschott@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 15:03:37 by jschott           #+#    #+#             */
-/*   Updated: 2024/01/18 16:44:54 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/19 15:48:09 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,6 @@ int	ray_collision(t_scene *scene, int pos[2], int dir[2])
 /// @return 
 int	find_next(int start[2], int square_scale, int dir[2])
 {
-	int	*distance;
-
-	distance = 0;
 	while (dir[0] != HALT)
 	{
 		if (dir[0] == FRWD)
@@ -119,9 +116,10 @@ int	cast_ray(t_ray_result *ray,  t_scene *scene, float angle)
 			break ;
 	}
 	ray->distance = get_distance(scene->player_position, next_square);
-	ray->x = next_square[0];
-	ray->y = next_square[1];
+	ray->x = next_square[0]  / 10.0;
+	ray->y = next_square[1] / 10.0;
 	ray->degree = angle;
+	get_texture(ray);
 	return (0);
 }
 

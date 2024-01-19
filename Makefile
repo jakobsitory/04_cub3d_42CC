@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jschott <jschott@student.42.fr>            +#+  +:+       +#+         #
+#    By: jschott <jschott@student.42berlin.de>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/04 17:18:37 by lgrimmei          #+#    #+#              #
-#    Updated: 2024/01/18 14:57:01 by jschott          ###   ########.fr        #
+#    Updated: 2024/01/19 11:37:43 by jschott          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,15 +20,17 @@ NAME		= cub3D
 # SOURCES
 SRCS := j_raycaster.c\
 		scene_init.c\
+		parse_xpm.c\
 		window_init.c\
 		window_destroy.c\
 		draw_background.c\
+		draw_walls.c\
 		draw_map.c\
 		draw_fov.c\
 		draw_line.c\
 		cast_ray.c\
+		render_walls.c\
 		input_controls.c\
-		write_to_rayresult.c\
 		maths.c
 		
 
@@ -53,7 +55,7 @@ RM			:= rm -f
 HEADERS		:= $(addprefix $(INCLDIR)/, cub3d.h libft.h get_next_line.h ft_printf.h)
 
 # FLAGS
-CFLAGS		:= -Wall -Wextra -Werror
+CFLAGS		:= -Wall -Wextra -Werror -lm
 DEBUGFLAGS	:= -g -fsanitize=address
 LIBFTFLAG	:= -L$(LIBFTDIR)
 LIBFTLIB	:= -lft

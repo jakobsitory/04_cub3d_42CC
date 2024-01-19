@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   window_init.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jschott <jschott@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 10:25:00 by jschott           #+#    #+#             */
-/*   Updated: 2024/01/11 17:12:26 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/19 16:05:10 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,13 @@ int	win_init(t_scene *scene)
 											&scene->image->bits_per_pixel, \
 											&scene->image->line_length, \
 											&scene->image->endian);
+
+
+	scene->window->fov_degrees = WINDOW_W; // for now substitute for number of rays
+	scene->window->height_px = WINDOW_H;
+	scene->window->width_px = WINDOW_W;
+	scene->window->center_x = scene->window->width_px / 2;
+	scene->window->center_y = scene->window->height_px / 2;
+	scene->window->px_per_ray = scene->window->width_px / FOV;
 	return (0);
 }

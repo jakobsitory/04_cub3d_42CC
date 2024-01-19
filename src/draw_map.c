@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jschott <jschott@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 15:03:18 by jschott           #+#    #+#             */
-/*   Updated: 2024/01/18 12:54:32 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/19 16:36:08 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,14 @@ int	map_scale(int map_size[2])
 	return 0;
 } */
 
-int	draw_player(t_scene *scene, int scale)
+int	draw_player(t_scene *scene)
 {
 	float	player_size;
 	int		start[2];
 	int		end[2];
-
+	float		scale;
+	
+	scale = scene->map_scale;
 	player_size = 0.1;
 	start[0] = 2 + scale * scene->player_position[0] / scene->map_square_scale;
 	start[1] = 2 + scale * scene->player_position[1] / scene->map_square_scale;
@@ -52,8 +54,8 @@ int	draw_map(t_scene *scene)
 {
 	int	start[2];
 	int	end[2];
-	int	x;
-	int	y;
+	int		x;
+	int		y;
 
 	start[0] = 1;
 	start[1] = 1;
@@ -78,7 +80,7 @@ int	draw_map(t_scene *scene)
 		end[1] += scene->map_scale;
 		x = -1;
 	}
-	draw_player(scene, scene->map_scale);
+	draw_player(scene);
 	draw_fov(scene->image, scene->rays, scene);
 	return (0);
 }

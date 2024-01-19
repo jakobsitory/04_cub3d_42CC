@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_controls.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jschott <jschott@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 09:35:27 by jschott           #+#    #+#             */
-/*   Updated: 2024/01/18 16:37:59 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/19 16:35:00 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,26 +15,31 @@
 
 void	img_update(t_scene *scene)
 {
-	t_image	*img_temp;
+	//t_image	*img_temp;
 
-	img_temp = scene->image;
-	scene->image = (void *) malloc (sizeof(t_image));
-	if (!scene->image)
-		return ; // ERROR MGMT
-	scene->image->img = mlx_new_image(scene->window->mlx, WINDOW_W, WINDOW_H);
-	scene->image->line_length = 100;
-	scene->image->addr = mlx_get_data_addr(scene->image->img, \
+	//img_temp = scene->image;
+	//scene->image = (void *) malloc (sizeof(t_image));
+	//if (!scene->image)
+	//	return ; // ERROR MGMT
+	//scene->image->img = mlx_new_image(scene->window->mlx, WINDOW_W, WINDOW_H);
+	//scene->image->line_length = 100;
+	/*scene->image->addr = mlx_get_data_addr(scene->image->img, \
 											&scene->image->bits_per_pixel, \
 											&scene->image->line_length, \
 											&scene->image->endian);
+	*/
 	cast_all_rays(scene);
+	prepare_rays(scene);
+	
+	/* Draw Scene */
 	background_fill(scene);
-	//DRAW WALLS
+	draw_walls(scene);
 	draw_map(scene);
+	
 	mlx_put_image_to_window(scene->window->mlx, scene->window->mlx_win, \
 							scene->image->img, 0, 0);
-	mlx_destroy_image(scene->window->mlx, img_temp->img);
-	free (img_temp);
+	//mlx_destroy_image(scene->window->mlx, img_temp->img);
+	//free (img_temp);
 }
 
 int	win_close(t_window *window)

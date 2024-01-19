@@ -21,10 +21,12 @@ void	write_to_ray_results(t_ray_result *rays, int next_square[2], float distance
 	rays->x = next_square[0];
 	rays->y = next_square[1];
 	rays->distance = distance;
-	// printf("rays[].distance = %f;\nrays[].x = %f;\nrays[].y = %f\n", \
-	// 	rays->distance, \
-	// 	rays->x, \
-	// 	rays->y);
+	/*
+	printf("rays[].distance = %f;\nrays[].x = %f;\nrays[].y = %f\n", \
+		rays->distance, \
+		rays->x, \
+		rays->y);
+	*/
 	i++;
 
 	// printf("rays[%i].degree = %i;\n", i, i);
