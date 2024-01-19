@@ -6,7 +6,7 @@
 /*   By: jschott <jschott@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 15:03:18 by jschott           #+#    #+#             */
-/*   Updated: 2024/01/19 16:36:08 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/19 17:02:03 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,6 @@ int	draw_map(t_scene *scene)
 		x = -1;
 	}
 	draw_player(scene);
-	draw_fov(scene->image, scene->rays, scene);
+	draw_fov(scene);
 	return (0);
 }

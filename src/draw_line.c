@@ -47,13 +47,13 @@ void	draw_bresenham(t_image *img, t_line *line)
  * @param end The ending coordinates of the line.
  * @param color The color of the line.
  */
-void	draw_line(t_image *img, int start[2], int end[2], int color)
+void	draw_line(t_scene *scene, int start[2], int end[2])
 {
+	int		color;
 	t_line	*line;
-
-	line = (t_line *) malloc (sizeof(t_line));
-	if (!line)
-		return ;
+	
+	color = COLOR_MAP_PLAYER;
+	line = scene->map_ray;
 	line->start[0] = start[0];
 	line->start[1] = start[1];
 	line->end[0] = end[0];
@@ -71,6 +71,5 @@ void	draw_line(t_image *img, int start[2], int end[2], int color)
 		line->sy = 1;
 	else
 		line->sy = -1;
-	draw_bresenham(img, line);
-	free(line);
+	draw_bresenham(scene->image, line);
 }
