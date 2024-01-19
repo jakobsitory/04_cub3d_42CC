@@ -6,7 +6,7 @@
 /*   By: jschott <jschott@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 11:20:41 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/19 14:16:58 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/19 18:04:36 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	add_new_color(t_xpm *xpm, char *line)
 	t_xpm_color *color;
 	t_xpm_color *tmp;
 
-	color = (t_xpm_color *) malloc(sizeof(t_xpm_color));
+	color = malloc(sizeof(t_xpm_color));
 	if (!color)
 		return ;
 	color->c = line[1];
@@ -77,14 +77,14 @@ t_xpm	*init_xpm(char *filename)
 	xpm = malloc(sizeof(t_xpm));
 	if (!xpm)
 		return (NULL);
-	xpm->colors = (t_xpm_color *) malloc(sizeof(t_xpm_color));
+	xpm->colors = malloc(sizeof(t_xpm_color));
 	if (!xpm->colors)
 		return (NULL);
 	xpm->colors = NULL;
 	xpm->fd = open(filename, O_RDONLY);
 	if (xpm->fd < 0)
 	{
-		printf("could not open xpm\n");
+		printf("could not open xpm: %s\n", filename);
 		exit (0);
 	}
 	return (xpm);
@@ -127,5 +127,6 @@ t_xpm *parse_xpm(char *filename)
 		get_next_line_wrapper(&line, &line_no, xpm->fd);
 	}
 	parse_xpm_lines(xpm, &line, &line_no);
+	//print_xpm(xpm);
 	return (xpm);
 }

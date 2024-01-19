@@ -6,7 +6,7 @@
 /*   By: jschott <jschott@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 10:00:33 by jschott           #+#    #+#             */
-/*   Updated: 2024/01/19 16:30:57 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/19 18:21:21 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,19 +46,6 @@ char **map_init(void)
 
 	return map;
 }
-/*
-int	test(t_scene *scene)
-{
-	void			*mlx;
-	void			*win;
-	t_window		*window = scene->window;
-	t_ray_result	*rays = scene->rays;
-
-	//window = init_window();
-	prepare_rays(rays, window);
-	//display_image(mlx, win, rays, window);
-	return (0);
-}*/
 
 int	main(void)
 {

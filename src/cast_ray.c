@@ -6,7 +6,7 @@
 /*   By: jschott <jschott@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 15:03:37 by jschott           #+#    #+#             */
-/*   Updated: 2024/01/19 15:48:09 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/19 18:14:11 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,10 @@ int	cast_ray(t_ray_result *ray,  t_scene *scene, float angle)
 	ray->x = next_square[0]  / 10.0;
 	ray->y = next_square[1] / 10.0;
 	ray->degree = angle;
-	get_texture(ray);
+	ray->line_height = (50 * 900) / ray->distance;
+	ray->start_y = scene->window->center_y - ray->line_height / 2;
+	ray->end_y = scene->window->center_y + ray->line_height / 2;
+	//get_texture(ray);
 	return (0);
 }
 

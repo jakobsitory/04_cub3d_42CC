@@ -6,7 +6,7 @@
 /*   By: jschott <jschott@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 10:38:39 by jschott           #+#    #+#             */
-/*   Updated: 2024/01/19 16:26:41 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/19 18:20:26 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,29 +35,22 @@ int	get_pixel_color(t_ray_result ray, int y)
 
 void	draw_walls(t_scene *scene)
 {
-	int	i;
 	int	x;
 	int	y;
 	int	color;
 
-	i = 0;
 	x = 0;
-	while (i < WINDOW_W)
+	while (x < WINDOW_W)
 	{
-		while (x < WINDOW_W / FOV)
+		y = scene->rays[x]->start_y;
+		while (y < scene->rays[x]->end_y)
 		{
-			y = scene->rays[i]->start_y;
-			while (y < scene->rays[i]->end_y)
-			{
-				color = get_pixel_color(*scene->rays[i], y);
-				//printf("printing on pxl: %i, %i\n", x, y);
-				my_mlx_pixel_put(scene->image, i, y, color);
-				y++;
-			}
-			y = 0;
-			x++;
+			color = get_pixel_color(*scene->rays[x], y);
+			//printf("printing on pxl: %i, %i\n", x, y);
+			my_mlx_pixel_put(scene->image, x, y, color);
+			y++;
 		}
-		x = 0;
-		i++;
+		y = 0;
+		x++;
 	}
 }

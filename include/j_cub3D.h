@@ -6,7 +6,7 @@
 /*   By: jschott <jschott@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 17:23:15 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/19 16:41:42 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/19 18:20:37 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,12 +123,13 @@ typedef struct s_scene {
 
 	struct s_ray_result	**rays;
 	float				ray_resolution;
+	struct s_xpm		**textures;
 
 	char				**map;
 	int					map_size[2];
 	int					map_square_scale;
 	float				map_scale;
-	int					**map_rays;
+	struct s_line		*map_ray;
 
 	int					player_position[2];
 	int					player_orientation;
@@ -153,9 +154,9 @@ void	key_events(t_scene *scene);
 void	draw_walls(t_scene *scene);
 void	background_fill(t_scene *scene);
 int		draw_map(t_scene *scene);
+int		draw_fov(t_scene *scene);
 void	rectangle_fill(t_image *image, int start[2], int end[2], int color);
-int		draw_fov(t_image *image, t_ray_result **rays, t_scene *scene);
-void	draw_line(t_image *img, int start[2], int end[2], int color);
+void	draw_line(t_scene *scene, int start[2], int end[2]);
 void	my_mlx_pixel_put(t_image *image, int x, int y, int color);
 
 ////////////////////////////////---CALC--RAYS---////////////////////////////////
@@ -181,13 +182,14 @@ int		hex_to_int(char *hex);
 
 /////////////////////////////////----PARSING----/////////////////////////////////
 
-t_xpm 	*parse_xpm(char *filename);
+t_xpm *parse_xpm(char *filename);
 void	print_xpm(t_xpm *xpm);
 
 //////////////////////////////---INITIALIZATION---//////////////////////////////
 
 t_scene	*scene_init(void);
 char 	**map_init(void);
+t_xpm	*init_xpm(char *filename);
 
 
 #endif
