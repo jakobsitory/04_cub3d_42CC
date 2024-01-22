@@ -6,7 +6,7 @@
 #    By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/04 17:18:37 by lgrimmei          #+#    #+#              #
-#    Updated: 2024/01/22 10:28:26 by lgrimmei         ###   ########.fr        #
+#    Updated: 2024/01/22 14:21:43 by lgrimmei         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,18 @@ SRCS := j_raycaster.c\
 		cast_ray.c\
 		render_walls.c\
 		input_controls.c\
-		maths.c
+		maths.c\
+		init_data.c\
+		utils.c\
+		read_map.c\
+		parse_map.c\
+		free.c\
+		parse_file.c\
+		parse_helpers.c\
+		parse_textures.c\
+		parse_colors.c\
+		check_map.c\
+		main.c
 		
 
 # DIRECTORIES AND PATHS
@@ -52,11 +63,11 @@ CC			:= cc
 RM			:= rm -f
 
 # HEADERS
-HEADERS		:= $(addprefix $(INCLDIR)/, cub3d.h libft.h get_next_line.h ft_printf.h)
+HEADERS		:= $(addprefix $(INCLDIR)/, j_cub3d.h libft.h get_next_line.h ft_printf.h)
 
 # FLAGS
-CFLAGS		:= -Wall -Wextra -Werror -lm
-DEBUGFLAGS	:= -g -fsanitize=address
+CFLAGS		:= -Wall -Wextra -Werror
+DEBUGFLAGS	:= -g
 LIBFTFLAG	:= -L$(LIBFTDIR)
 LIBFTLIB	:= -lft
 LIBMLXFLAG	:= -L$(LIBMLXDIR)
@@ -78,7 +89,7 @@ $(LIBFT): $(LIBFTDIR)*.c
 	@$(MAKE) -C $(LIBFTDIR) all --no-print-directory
 
 $(NAME): $(HEADERS) $(LIBFT) $(OBJDIR) $(OBJS) 
-		@$(CC) $(CFLAGS) $(DEBUGFLAGS) $(OBJS) $(INCS) -o $(NAME) $(LIBFTFLAG) $(LIBFTLIB) $(LIBMLXFLAG) $(LIBMLXLIB) $(RLFLAG)
+		@$(CC) $(CFLAGS) $(DEBUGFLAGS) $(OBJS) $(INCS) -o $(NAME) $(LIBFTFLAG) $(LIBFTLIB) $(LIBMLXFLAG) $(LIBMLXLIB) $(RLFLAG) -lm
 		@echo "$(GREEN)./$(NAME) is ready!$(RESET)"
 
 $(OBJDIR):

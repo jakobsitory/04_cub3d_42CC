@@ -6,11 +6,11 @@
 /*   By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 17:56:12 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/22 10:24:09 by lgrimmei         ###   ########.fr       */
+/*   Updated: 2024/01/22 10:44:52 by lgrimmei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "j_cub3D.h"
+#include "../include/j_cub3D.h"
 
 void	save_color(char *identifier, char *line, t_data *data)
 {

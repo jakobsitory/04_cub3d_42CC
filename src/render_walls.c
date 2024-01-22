@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_walls.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jschott <jschott@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 11:30:46 by jschott           #+#    #+#             */
-/*   Updated: 2024/01/19 18:40:43 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/22 15:00:09 by lgrimmei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	assign_textures(t_ray_result *rays[], t_xpm **textures ,int no_rays, int i)
 	}
 }
 
-void	fix_fisheye(t_ray_result *rays[], int no_rays, int player_orientation)
+/* void	fix_fisheye(t_ray_result *rays[], int no_rays, int player_orientation)
 {
 	int		i;
 	float	player_angle_rad;
@@ -49,19 +49,19 @@ void	fix_fisheye(t_ray_result *rays[], int no_rays, int player_orientation)
 
 	player_angle_rad = degr_to_rad((float) player_orientation);
 	i = -1;
-	printf("checking:\n");
-	while (i++ < no_rays) 
+	//printf("checking:\n");
+	while (i++ < no_rays - 1) 
 	{
-		printf("%f ", rays[i]->degree);
+		//printf("%f ", rays[i]->degree);
 		ray_angle_rad = degr_to_rad(rays[i]->degree);
 		diff_angle = ray_angle_rad - player_angle_rad;
-		while (diff_angle < -M_PI)
-			diff_angle += 2 * M_PI;
-		while (diff_angle > M_PI)
-			diff_angle -= 2 * M_PI;
+		while (diff_angle < -PI)
+			diff_angle += 2 * PI;
+		while (diff_angle > PI)
+			diff_angle -= 2 * PI;
 		rays[i]->distance = rays[i]->distance * cos(diff_angle);
 	}
-}
+} */
 
 void	prepare_rays(t_scene *scene)
 {

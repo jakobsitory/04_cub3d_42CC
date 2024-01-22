@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cast_ray.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jschott <jschott@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 15:03:37 by jschott           #+#    #+#             */
-/*   Updated: 2024/01/19 18:14:11 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/22 16:40:42 by lgrimmei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,10 +91,28 @@ void	set_direction(int dir[2], float angle)
 		dir[1] = HALT;
 }
 
+float	fix_fisheye(t_ray_result ray)
+{
+	float	player_angle_rad;
+	float	ray_angle_rad;
+	float	diff_angle;
+
+	player_angle_rad = 30 * PI / 180.0;
+	ray_angle_rad = ray.degree * PI / 180.0;
+	diff_angle = player_angle_rad - ray_angle_rad;
+	while (diff_angle < -PI)
+		diff_angle += 2 * PI;
+	while (diff_angle > PI)
+		diff_angle -= 2 * PI;
+	printf("   %f   ", cos(diff_angle));
+	return(ray.distance * cos(diff_angle));
+}
+
 int	cast_ray(t_ray_result *ray,  t_scene *scene, float angle)
 {
 	int		next_square[2];
-	int		dir[2];
+	int		dir[2];	ray->distance = get_distance(scene->player_position, next_square);
+
 
 	set_direction(dir, angle);
 	next_square[0] = scene->player_position[0];
@@ -119,7 +137,12 @@ int	cast_ray(t_ray_result *ray,  t_scene *scene, float angle)
 	ray->x = next_square[0]  / 10.0;
 	ray->y = next_square[1] / 10.0;
 	ray->degree = angle;
-	ray->line_height = (50 * 900) / ray->distance;
+	//printf("%f", ray->distance);
+	//ray->distance = fix_fisheye(*ray);
+	//printf(" -> %f\n", ray->distance);
+	ray->line_height = (64 * WINDOW_H) / ray->distance; // (maps cube size * screen height) / distance
+	/* if (ray->line_height > WINDOW_H)
+		ray->line_height = WINDOW_H; */
 	ray->start_y = scene->window->center_y - ray->line_height / 2;
 	ray->end_y = scene->window->center_y + ray->line_height / 2;
 	//get_texture(ray);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   j_raycaster.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jschott <jschott@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 10:00:33 by jschott           #+#    #+#             */
-/*   Updated: 2024/01/19 18:21:21 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/22 12:29:06 by lgrimmei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,15 @@ char **map_init(void)
 	return map;
 }
 
-int	main(void)
+int	main(int argc, char *argv[])
 {
 	t_scene	*scene;
+	t_data	*data;
+
+	check_args(argc, argv);
+	data = init_data();
+	parse_file(data, argv[1]);
+	free_data(data);
 
 	scene = scene_init();
 	win_init(scene);

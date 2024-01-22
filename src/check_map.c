@@ -6,11 +6,11 @@
 /*   By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 19:57:38 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/12 15:51:04 by lgrimmei         ###   ########.fr       */
+/*   Updated: 2024/01/22 10:48:28 by lgrimmei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3D.h"
+#include "../include/j_cub3D.h"
 
 void	check_map(t_data *data)
 {

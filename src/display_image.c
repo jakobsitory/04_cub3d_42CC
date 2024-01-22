@@ -6,11 +6,11 @@
 /*   By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 16:05:29 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/18 16:10:58 by lgrimmei         ###   ########.fr       */
+/*   Updated: 2024/01/22 15:16:19 by lgrimmei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3D.h"
+#include "../include/j_cub3D.h"
 
 // TODOS
 // - free xpm
@@ -51,6 +51,7 @@ void	display_image(void *mlx, void *win, t_ray_result *rays, t_window *window)
 	x = 0;
 	while (i < window->fov_degrees)
 	{
+		ft_printf("start_y %f end_y %f\n", rays[i].start_y, rays[i].end_y);
 		while (x < window->px_per_ray)
 		{
 			y = rays[i].start_y;
@@ -67,6 +68,35 @@ void	display_image(void *mlx, void *win, t_ray_result *rays, t_window *window)
 		i++;
 	}
 }
+
+/* void	display_image(void *mlx, void *win, t_ray_result *rays, t_window *window)
+{
+	int	i;
+	int	x;
+	int	y;
+	int	color;
+
+	i = 0;
+	x = 0;
+	while (i < window->fov_degrees)
+	{
+		while (x < window->px_per_ray)
+		{
+			y = rays[i].start_y;
+			while (y < rays[i].end_y)
+			{				// go over 1/10 of y
+
+				color = get_pixel_color(rays[i], y);
+				mlx_pixel_put(mlx, win, i * window->px_per_ray + x, y, color);
+				y++;
+			}
+			y = 0;
+			x++;
+		}
+		x = 0;
+		i++;
+	}
+} */
 
 
 void	assign_textures(t_ray_result rays[], int no_rays, int i)
@@ -118,7 +148,7 @@ void	fix_fisheye(t_ray_result rays[], int no_rays)
 	}
 }
 
-t_ray_result	*prepare_rays(t_ray_result rays[], t_window *window)
+/* t_ray_result	*prepare_rays(t_ray_result rays[], t_window *window)
 {
 	int	i;
 
@@ -136,7 +166,7 @@ t_ray_result	*prepare_rays(t_ray_result rays[], t_window *window)
 	assign_textures(rays, window->fov_degrees, 0);
 	while (i++ < window->fov_degrees - 1)
 		rays[i].xpm = parse_xpm(rays[i].texture_path);
-	return (rays);
+	return (rays); */
 }
 
 int	main(void)

@@ -6,7 +6,7 @@
 /*   By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 17:23:15 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/18 16:02:33 by lgrimmei         ###   ########.fr       */
+/*   Updated: 2024/01/22 11:11:52 by lgrimmei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,130 +113,14 @@ typedef struct s_window {
 int				main(void);
 void			check_args(int argc, char **argv);
 
-///////////////////////////////-----INIT DATA-----//////////////////////////////
 
-t_data			*init_data(void);
-void			init_res(t_data *data);
-int				*create_possible_moves_x(t_data *data);
-int				*create_possible_moves_y(t_data *data);
-char			**init_map(t_data *data);
 
-////////////////////////////////-----UTILS-----/////////////////////////////////
 
-void			exit_error(char *msg, t_data *data);
-void			print_res(t_res *res);
-void			print_string_array(char **array);
-void			print_map(t_map *map);
 
-////////////////////////////////-----FREE-----/////////////////////////////////
 
-void			free_data(t_data *data);
-void			free_res(t_data *data);
-void			free_str_arr(char **arr);
-void			free_map(t_data *data);
-
-////////////////////////////////-----PARSE-----/////////////////////////////////
-
-void			parse_file(t_data *data, char *filepath);
-void			check_invalid_lines(t_data *data);
-
-///////////////////////////-----PARSE TEXTURES-----/////////////////////////////
-
-void			parse_textures(t_data *data);
-void			save_identifier(char *identifier, char *line, t_data *data);
-void			check_texture_file(char *path, t_data *data);
-char			*remove_whitespace(char *src, t_data *data);
-
-////////////////////////////-----PARSE COLORS-----//////////////////////////////
-
-void			parse_colors(t_data *data);
-void			save_color(char *identifier, char *line, t_data *data);
-void			check_color_saved(t_data *data, char *identifier);
-char			*save_next_hex(char *line, int *array, t_data *data);
-int				valid_chars_color(char *str, t_data *data);
-void			valid_number_format(char *str, t_data *data);
-void			check_hex_range(t_data *data);
-int				convert_to_hex(int rgb[3]);
-
-/////////////////////////////-----PARSE MAP-----////////////////////////////////
-
-void			parse_map(t_data *data);
-int				is_valid_map_line(char *line);
-void			calc_map_size(t_map *map);
-void			calc_no_lines(t_map *map);
-void			calc_line_length(t_map *map);
-char			**create_map_arr(t_data *data, int i, int j, int k);
-void			read_map(t_data *data);
-void			get_player_pos(t_data *data);
-void			get_player_orientation(t_data *data);
-
-/////////////////////////////-----PARSE HELP-----///////////////////////////////
-
-void			parse_successful(t_data *data);
-int				only_spaces(char *line);
-
-/////////////////////////////-----PARSE_XPM-----////////////////////////////////
-
-void			parse_xpm_info(t_xpm *xpm, char *line);
-void			add_new_color(t_xpm *xpm, char *line);
-void			print_xpm(t_xpm *xpm);
-t_xpm			*parse_xpm(char *filename);
-
-///////////////////////////////-----MAP_CHECK-----//////////////////////////////
-
-void			check_map(t_data *data);
-void			flood_fill(t_data *data, char **map, int x, int y);
-int				is_valid_pos(char **map, int x, int y);
-int				check_valid_chars(char **map, t_data *data);
-int				is_valid_char(char c);
-
-/////////////////////////////-----MATH_HELPER-----//////////////////////////////
-
-int				is_whole_number(float num);
-char			*get_hex_from_char(char c, t_xpm *xpm);
-int				hex_digit_to_int(char ch);
-int				hex_to_int(char *hex);
-
-/////////////////////////////-----RENDER_MAP-----///////////////////////////////
-
-t_window		*init_window(void);
-t_ray_result	*init_rays();
-
-int				get_pixel_color(t_ray_result ray, int y);
-void			display_image(void *mlx, void *win, t_ray_result *rays, t_window *window);
-void			get_texture(t_ray_result *ray);
-void			assign_textures(t_ray_result rays[], int no_rays, int i);
-void			fix_fisheye(t_ray_result rays[], int no_rays);
-t_ray_result	*prepare_rays(t_ray_result rays[], t_window *window);
 
 
 ////////////////////////////////-----DEFINES-----///////////////////////////////
 
-# define USAGE_ERR "Correct Usage: [./cub3d xxx.cub]\n"
-# define FILE_ERR "Unable to locate or read file\n"
-# define TEXTURE_ERR "Unable to locate or read texture file\n"
-# define COLOR_ERR "Invalid Color Definition\n"
-# define MALLOC_ERR "Failed to allocate memory\n"
-# define CHARS_ERR "Invalid Chars in map\n"
-# define SURR_ERR "Map not surrounded by walls\n"
-# define MAP_ERR "Invalid map\n"
-# define MULTIPLE_TEXT "Multiple Definitions of Textures\n"
-# define MULTIPLE_COLOR "Multiple Definitions of Colors\n"
-# define ONLY_SPACES "Line with only spaces outside of map found\n"
-# define INV_LINE "Invalid Line found\n"
-
-# define NORTH_ID "NO "
-# define EAST_ID "EA "
-# define SOUTH_ID "SO "
-# define WEST_ID "WE "
-# define FLOOR_ID "F "
-# define CEILING_ID "C "
-
-#define NORTH_TEXTURE "resources/wall_empty.xpm"
-#define EAST_TEXTURE "resources/wall.xpm"
-#define SOUTH_TEXTURE "resources/wall_empty.xpm"
-#define WEST_TEXTURE "resources/wall.xpm"
-
-#define PI 3.14159265
 
 #endif

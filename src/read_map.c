@@ -6,11 +6,11 @@
 /*   By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 15:55:31 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/12 15:54:47 by lgrimmei         ###   ########.fr       */
+/*   Updated: 2024/01/22 10:46:14 by lgrimmei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3D.h"
+#include "../include/j_cub3D.h"
 
 char	**create_map_arr(t_data *data, int i, int j, int k)
 {
