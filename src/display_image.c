@@ -6,16 +6,17 @@
 /*   By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 16:05:29 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/18 16:09:20 by lgrimmei         ###   ########.fr       */
+/*   Updated: 2024/01/18 16:10:58 by lgrimmei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
 // TODOS
+// - free xpm
 // - memory safe rays part
 // - malloc protections
-// - exit
+// - properly exit if any error
 // - properly name and organize structs and variables
 
 int	get_pixel_color(t_ray_result ray, int y)

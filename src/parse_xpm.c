@@ -6,11 +6,11 @@
 /*   By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 11:20:41 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/17 14:01:35 by lgrimmei         ###   ########.fr       */
+/*   Updated: 2024/01/22 10:24:35 by lgrimmei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3D.h"
+#include "j_cub3D.h"
 
 void	parse_xpm_info(t_xpm *xpm, char *line)
 {
@@ -36,6 +36,7 @@ void	add_new_color(t_xpm *xpm, char *line)
 		return ;
 	color->c = line[1];
 	color->hex_code = ft_substr(line, 5, ft_strlen(line) - 8);
+	color->next = NULL;
 	if (xpm->colors == NULL)
 		xpm->colors = color;
 	else
@@ -83,7 +84,7 @@ t_xpm	*init_xpm(char *filename)
 	xpm->fd = open(filename, O_RDONLY);
 	if (xpm->fd < 0)
 	{
-		printf("could not open xpm\n");
+		printf("could not open xpm: %s\n", filename);
 		exit (0);
 	}
 	return (xpm);
@@ -126,5 +127,6 @@ t_xpm *parse_xpm(char *filename)
 		get_next_line_wrapper(&line, &line_no, xpm->fd);
 	}
 	parse_xpm_lines(xpm, &line, &line_no);
+	//print_xpm(xpm);
 	return (xpm);
 }

@@ -6,7 +6,7 @@
 #    By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/04 17:18:37 by lgrimmei          #+#    #+#              #
-#    Updated: 2024/01/17 11:21:18 by lgrimmei         ###   ########.fr        #
+#    Updated: 2024/01/22 10:28:26 by lgrimmei         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,17 +18,25 @@ RESET = \033[0m
 NAME		= cub3D
 
 # SOURCES
-SRCS := main.c\
-		utils.c\
-		parse_file.c parse_textures.c parse_colors.c parse_map.c read_map.c init_data.c check_map.c parse_helpers.c\
-		free.c\
-		display_image.c\
-		math_helper.c\
-		parse_xpm.c
+SRCS := j_raycaster.c\
+		scene_init.c\
+		parse_xpm.c\
+		window_init.c\
+		window_destroy.c\
+		draw_background.c\
+		draw_walls.c\
+		draw_map.c\
+		draw_fov.c\
+		draw_line.c\
+		cast_ray.c\
+		render_walls.c\
+		input_controls.c\
+		maths.c
+		
 
 # DIRECTORIES AND PATHS
 INCLDIR		:= include/
-INCS		:= -I ./include/ -I/usr/include
+INCS		:= -I include/ -I /usr/include
 SRCDIR		:= src/
 OBJDIR		:= obj/
 LIBFTDIR	:= libft/
@@ -47,8 +55,9 @@ RM			:= rm -f
 HEADERS		:= $(addprefix $(INCLDIR)/, cub3d.h libft.h get_next_line.h ft_printf.h)
 
 # FLAGS
-CFLAGS		:= -Wall -Wextra -Werror -g -O3
-LIBFLAG		:= -L$(LIBFTDIR)
+CFLAGS		:= -Wall -Wextra -Werror -lm
+DEBUGFLAGS	:= -g -fsanitize=address
+LIBFTFLAG	:= -L$(LIBFTDIR)
 LIBFTLIB	:= -lft
 LIBMLXFLAG	:= -L$(LIBMLXDIR)
 LIBMLXLIB	:= -lmlx -lXext -lX11
@@ -68,15 +77,15 @@ all: $(NAME) $(LIBFT)
 $(LIBFT): $(LIBFTDIR)*.c
 	@$(MAKE) -C $(LIBFTDIR) all --no-print-directory
 
-$(NAME): $(LIBFT) $(OBJDIR) $(OBJS) 
-		@$(CC) $(CFLAGS) $(OBJS) $(INCS) -o $(NAME) $(LIBFTLIB) $(LIBMFTLIB) $(LIBMLXFLAG) $(LIBMLXLIB) $(LIBFLAG) -lm
+$(NAME): $(HEADERS) $(LIBFT) $(OBJDIR) $(OBJS) 
+		@$(CC) $(CFLAGS) $(DEBUGFLAGS) $(OBJS) $(INCS) -o $(NAME) $(LIBFTFLAG) $(LIBFTLIB) $(LIBMLXFLAG) $(LIBMLXLIB) $(RLFLAG)
 		@echo "$(GREEN)./$(NAME) is ready!$(RESET)"
 
 $(OBJDIR):
 		mkdir $(OBJDIR)
 
 $(OBJDIR)%.o: $(SRCDIR)%.c
-		$(CC) $(CFLAGS) $(INCS) -c $< -o $@
+		$(CC) $(CFLAGS) $(DEBUGFLAGS) $(INCS) -c $< -o $@
 
 # Create links of headers in incl folder
 $(HEADERS):
