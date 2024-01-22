@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   maths.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jschott <jschott@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 16:22:30 by jschott           #+#    #+#             */
-/*   Updated: 2024/01/19 10:40:39 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/22 12:47:23 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/j_cub3D.h"
+#include <math.h>
 
-float	get_distance(int point_1[2], int point_2[2])
+float	get_distance(float point_1[2], float point_2[2])
 {
 	float	distance;
 	int		p_1[2];
@@ -23,7 +24,7 @@ float	get_distance(int point_1[2], int point_2[2])
 	p_2[0] = point_2[0];
 	p_2[1] = point_2[1];
 
-	distance = sqrt (pow (p_2[0] - p_1[0], 2) + pow(p_2[1] - p_1[1], 2));
+	distance = sqrtf (powf (p_2[0] - p_1[0], 2) + powf(p_2[1] - p_1[1], 2));
 	return (distance);
 }
 
@@ -45,10 +46,12 @@ float	ft_absf(float num)
 		return (-num);
 	return (num);
 }
-
-int	is_whole_number(float num)
+int is_whole_number(float num)
 {
-	if (num == (int)num)
+	float	tolerance;
+
+	tolerance = 0.00001f;
+	if (fabs(num - round(num)) < tolerance)
 		return (1);
 	return (0);
 }

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jschott <jschott@student.42berlin.de>      +#+  +:+       +#+         #
+#    By: jschott <jschott@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/04 17:18:37 by lgrimmei          #+#    #+#              #
-#    Updated: 2024/01/19 17:57:01 by jschott          ###   ########.fr        #
+#    Updated: 2024/01/22 11:22:23 by jschott          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,7 +55,7 @@ RM			:= rm -f
 HEADERS		:= $(addprefix $(INCLDIR)/, cub3d.h libft.h get_next_line.h ft_printf.h)
 
 # FLAGS
-CFLAGS		:= -Wall -Wextra -Werror -lm
+CFLAGS		:= -Wall -Wextra -Werror #-lm
 DEBUGFLAGS	:= -g -fsanitize=address
 LIBFTFLAG	:= -L$(LIBFTDIR)
 LIBFTLIB	:= -lft

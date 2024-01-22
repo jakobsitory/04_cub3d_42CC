@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jschott <jschott@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 15:03:18 by jschott           #+#    #+#             */
-/*   Updated: 2024/01/19 17:02:03 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/22 14:53:59 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,12 @@ int	draw_player(t_scene *scene)
 	float	player_size;
 	int		start[2];
 	int		end[2];
-	float		scale;
-	
+	float	scale;
+
 	scale = scene->map_scale;
 	player_size = 0.1;
-	start[0] = 2 + scale * scene->player_position[0] / scene->map_square_scale;
-	start[1] = 2 + scale * scene->player_position[1] / scene->map_square_scale;
+	start[0] = scale * scene->player_position[0];
+	start[1] = scale * scene->player_position[1];
 	end[0] = start[0];
 	end[1] = start[1];
 	start[0] -= 0.5 * player_size * scale;
@@ -54,8 +54,8 @@ int	draw_map(t_scene *scene)
 {
 	int	start[2];
 	int	end[2];
-	int		x;
-	int		y;
+	int	x;
+	int	y;
 
 	start[0] = 1;
 	start[1] = 1;

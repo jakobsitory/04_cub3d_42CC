@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_walls.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jschott <jschott@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 11:30:46 by jschott           #+#    #+#             */
-/*   Updated: 2024/01/19 18:40:43 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/22 12:44:05 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	prepare_rays(t_scene *scene)
 	t_ray_result	**rays = scene->rays;
 	t_window		*window = scene->window;
 
-	//fix_fisheye(scene->rays, window->fov_degrees, scene->player_orientation);
+	// fix_fisheye(scene->rays, window->fov_degrees, scene->player_orientation);
 /*	i = -1;
 	while (i++ < window->fov_degrees - 1)
 	{
