@@ -6,7 +6,7 @@
 /*   By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 17:23:15 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/22 14:59:48 by lgrimmei         ###   ########.fr       */
+/*   Updated: 2024/01/23 14:34:16 by lgrimmei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,6 @@
 # define MULTIPLE_COLOR "Multiple Definitions of Colors\n"
 # define ONLY_SPACES "Line with only spaces outside of map found\n"
 # define INV_LINE "Invalid Line found\n"
-
-
 
 //////////////////////////////-----STRUCTURES-----//////////////////////////////
 
@@ -164,19 +162,6 @@ typedef struct s_res
 {
 	char	*north_text_path;
 	char	*east_text_path;
-# define USAGE_ERR "Correct Usage: [./cub3d xxx.cub]\n"
-# define FILE_ERR "Unable to locate or read file\n"
-# define TEXTURE_ERR "Unable to locate or read texture file\n"
-# define COLOR_ERR "Invalid Color Definition\n"
-# define MALLOC_ERR "Failed to allocate memory\n"
-# define CHARS_ERR "Invalid Chars in map\n"
-# define SURR_ERR "Map not surrounded by walls\n"
-# define MAP_ERR "Invalid map\n"
-# define MULTIPLE_TEXT "Multiple Definitions of Textures\n"
-# define MULTIPLE_COLOR "Multiple Definitions of Colors\n"
-# define ONLY_SPACES "Line with only spaces outside of map found\n"
-# define INV_LINE "Invalid Line found\n"
-
 	char	*south_text_path;
 	char	*west_text_path;
 	int		floor_colors[3];
@@ -267,7 +252,7 @@ void	print_xpm(t_xpm *xpm);
 
 //////////////////////////////---INITIALIZATION---//////////////////////////////
 
-t_scene	*scene_init(void);
+t_scene	*scene_init(t_data *data);
 char 	**map_init(void);
 t_xpm	*init_xpm(char *filename);
 

@@ -6,7 +6,7 @@
 /*   By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 15:03:37 by jschott           #+#    #+#             */
-/*   Updated: 2024/01/22 16:40:42 by lgrimmei         ###   ########.fr       */
+/*   Updated: 2024/01/23 15:20:48 by lgrimmei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	ray_collision(t_scene *scene, int pos[2], int dir[2])
 
 	new_pos[0] = pos[0];
 	new_pos[1] = pos[1];
-	// printf("checking: %i, %i\n", new_pos[1], new_pos[0]);
+	printf("checking: %i, %i\n", new_pos[1], new_pos[0]);
 	if (dir[0] == FRWD)
 		++new_pos[0];
 	if (dir[0] == BACK)
@@ -40,9 +40,11 @@ int	ray_collision(t_scene *scene, int pos[2], int dir[2])
 		--new_pos[1];
 	new_pos[0] /= scene->map_square_scale;
 	new_pos[1] /= scene->map_square_scale;
-	// printf("collision: %i, %i\n", new_pos[1], new_pos[0]);
-	if (scene->map[new_pos[1]][new_pos[0]] == '1')
-		return (1);
+ 	if (new_pos[0] < 0 || new_pos[1] < 0)
+		return (0);
+	//print_string_array(scene->map);
+	if (scene->map[new_pos[0]][new_pos[1]] == '1')
+		return (printf("collision: %i, %i\n", new_pos[1], new_pos[0]), 1);
 	return (0);
 }
 
@@ -112,7 +114,6 @@ int	cast_ray(t_ray_result *ray,  t_scene *scene, float angle)
 {
 	int		next_square[2];
 	int		dir[2];	ray->distance = get_distance(scene->player_position, next_square);
-
 
 	set_direction(dir, angle);
 	next_square[0] = scene->player_position[0];

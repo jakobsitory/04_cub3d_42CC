@@ -6,7 +6,7 @@
 /*   By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 10:00:33 by jschott           #+#    #+#             */
-/*   Updated: 2024/01/22 12:29:06 by lgrimmei         ###   ########.fr       */
+/*   Updated: 2024/01/23 14:41:39 by lgrimmei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,14 +55,14 @@ int	main(int argc, char *argv[])
 	check_args(argc, argv);
 	data = init_data();
 	parse_file(data, argv[1]);
-	free_data(data);
+	//free_data(data);
 
-	scene = scene_init();
+	scene = scene_init(data);
 	win_init(scene);
 
 	cast_all_rays(scene);
 	prepare_rays(scene);
-	
+
 	/* Draw Scene */
 	background_fill(scene);
 	draw_walls(scene);
