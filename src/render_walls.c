@@ -6,7 +6,7 @@
 /*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 11:30:46 by jschott           #+#    #+#             */
-/*   Updated: 2024/01/23 15:38:07 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/23 15:41:48 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	assign_textures(t_ray_result *rays[], t_xpm **textures ,int no_rays, int i)
 	}
 }
 
-/* void	fix_fisheye(t_ray_result *rays[], int no_rays, int player_orientation)
+void	fix_fisheye(t_ray_result *rays[], int no_rays, int player_orientation)
 {
 	int		i;
 	float	player_angle_rad;
@@ -59,7 +59,7 @@ void	assign_textures(t_ray_result *rays[], t_xpm **textures ,int no_rays, int i)
 			diff_angle -= 2 * PI;
 		rays[i]->distance = rays[i]->distance * cos(diff_angle);
 	}
-} */
+}
 
 void	prepare_rays(t_scene *scene)
 {

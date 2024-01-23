@@ -6,10 +6,9 @@
 /*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/01/23 15:39:15 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/23 15:54:12 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../include/j_cub3D.h"
 
@@ -23,8 +22,10 @@ t_scene	*scene_init(t_data *data)
 	/* create map */
 
 	scene->map = data->map->map;
-	scene->map_size[0] = data->map->map_size[0];
-	scene->map_size[1] = data->map->map_size[1];
+	scene->map_size[0] = data->map->map_size[0] -1;
+	scene->map_size[1] = data->map->map_size[1] -1;
+	print_string_array(scene->map);
+	printf("size: %i x %i\n", scene->map_size[0], scene->map_size[1]);
 	//scene->map = map_init();
 /* 	scene->map_size[0] = 8;
 	scene->map_size[1] = 8; */
@@ -51,11 +52,10 @@ t_scene	*scene_init(t_data *data)
 		scene->rays[i] = (t_ray_result *) malloc (sizeof(t_ray_result)); // MEMORY MGMT TBD
 	/* Place Player on Map */
 
-	/* scene->player_position[0] = data->map->player_position[1];
-	scene->player_position[0] = data->map->player_position[0]; */
-	scene->player_position[0] = (3.5 * scene->map_square_scale);
-	scene->player_position[1] = (4.5 * scene->map_square_scale);
-
+	scene->player_position[1] = data->map->player_position[1];
+	scene->player_position[0] = data->map->player_position[0];
 	scene->player_orientation = 360;
+	printf("player at %f, %f looking in %d\n", scene->player_position[0], scene->player_position[1],scene->player_orientation);
+
 	return (scene);
 }

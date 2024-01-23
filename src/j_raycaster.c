@@ -6,7 +6,7 @@
 /*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 10:00:33 by jschott           #+#    #+#             */
-/*   Updated: 2024/01/23 15:37:03 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/23 15:48:36 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ int	main(int argc, char *argv[])
 	win_init(scene);
 
 	cast_all_rays(scene);
+	printf("hello\n");
 	prepare_rays(scene);
 
 	/* Draw Scene */

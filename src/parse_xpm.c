@@ -6,7 +6,7 @@
 /*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 11:20:41 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/23 15:37:25 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/23 15:47:55 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ t_xpm	*init_xpm(char *filename)
 	t_xpm	*xpm;
 
 	xpm = malloc(sizeof(t_xpm));
-	if (!xpm)jschott <jschott
+	if (!xpm)
 		return (NULL);
 	xpm->colors = malloc(sizeof(t_xpm_color));
 	if (!xpm->colors)
@@ -128,6 +128,6 @@ t_xpm *parse_xpm(char *filename)
 		get_next_line_wrapper(&line, &line_no, xpm->fd);
 	}
 	parse_xpm_lines(xpm, &line, &line_no);
-	print_xpm(xpm);
+	// print_xpm(xpm);
 	return (xpm);
 }

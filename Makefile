@@ -6,7 +6,7 @@
 #    By: jschott <jschott@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: Invalid date        by                   #+#    #+#              #
-#    Updated: 2024/01/23 15:34:20 by jschott          ###   ########.fr        #
+#    Updated: 2024/01/23 15:44:10 by jschott          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -70,7 +70,7 @@ HEADERS		:= $(addprefix $(INCLDIR)/, j_cub3d.h libft.h get_next_line.h ft_printf
 
 # FLAGS
 CFLAGS		:= -Wall -Wextra -Werror
-DEBUGFLAGS	:= -g
+DEBUGFLAGS	:= -g -fsanitize=address
 LIBFTFLAG	:= -L$(LIBFTDIR)
 LIBFTLIB	:= -lft
 LIBMLXFLAG	:= -L$(LIBMLXDIR)
