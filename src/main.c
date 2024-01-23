@@ -6,7 +6,7 @@
 /*   By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 17:22:00 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/23 19:24:25 by lgrimmei         ###   ########.fr       */
+/*   Updated: 2024/01/23 19:34:17 by lgrimmei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,8 @@ int	main(int argc, char *argv[])
 
 	/* Draw Scene */
 	background_fill(scene);
-	printf("0\n");
 	draw_walls(scene);
-	printf("1\n");
 	draw_map(scene);
-	printf("2\n");
 	mlx_put_image_to_window(scene->window->mlx, scene->window->mlx_win, \
 							scene->image->img, 0, 0);
 	key_events(scene);

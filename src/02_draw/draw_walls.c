@@ -6,11 +6,13 @@
 /*   By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/01/23 19:26:30 by lgrimmei         ###   ########.fr       */
+/*   Updated: 2024/01/23 19:33:03 by lgrimmei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
+
+# define BLACK 0xFFFFFF
 
 int	get_pixel_color(t_ray_result ray, int y)
 {
@@ -45,7 +47,6 @@ void	draw_walls(t_scene *scene)
 	while (x < WINDOW_W)
 	{
 		y = scene->rays[x]->start_y;
-		//printf("start %d, end %d\n", scene->rays[x]->start_y, scene->rays[x]->end_y);
 		while (y < scene->rays[x]->end_y)
 		{
 			color = get_pixel_color(*scene->rays[x], y);
