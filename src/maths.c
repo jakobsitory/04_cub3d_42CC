@@ -6,7 +6,7 @@
 /*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 16:22:30 by jschott           #+#    #+#             */
-/*   Updated: 2024/01/23 11:29:50 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/23 14:24:02 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 float	get_distance(float point_1[2], float point_2[2])
 {
 	float	distance;
-	int		p_1[2];
-	int		p_2[2];
+	float	p_1[2];
+	float	p_2[2];
 
 	p_1[0] = point_1[0];
 	p_1[1] = point_1[1];

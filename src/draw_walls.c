@@ -6,7 +6,7 @@
 /*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 10:38:39 by jschott           #+#    #+#             */
-/*   Updated: 2024/01/23 11:51:29 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/23 15:17:06 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ int	get_pixel_color(t_ray_result ray, int y)
 	else
 		rel_y = 0;
 	column = ray.xpm->columns * rel_y;
-	row = ((float)(y - ray.start_y) / ray.line_height);
+	row = ((float)(y - ray.start_y) / ray.line_height) * ray.xpm->rows;
+	// printf("row %i column %i\n", row, column);
 	color_hex_string = get_hex_from_char(ray.xpm->lines[row][column], ray.xpm);
 	color_hex = hex_to_int(color_hex_string);
 	return (color_hex);
@@ -43,11 +44,14 @@ void	draw_walls(t_scene *scene)
 	while (x < WINDOW_W)
 	{
 		y = scene->rays[x]->start_y;
+		printf("start %d, end %d\n", scene->rays[x]->start_y, scene->rays[x]->end_y);
 		while (y < scene->rays[x]->end_y)
 		{
-			color = get_pixel_color(*scene->rays[x], y);
-			//printf("printing on pxl: %i, %i\n", x, y);
-			my_mlx_pixel_put(scene->image, x, y, color);
+			//if (y >=0 && y < WINDOW_H)
+			//{
+				color = get_pixel_color(*scene->rays[x], y);
+				my_mlx_pixel_put(scene->image, x, y, color);
+			//}
 			y++;
 		}
 		y = 0;

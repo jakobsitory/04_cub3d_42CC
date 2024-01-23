@@ -6,7 +6,7 @@
 /*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 17:23:15 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/22 17:34:02 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/23 14:43:41 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@
 # include "ft_printf.h"
 # include "get_next_line.h"
 
-# define WINDOW_W 	360
-# define WINDOW_H	360
+# define WINDOW_W 	1280
+# define WINDOW_H	720
 
-# define FOV			30
-# define MINIMAP_SIZE	1
+# define FOV			60
+# define MINIMAP_SIZE	.25
 
 # define COLOR_CEILING		0x0033CCFF
 # define COLOR_FLOOR		0x00C99547
@@ -37,9 +37,9 @@
 # define COLOR_MAP_FLOOR	0x00FFFFFF
 # define COLOR_MAP_WALL		0x00000000
 
-#define NORTH_TEXTURE "ressources/wall_empty.xpm"
+#define NORTH_TEXTURE "ressources/wall.xpm"
 #define EAST_TEXTURE "ressources/wall.xpm"
-#define SOUTH_TEXTURE "ressources/wall_empty.xpm"
+#define SOUTH_TEXTURE "ressources/wall.xpm"
 #define WEST_TEXTURE "ressources/wall.xpm"
 
 # define LOOK_LEFT	65361

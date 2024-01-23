@@ -6,7 +6,7 @@
 /*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 11:30:46 by jschott           #+#    #+#             */
-/*   Updated: 2024/01/22 12:44:05 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/23 15:20:26 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,10 @@ void	fix_fisheye(t_ray_result *rays[], int no_rays, int player_orientation)
 	float	ray_angle_rad;
 	float	diff_angle;
 
-	player_angle_rad = degr_to_rad((float) player_orientation);
+	player_angle_rad = degr_to_rad(player_orientation);
 	i = -1;
-	printf("checking:\n");
-	while (i++ < no_rays) 
+	while (i++ < no_rays - 1) 
 	{
-		printf("%f ", rays[i]->degree);
 		ray_angle_rad = degr_to_rad(rays[i]->degree);
 		diff_angle = ray_angle_rad - player_angle_rad;
 		while (diff_angle < -M_PI)
@@ -65,18 +63,18 @@ void	fix_fisheye(t_ray_result *rays[], int no_rays, int player_orientation)
 
 void	prepare_rays(t_scene *scene)
 {
-	//int				i;
+	int				i;
 	t_ray_result	**rays = scene->rays;
 	t_window		*window = scene->window;
 
-	// fix_fisheye(scene->rays, window->fov_degrees, scene->player_orientation);
-/*	i = -1;
-	while (i++ < window->fov_degrees - 1)
+	fix_fisheye(scene->rays, window->fov_degrees, scene->player_orientation);
+	i = -1;
+	while (i++ < WINDOW_W - 1)
 	{
-		rays[i]->line_height = (50 * 900) / rays[i]->distance;
+		rays[i]->line_height = (WINDOW_H) / rays[i]->distance;
+		// printf("line height: %d \n distance: %f\n\n", rays[i]->line_height, rays[i]->distance);
 		rays[i]->start_y = window->center_y - rays[i]->line_height / 2;
 		rays[i]->end_y = window->center_y + rays[i]->line_height / 2;
 	}
-*/
 	assign_textures(rays, scene->textures, window->fov_degrees, 0);
 }

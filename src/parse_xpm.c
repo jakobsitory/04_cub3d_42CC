@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_xpm.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jschott <jschott@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 11:20:41 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/19 18:40:35 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/23 14:40:08 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ void	parse_xpm_info(t_xpm *xpm, char *line)
 
 void	add_new_color(t_xpm *xpm, char *line)
 {
-	t_xpm_color *color;
-	t_xpm_color *tmp;
+	t_xpm_color	*color;
+	t_xpm_color	*tmp;
 
 	color = malloc(sizeof(t_xpm_color));
 	if (!color)
@@ -64,7 +64,7 @@ void	print_xpm(t_xpm *xpm)
 	printf("---END---\n");
 }
 
-void get_next_line_wrapper(char **line, int *line_no, int fd)
+void	get_next_line_wrapper(char **line, int *line_no, int fd)
 {
 	free(*line);
 	*line = get_next_line(fd);
@@ -74,6 +74,7 @@ void get_next_line_wrapper(char **line, int *line_no, int fd)
 t_xpm	*init_xpm(char *filename)
 {
 	t_xpm	*xpm;
+
 	xpm = malloc(sizeof(t_xpm));
 	if (!xpm)
 		return (NULL);
@@ -85,7 +86,7 @@ t_xpm	*init_xpm(char *filename)
 	if (xpm->fd < 0)
 	{
 		printf("could not open xpm: %s\n", filename);
-		exit (0);
+		exit (0); //CLEAN EXIT TBD
 	}
 	return (xpm);
 }
@@ -93,7 +94,7 @@ t_xpm	*init_xpm(char *filename)
 void	parse_xpm_lines(t_xpm *xpm, char **line, int *line_no)
 {
 	int	i;
-	
+
 	i = 0;
 	xpm->lines = malloc(sizeof(char *) * (xpm->rows + 1));
 	if (!xpm->lines)
@@ -127,6 +128,6 @@ t_xpm *parse_xpm(char *filename)
 		get_next_line_wrapper(&line, &line_no, xpm->fd);
 	}
 	parse_xpm_lines(xpm, &line, &line_no);
-	//print_xpm(xpm);
+	print_xpm(xpm);
 	return (xpm);
 }

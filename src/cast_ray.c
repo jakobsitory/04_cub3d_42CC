@@ -6,7 +6,7 @@
 /*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 15:03:37 by jschott           #+#    #+#             */
-/*   Updated: 2024/01/23 11:45:38 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/23 14:49:04 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ void	find_next(float start[2], int dir[2])
 			start[1] = floorf(start[1]);
 	}
 }
+
 void	set_direction(int dir[2], float angle)
 {
 	if (angle < 180)
@@ -98,40 +99,33 @@ void	set_direction(int dir[2], float angle)
 
 int	cast_ray(t_ray_result *ray,  t_scene *scene, float angle)
 {
-	float	next_square[2];
-	int		*dir;
+	float	next[2];
+	int		dir[2];
+	float	diff[2];
 
-	set_direction(scene->player_direction, angle);
-	dir = scene->player_direction;
-	printf("direction: %i, %i\n", dir[0], dir[1]);
-	next_square[0] = scene->player_position[0];
-	next_square[1] = scene->player_position[1];
-	while(1)
+	set_direction(dir, angle);
+	next[0] = scene->player_position[0];
+	next[1] = scene->player_position[1];
+	while (!ray_collision(scene, next, dir))
 	{
-		// printf("\nnext_square: %f, %f\n", next_square[0], next_square[1]);
-		// printf("direction: %i, %i\n", dir[0], dir[1]);
-		find_next(next_square, dir);
-		// printf("next_square: %f, %f\n", next_square[0], next_square[1]);
+		find_next(next, dir);
 		if (dir[0] != HALT && dir[1] != HALT)
 		{
-			if (ft_absf((next_square[0] - scene->player_position[0]) / sinf(degr_to_rad(angle))) < ft_absf((next_square[1] - scene->player_position[1]) / cosf(degr_to_rad(angle))))
-				next_square[1] = ft_absf(ft_absf((next_square[0] - scene->player_position[0]) / tanf(degr_to_rad(angle))) + dir[1] * scene->player_position[1]);
+			diff[0] = (next[0] - scene->player_position[0]);
+			diff[1] = (next[1] - scene->player_position[1]);
+			if (ft_absf(diff[0] / sinf(degr_to_rad(angle))) \
+					< ft_absf(diff[1] / cosf(degr_to_rad(angle))))
+				next[1] = ft_absf(ft_absf(diff[0] / tanf(degr_to_rad(angle))) \
+							+ dir[1] * scene->player_position[1]);
 			else
-				next_square[0] = ft_absf(ft_absf((next_square[1] - scene->player_position[1]) * tanf(degr_to_rad(angle))) + dir[0] * scene->player_position[0]);
+				next[0] = ft_absf(ft_absf(diff[1] * tanf(degr_to_rad(angle))) \
+							+ dir[0] * scene->player_position[0]);
 		}
-		// printf("next_square: %f, %f\n", next_square[0], next_square[1]);
-		if (ray_collision(scene, next_square, dir))
-			break ;
 	}
-	ray->distance = get_distance(scene->player_position, next_square);
-	// printf("next_square: %f, %f\n", next_square[0], next_square[1]);
-	ray->x = next_square[0];
-	ray->y = next_square[1];
-	// printf("wall for %f at: %f, %f\n", angle, next_square[0], next_square[1]);
+	ray->distance = get_distance(scene->player_position, next);
+	ray->x = next[0];
+	ray->y = next[1];
 	ray->degree = angle;
-	ray->line_height = (50 * 900) / ray->distance;
-	ray->start_y = scene->window->center_y - ray->line_height / 2;
-	ray->end_y = scene->window->center_y + ray->line_height / 2;
 	return (0);
 }
 
@@ -140,10 +134,10 @@ void	cast_all_rays(t_scene *scene)
 	float	angle;
 	int		i;
 
-	if (scene->player_orientation > .5 * FOV)
-		angle = (float)((int)(scene->player_orientation - .5 * FOV)  % 360);
+	if (scene->player_orientation > .5f * FOV)
+		angle = (float)((int)(scene->player_orientation - .5f * FOV)  % 360);
 	else
-		angle = (float)(360 - .5 * FOV) + ((scene->player_orientation));
+		angle = (float)(360.0f - .5f * FOV) + ((scene->player_orientation));
 	i = 0;
 	while (i < WINDOW_W)
 	{
