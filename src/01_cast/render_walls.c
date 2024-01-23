@@ -6,15 +6,15 @@
 /*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 11:30:46 by jschott           #+#    #+#             */
-/*   Updated: 2024/01/23 16:21:15 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/23 17:27:04 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-void	assign_textures(t_ray_result *rays[], t_xpm **textures ,int no_rays, int i)
+void	assign_textures(t_ray_result *rays[], t_xpm **textures ,int end, int i)
 {
-	while (i < no_rays)
+	while (i < end)
 	{
 		if (rays[i]->degree <= 90 || rays[i]->degree >= 270)
 		{
@@ -64,15 +64,16 @@ void	fix_fisheye(t_ray_result *rays[], int no_rays, int player_orientation)
 void	prepare_rays(t_scene *scene)
 {
 	int				i;
-	t_ray_result	**rays = scene->rays;
-	t_window		*window = scene->window;
+	t_ray_result	**rays;
+	t_window		*window ;
 
+	rays = scene->rays;
+	window = scene->window;
 	fix_fisheye(scene->rays, window->fov_degrees, scene->player_orientation);
 	i = -1;
 	while (i++ < WINDOW_W - 1)
 	{
 		rays[i]->line_height = (WINDOW_H) / rays[i]->distance;
-		// printf("line height: %d \n distance: %f\n\n", rays[i]->line_height, rays[i]->distance);
 		rays[i]->start_y = window->center_y - rays[i]->line_height / 2;
 		rays[i]->end_y = window->center_y + rays[i]->line_height / 2;
 	}

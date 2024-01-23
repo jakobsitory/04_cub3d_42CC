@@ -6,7 +6,7 @@
 /*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 10:25:00 by jschott           #+#    #+#             */
-/*   Updated: 2024/01/23 16:21:15 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/23 16:58:22 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,7 @@ int	win_init(t_scene *scene)
 											&scene->image->bits_per_pixel, \
 											&scene->image->line_length, \
 											&scene->image->endian);
-
-
-	scene->window->fov_degrees = WINDOW_W; // for now substitute for number of rays
+	scene->window->fov_degrees = WINDOW_W;
 	scene->window->height_px = WINDOW_H;
 	scene->window->width_px = WINDOW_W;
 	scene->window->center_x = scene->window->width_px / 2;

@@ -6,7 +6,7 @@
 /*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 15:03:37 by jschott           #+#    #+#             */
-/*   Updated: 2024/01/23 16:21:15 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/23 17:24:06 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,30 +29,18 @@ int	ray_collision(t_scene *scene, float dest[2], int dir[2])
 
 	new_pos[0] = dest[0];
 	new_pos[1] = dest[1];
-
 	if (dir[0] == FRWD && !is_whole_number(new_pos[0]))
 		new_pos[0] = floorf(dest[0]);
 	else if (dir[0] == BACK && is_whole_number(new_pos[0]))
 		--new_pos[0];
 	else if (dir[0] == BACK)
 		new_pos[0] = floorf(dest[0]);
-
 	if (dir[1] == FRWD && !is_whole_number(new_pos[1]))
 		new_pos[1]= floorf(dest[1]);
 	else if (dir[1] == BACK && is_whole_number(new_pos[1]))
 		--new_pos[1];
 	else if (dir[1] == BACK)
 		new_pos[1] = floorf(dest[1]);
-
-	if (new_pos[0] < 0)
-		new_pos[0] = 0;
-	if (new_pos[0] > scene->map_size[0])
-		new_pos[0] = scene->map_size[0];
-	if (new_pos[1] < 0)
-		new_pos[1] = 0;
-	if (new_pos[1] > scene->map_size[1])
-		new_pos[1] = scene->map_size[1];
-
 	if (scene->map[(int) new_pos[1]][(int) new_pos[0]] == '1')
 		return (1);
 	return (0);

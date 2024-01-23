@@ -6,7 +6,7 @@
 /*   By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 17:22:00 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/23 16:43:40 by lgrimmei         ###   ########.fr       */
+/*   Updated: 2024/01/23 17:32:18 by lgrimmei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,10 @@ int	main(int argc, char *argv[])
 	check_args(argc, argv);
 	data = init_data();
 	parse_file(data, argv[1]);
-	//free_data(data);
-
 	scene = scene_init(data);
 	win_init(scene);
-
 	cast_all_rays(scene);
-	//printf("hello\n");
 	prepare_rays(scene);
-
-	/* Draw Scene */
 	background_fill(scene);
 	draw_walls(scene);
 	draw_map(scene);
@@ -37,7 +31,6 @@ int	main(int argc, char *argv[])
 							scene->image->img, 0, 0);
 	key_events(scene);
 	mlx_loop(scene->window->mlx);
-
 	win_destroy(scene);
 	return (0);
 }

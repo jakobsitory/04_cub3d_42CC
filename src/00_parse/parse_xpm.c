@@ -6,7 +6,7 @@
 /*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 11:20:41 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/23 16:21:30 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/23 17:23:02 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,12 @@ void	add_new_color(t_xpm *xpm, char *line)
 
 void	print_xpm(t_xpm *xpm)
 {
-	printf("---GENERAL:---\n%i, %i, %i, %i\n", xpm->rows, xpm->columns, xpm->colors_count, xpm->bytes_per_pixel);
-	t_xpm_color *tmp_color = xpm->colors;
+	t_xpm_color	*tmp_color;
+	int			i;
+
+	printf("---GENERAL:---\n%i, %i, %i, %i\n", xpm->rows, xpm->columns, \
+				xpm->colors_count, xpm->bytes_per_pixel);
+	tmp_color = xpm->colors;
 	printf("---COLORS---\n");
 	while (tmp_color)
 	{
@@ -59,7 +63,8 @@ void	print_xpm(t_xpm *xpm)
 		tmp_color = tmp_color->next;
 	}
 	printf("---IMAGE:---\n");
-	for (int i = 0; i < xpm->rows; i++)
+	i = -1;
+	while (++i < xpm->rows)
 		printf("%s\n", xpm->lines[i]);
 	printf("---END---\n");
 }
@@ -108,7 +113,7 @@ void	parse_xpm_lines(t_xpm *xpm, char **line, int *line_no)
 	xpm->lines[i] = NULL;
 }
 
-t_xpm *parse_xpm(char *filename)
+t_xpm	*parse_xpm(char *filename)
 {
 	char	*line;
 	int		line_no;
@@ -128,6 +133,5 @@ t_xpm *parse_xpm(char *filename)
 		get_next_line_wrapper(&line, &line_no, xpm->fd);
 	}
 	parse_xpm_lines(xpm, &line, &line_no);
-	// print_xpm(xpm);
 	return (xpm);
 }

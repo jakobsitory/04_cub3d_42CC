@@ -6,7 +6,7 @@
 /*   By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 17:23:15 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/23 17:29:01 by lgrimmei         ###   ########.fr       */
+/*   Updated: 2024/01/23 17:32:53 by lgrimmei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@
 # define WINDOW_W 	960
 # define WINDOW_H	720
 
-# define FOV			90
-# define MINIMAP_SIZE	.25
+# define FOV			60
+# define MINIMAP_SIZE	.5
 
 # define COLOR_CEILING		0x0033CCFF
 # define COLOR_FLOOR		0x00C99547
