@@ -3,19 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   draw_walls.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/01/23 17:18:00 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/23 18:29:36 by lgrimmei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
-
-
 #include "cub3D.h"
-
-# define BLACK 0xFFFFFF
 
 int	get_pixel_color(t_ray_result ray, int y)
 {

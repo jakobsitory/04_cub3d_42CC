@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_textures.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 19:12:26 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/23 16:21:15 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/23 18:27:53 by lgrimmei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ void	save_text_if_empty(t_data *data, char *identifier, char *value)
 void	save_identifier(char *identifier, char *line, t_data *data)
 {
 	char	*line_trimmed;
-
 	line += ft_strlen(identifier);
 	check_texture_file(line, data);
 	line_trimmed = ft_strtrim(line, " \n");
@@ -66,6 +65,7 @@ void	check_texture_file(char *path, t_data *data)
 	fd = open(path, O_RDONLY);
 	if (fd < 1)
 	{
+		ft_printf("%s\n", path);
 		free(path);
 		exit_error(TEXTURE_ERR, data);
 	}

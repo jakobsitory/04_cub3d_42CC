@@ -6,7 +6,7 @@
 /*   By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 17:23:15 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/23 17:32:53 by lgrimmei         ###   ########.fr       */
+/*   Updated: 2024/01/23 17:43:17 by lgrimmei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@
 # define COLOR_MAP_FLOOR	0x00FFFFFF
 # define COLOR_MAP_WALL		0x00000000
 
-#define NORTH_TEXTURE "resources/wall.xpm"
+#define NORTH_TEXTURE "resources/north.xpm"
 #define EAST_TEXTURE "resources/wall.xpm"
 #define SOUTH_TEXTURE "resources/wall.xpm"
 #define WEST_TEXTURE "resources/wall.xpm"

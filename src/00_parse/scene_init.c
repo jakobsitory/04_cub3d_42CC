@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scene_init.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 17:27:29 by jschott           #+#    #+#             */
-/*   Updated: 2024/01/23 17:27:48 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/23 18:23:53 by lgrimmei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,10 @@ t_scene	*scene_init(t_data *data)
 	scene->textures = malloc (sizeof(t_xpm *) * 4);
 	if (!scene->textures)
 		return (NULL); // MEMORY MGMT TBD
-	scene->textures[0] = parse_xpm(NORTH_TEXTURE);
-	scene->textures[1] = parse_xpm(EAST_TEXTURE);
-	scene->textures[2] = parse_xpm(SOUTH_TEXTURE);
-	scene->textures[3] = parse_xpm(WEST_TEXTURE);
+	scene->textures[0] = parse_xpm(data->res->north_text_path);
+	scene->textures[1] = parse_xpm(data->res->east_text_path);
+	scene->textures[2] = parse_xpm(data->res->south_text_path);
+	scene->textures[3] = parse_xpm(data->res->west_text_path);
 	scene->ray_resolution = (float) FOV / (float) WINDOW_W;
 	scene->rays = (t_ray_result **) malloc (WINDOW_W * sizeof(t_ray_result *));
 	if (!scene->rays)
