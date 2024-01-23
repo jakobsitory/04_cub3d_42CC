@@ -6,7 +6,7 @@
 /*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 15:03:37 by jschott           #+#    #+#             */
-/*   Updated: 2024/01/23 14:49:04 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/23 15:35:00 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,23 @@ void	set_direction(int dir[2], float angle)
 		dir[1] = FRWD;
 	if (angle == 90 || angle == 270)
 		dir[1] = HALT;
+}
+
+float	fix_fisheye(t_ray_result ray)
+{
+	float	player_angle_rad;
+	float	ray_angle_rad;
+	float	diff_angle;
+
+	player_angle_rad = 30 * PI / 180.0;
+	ray_angle_rad = ray.degree * PI / 180.0;
+	diff_angle = player_angle_rad - ray_angle_rad;
+	while (diff_angle < -PI)
+		diff_angle += 2 * PI;
+	while (diff_angle > PI)
+		diff_angle -= 2 * PI;
+	printf("   %f   ", cos(diff_angle));
+	return(ray.distance * cos(diff_angle));
 }
 
 int	cast_ray(t_ray_result *ray,  t_scene *scene, float angle)

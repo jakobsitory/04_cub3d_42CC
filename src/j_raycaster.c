@@ -6,7 +6,7 @@
 /*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 10:00:33 by jschott           #+#    #+#             */
-/*   Updated: 2024/01/23 14:14:53 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/23 15:37:03 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,16 +47,22 @@ char **map_init(void)
 	return map;
 }
 
-int	main(void)
+int	main(int argc, char *argv[])
 {
 	t_scene	*scene;
+	t_data	*data;
 
-	scene = scene_init();
+	check_args(argc, argv);
+	data = init_data();
+	parse_file(data, argv[1]);
+	//free_data(data);
+
+	scene = scene_init(data);
 	win_init(scene);
 
 	cast_all_rays(scene);
 	prepare_rays(scene);
-	
+
 	/* Draw Scene */
 	background_fill(scene);
 	draw_walls(scene);

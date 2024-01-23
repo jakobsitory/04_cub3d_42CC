@@ -5,12 +5,17 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/19 10:38:39 by jschott           #+#    #+#             */
-/*   Updated: 2024/01/23 15:17:06 by jschott          ###   ########.fr       */
+/*   Created: Invalid date        by                   #+#    #+#             */
+/*   Updated: 2024/01/23 15:36:45 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+
+
+
 #include "../include/j_cub3D.h"
+
+# define BLACK 0xFFFFFF
 
 int	get_pixel_color(t_ray_result ray, int y)
 {
@@ -39,6 +44,7 @@ void	draw_walls(t_scene *scene)
 	int	x;
 	int	y;
 	int	color;
+	int	y_range;
 
 	x = 0;
 	while (x < WINDOW_W)
@@ -47,12 +53,16 @@ void	draw_walls(t_scene *scene)
 		printf("start %d, end %d\n", scene->rays[x]->start_y, scene->rays[x]->end_y);
 		while (y < scene->rays[x]->end_y)
 		{
-			//if (y >=0 && y < WINDOW_H)
-			//{
-				color = get_pixel_color(*scene->rays[x], y);
+			color = get_pixel_color(*scene->rays[x], y);
+			y_range = (scene->rays[x]->end_y - scene->rays[x]->start_y) / 100;
+			while (y_range > 0)
+			{
 				my_mlx_pixel_put(scene->image, x, y, color);
-			//}
-			y++;
+				y++;
+				if (y > scene->rays[x]->end_y)
+					break ;
+				y_range--;
+			}
 		}
 		y = 0;
 		x++;
