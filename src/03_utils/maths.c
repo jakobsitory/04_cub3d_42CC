@@ -6,12 +6,11 @@
 /*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 16:22:30 by jschott           #+#    #+#             */
-/*   Updated: 2024/01/23 16:21:15 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/23 17:28:24 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
-#include <math.h>
 
 float	get_distance(float point_1[2], float point_2[2])
 {
