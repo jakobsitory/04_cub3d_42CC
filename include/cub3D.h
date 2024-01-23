@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 17:23:15 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/23 16:19:10 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/23 17:29:01 by lgrimmei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@
 # include "ft_printf.h"
 # include "get_next_line.h"
 
-# define WINDOW_W 	480
-# define WINDOW_H	960
+# define WINDOW_W 	960
+# define WINDOW_H	720
 
-# define FOV			60
+# define FOV			90
 # define MINIMAP_SIZE	.25
 
 # define COLOR_CEILING		0x0033CCFF

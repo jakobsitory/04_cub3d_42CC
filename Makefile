@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jschott <jschott@student.42.fr>            +#+  +:+       +#+         #
+#    By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: Invalid date        by                   #+#    #+#              #
-#    Updated: 2024/01/23 16:20:50 by jschott          ###   ########.fr        #
+#    Updated: 2024/01/23 16:28:03 by lgrimmei         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -72,7 +72,8 @@ HEADERS		:= $(addprefix $(INCLDIR)/, cub3D.h libft.h get_next_line.h ft_printf.h
 
 # FLAGS
 CFLAGS		:= -Wall -Wextra -Werror
-DEBUGFLAGS	:= -g -fsanitize=address
+# DEBUGFLAGS	:= -g -fsanitize=address
+DEBUGFLAGS	:= -g
 LIBFTFLAG	:= -L$(LIBFTDIR)
 LIBFTLIB	:= -lft
 LIBMLXFLAG	:= -L$(LIBMLXDIR)
