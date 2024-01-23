@@ -6,7 +6,7 @@
 /*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 16:22:30 by jschott           #+#    #+#             */
-/*   Updated: 2024/01/22 12:47:23 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/23 11:29:50 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int is_whole_number(float num)
 {
 	float	tolerance;
 
-	tolerance = 0.00001f;
+	tolerance = 0.000001f;
 	if (fabs(num - round(num)) < tolerance)
 		return (1);
 	return (0);

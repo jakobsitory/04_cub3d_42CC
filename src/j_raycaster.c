@@ -6,7 +6,7 @@
 /*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 10:00:33 by jschott           #+#    #+#             */
-/*   Updated: 2024/01/22 17:21:26 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/23 11:50:22 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,11 @@ int	main(void)
 	win_init(scene);
 
 	cast_all_rays(scene);
-	printf("Hello\n");
 	prepare_rays(scene);
 	
 	/* Draw Scene */
 	background_fill(scene);
-	// draw_walls(scene);
+	draw_walls(scene);
 	draw_map(scene);
 	mlx_put_image_to_window(scene->window->mlx, scene->window->mlx_win, \
 							scene->image->img, 0, 0);

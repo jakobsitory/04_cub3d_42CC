@@ -6,7 +6,7 @@
 /*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 09:35:27 by jschott           #+#    #+#             */
-/*   Updated: 2024/01/22 16:54:15 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/23 10:35:44 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	update_orienation(t_scene *scene, int keycode)
 	if (scene->player_orientation < 0)
 		scene->player_orientation += 360;
 	scene->player_orientation %= 360;
-	set_direction(scene->player_direction, scene->player_orientation);
+	// set_direction(scene->player_direction, scene->player_orientation);
 	img_update(scene);
 }
 

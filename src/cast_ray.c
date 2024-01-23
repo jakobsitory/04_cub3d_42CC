@@ -6,7 +6,7 @@
 /*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 15:03:37 by jschott           #+#    #+#             */
-/*   Updated: 2024/01/22 18:02:07 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/23 11:45:38 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,21 @@ int	ray_collision(t_scene *scene, float dest[2], int dir[2])
 
 	new_pos[0] = dest[0];
 	new_pos[1] = dest[1];
-	if (dir[0] == FRWD)
-		new_pos[0] = ceil(dest[0]) + .1f;
-	if (dir[0] == BACK)
-		new_pos[0] = floor(dest[0]) - .1f;
-	if (dir[1] == FRWD)
-		new_pos[1] = ceil(dest[1]) + .1f;
-	if (dir[1] == BACK)
-		new_pos[1] = floor(dest[1]) - .1f;
+
+	if (dir[0] == FRWD && !is_whole_number(new_pos[0]))
+		new_pos[0] = floorf(dest[0]);
+	else if (dir[0] == BACK && is_whole_number(new_pos[0]))
+		--new_pos[0];
+	else if (dir[0] == BACK)
+		new_pos[0] = floorf(dest[0]);
+
+	if (dir[1] == FRWD && !is_whole_number(new_pos[1]))
+		new_pos[1]= floorf(dest[1]);
+	else if (dir[1] == BACK && is_whole_number(new_pos[1]))
+		--new_pos[1];
+	else if (dir[1] == BACK)
+		new_pos[1] = floorf(dest[1]);
+
 	if (scene->map[(int) new_pos[1]][(int) new_pos[0]] == '1')
 		return (1);
 	return (0);
@@ -48,21 +55,29 @@ int	ray_collision(t_scene *scene, float dest[2], int dir[2])
 /// @param square_scale scale of one square
 /// @param dir direction where to look for the next square
 /// @return 
-void find_next(float start[2], int dir[2])
+void	find_next(float start[2], int dir[2])
 {
 	if (dir[0] != HALT)
 	{
-		if (dir[0] == FRWD)
-			start[0] = ceilf(start[0] + 0.1f);
-		if (dir[0] == BACK)
-			start[0] = floorf(start[0] - 0.1f);
+		if (dir[0] == FRWD && is_whole_number(start[0]))
+			++start[0];
+		else if (dir[0] == FRWD)
+			start[0] = ceilf(start[0]);
+		else if (dir[0] == BACK && is_whole_number(start[0]))
+			--start[0]; // = floorf(start[0]);
+		else if (dir[0] == BACK)
+			start[0] = floorf(start[0]);
 	}
 	if (dir[1] != HALT)
 	{
-		if (dir[1] == FRWD)
-			start[1] = ceilf(start[1] + 0.1f);
-		if (dir[1] == BACK)
-			start[1] = floorf(start[1] - 0.1f);
+		if (dir[1] == FRWD && is_whole_number(start[1]))
+			++start[1];
+		else if (dir[1] == FRWD)
+			start[1] = ceilf(start[1]);
+		else if (dir[1] == BACK && is_whole_number(start[1]))
+			--start[1];
+		else if (dir[1] == BACK)
+			start[1] = floorf(start[1]);
 	}
 }
 void	set_direction(int dir[2], float angle)

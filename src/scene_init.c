@@ -6,7 +6,7 @@
 /*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 14:52:45 by jschott           #+#    #+#             */
-/*   Updated: 2024/01/22 10:57:54 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/23 11:45:47 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ t_scene	*scene_init(void)
 	scene->player_position[0] = (3.5);
 	scene->player_position[1] = (4.5);
 	scene->player_speed = 0.1;
-	scene->player_orientation = 360;
+	scene->player_orientation = 0;
 	set_direction(scene->player_direction, scene->player_orientation);
 	return (scene);
 }
