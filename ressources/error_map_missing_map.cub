@@ -1,8 +1,0 @@
-
-NO       ./resources/north
-SO            ./resources/south
-WE         ./resources/west
-EA                            ./resources/east
-
-F          50  ,  50  ,  50   
-C           256  ,   30    , 5 

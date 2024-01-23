@@ -6,7 +6,7 @@
 #    By: jschott <jschott@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: Invalid date        by                   #+#    #+#              #
-#    Updated: 2024/01/23 15:44:10 by jschott          ###   ########.fr        #
+#    Updated: 2024/01/23 16:20:50 by jschott          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,31 +21,33 @@ RESET = \033[0m
 NAME		= cub3D
 
 # SOURCES
-SRCS := j_raycaster.c\
-		scene_init.c\
-		parse_xpm.c\
-		window_init.c\
-		window_destroy.c\
-		draw_background.c\
-		draw_walls.c\
-		draw_map.c\
-		draw_fov.c\
-		draw_line.c\
-		cast_ray.c\
-		render_walls.c\
-		input_controls.c\
-		maths.c\
-		init_data.c\
-		utils.c\
-		read_map.c\
-		parse_map.c\
-		free.c\
-		parse_file.c\
-		parse_helpers.c\
-		parse_textures.c\
-		parse_colors.c\
-		check_map.c\
-		main.c
+SRCS := main.c \
+		00_parse/parse_colors.c \
+		00_parse/parse_file.c \
+		00_parse/parse_helpers.c \
+		00_parse/parse_map.c \
+		00_parse/parse_textures.c \
+		00_parse/parse_xpm.c \
+		00_parse/check_map.c \
+		00_parse/init_data.c \
+		00_parse/window_init.c \
+		00_parse/scene_init.c \
+		00_parse/read_map.c \
+		01_cast/cast_ray.c \
+		01_cast/render_walls.c \
+		02_draw/draw_background.c \
+		02_draw/draw_fov.c \
+		02_draw/draw_line.c \
+		02_draw/draw_map.c \
+		02_draw/draw_walls.c \
+		03_utils/input_controls.c \
+		03_utils/math_helper.c \
+		03_utils/maths.c \
+		03_utils/utils.c \
+		04_free/free.c \
+		04_free/window_destroy.c 
+		# _archive/display_image.c \
+		# _archive/j_raycaster.c
 		
 
 # DIRECTORIES AND PATHS
@@ -66,7 +68,7 @@ CC			:= cc
 RM			:= rm -f
 
 # HEADERS
-HEADERS		:= $(addprefix $(INCLDIR)/, j_cub3d.h libft.h get_next_line.h ft_printf.h)
+HEADERS		:= $(addprefix $(INCLDIR)/, cub3D.h libft.h get_next_line.h ft_printf.h)
 
 # FLAGS
 CFLAGS		:= -Wall -Wextra -Werror
@@ -97,7 +99,12 @@ $(NAME): $(HEADERS) $(LIBFT) $(OBJDIR) $(OBJS)
 
 $(OBJDIR):
 		mkdir $(OBJDIR)
-
+		mkdir $(OBJDIR)/00_parse
+		mkdir $(OBJDIR)/01_cast
+		mkdir $(OBJDIR)/02_draw
+		mkdir $(OBJDIR)/03_utils
+		mkdir $(OBJDIR)/04_free
+		
 $(OBJDIR)%.o: $(SRCDIR)%.c
 		$(CC) $(CFLAGS) $(DEBUGFLAGS) $(INCS) -c $< -o $@
 
