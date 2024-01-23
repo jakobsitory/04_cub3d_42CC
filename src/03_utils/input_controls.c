@@ -6,7 +6,7 @@
 /*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 09:35:27 by jschott           #+#    #+#             */
-/*   Updated: 2024/01/23 16:21:15 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/23 17:06:45 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,10 @@ void	update_position(t_scene *scene, int keycode)
 	new_pos[0] = scene->player_position[0];
 	new_pos[1] = scene->player_position[1];
 	if (keycode == MOVE_FRWD)
-		angle += 90;
-	if (keycode == MOVE_BACK)
 		angle -= 90;
-	if (keycode == MOVE_RIGHT)
+	if (keycode == MOVE_BACK)
+		angle += 90;
+	if (keycode == MOVE_LEFT)
 		angle += 180;
 	set_direction(dir, angle);
 	new_pos[0] += cosf(degr_to_rad(angle)) * scene->player_speed;

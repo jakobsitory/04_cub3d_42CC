@@ -6,7 +6,7 @@
 /*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 17:23:15 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/23 16:19:10 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/23 17:00:34 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,11 @@
 # include "ft_printf.h"
 # include "get_next_line.h"
 
-# define WINDOW_W 	480
-# define WINDOW_H	960
+# define WINDOW_W 	960
+# define WINDOW_H	720
 
 # define FOV			60
-# define MINIMAP_SIZE	.25
+# define MINIMAP_SIZE	.5
 
 # define COLOR_CEILING		0x0033CCFF
 # define COLOR_FLOOR		0x00C99547

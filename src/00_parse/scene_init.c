@@ -6,7 +6,7 @@
 /*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/01/23 16:21:15 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/23 17:11:19 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,10 @@ t_scene	*scene_init(t_data *data)
 	/* create map */
 
 	scene->map = data->map->map;
-	scene->map_size[0] = data->map->map_size[0] -1;
-	scene->map_size[1] = data->map->map_size[1] -1;
+	scene->map_size[0] = data->map->map_size[0];
+	scene->map_size[1] = data->map->map_size[1];
 	print_string_array(scene->map);
 	printf("size: %i x %i\n", scene->map_size[0], scene->map_size[1]);
-	//scene->map = map_init();
-/* 	scene->map_size[0] = 8;
-	scene->map_size[1] = 8; */
 
 	scene->map_scale = MINIMAP_SIZE * map_scale(scene->map_size);
 	//scene->map_square_scale = 100;
@@ -50,11 +47,12 @@ t_scene	*scene_init(t_data *data)
 		return (NULL); // MEMORY MGMT TBD
 	for (int i = 0; i < WINDOW_W; i++)
 		scene->rays[i] = (t_ray_result *) malloc (sizeof(t_ray_result)); // MEMORY MGMT TBD
+	
 	/* Place Player on Map */
-
 	scene->player_position[1] = data->map->player_position[1];
 	scene->player_position[0] = data->map->player_position[0];
-	scene->player_orientation = 360;
+	scene->player_speed = .1f;
+	scene->player_orientation = data->map->player_orientation;
 	printf("player at %f, %f looking in %d\n", scene->player_position[0], scene->player_position[1],scene->player_orientation);
 
 	return (scene);
