@@ -6,12 +6,11 @@
 /*   By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 17:22:00 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/23 19:15:05 by lgrimmei         ###   ########.fr       */
+/*   Updated: 2024/01/23 19:24:25 by lgrimmei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
-
 int	main(int argc, char *argv[])
 {
 	t_scene	*scene;
@@ -20,17 +19,26 @@ int	main(int argc, char *argv[])
 	check_args(argc, argv);
 	data = init_data();
 	parse_file(data, argv[1]);
+	//free_data(data);
+
 	scene = scene_init(data);
 	win_init(scene);
+
 	cast_all_rays(scene);
 	prepare_rays(scene);
+
+	/* Draw Scene */
 	background_fill(scene);
+	printf("0\n");
 	draw_walls(scene);
+	printf("1\n");
 	draw_map(scene);
+	printf("2\n");
 	mlx_put_image_to_window(scene->window->mlx, scene->window->mlx_win, \
 							scene->image->img, 0, 0);
 	key_events(scene);
 	mlx_loop(scene->window->mlx);
+
 	win_destroy(scene);
 	return (0);
 }
