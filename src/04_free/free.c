@@ -6,16 +6,16 @@
 /*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 15:32:59 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/23 16:21:15 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/24 16:13:36 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
-
+/* 
 void	free_data(t_data *data)
 {
 	free_res(data);
-	free_map(data);
+	free_map(data->map);
 	if (data->filepath)
 		free(data->filepath);
 	if (data->line)
@@ -66,3 +66,4 @@ void	free_map(t_data *data)
 	if (data->map)
 		free(data->map);
 }
+ */

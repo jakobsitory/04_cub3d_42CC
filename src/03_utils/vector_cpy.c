@@ -1,22 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   draw_frame.c                                       :+:      :+:    :+:   */
+/*   vector_cpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/24 08:36:45 by jschott           #+#    #+#             */
-/*   Updated: 2024/01/24 16:09:10 by jschott          ###   ########.fr       */
+/*   Created: 2024/01/24 12:40:14 by jschott           #+#    #+#             */
+/*   Updated: 2024/01/24 12:42:01 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-void	draw_frame(t_data *data)
+void	vector_cpy(float *dest[2], float src[2])
 {
-	draw_background(data->window, data->env);
-	draw_walls(data);
-	draw_map(data);
-	mlx_put_image_to_window(data->window->mlx, data->window->mlx_win, \
-							data->window->img, 0, 0);
+	if (!dest || !src)
+		return ;
+	(*dest)[0] = src[0];
+	(*dest)[1] = src[1];
 }

@@ -6,12 +6,12 @@
 /*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 15:55:31 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/23 16:21:15 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/24 16:00:15 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
-
+/* 
 char	**create_map_arr(t_data *data, int i, int j, int k)
 {
 	char	**map;
@@ -102,3 +102,4 @@ void	calc_line_length(t_map *map)
 	if (current_line_length > map->map_size[0])
 		map->map_size[0] = current_line_length;
 }
+ */

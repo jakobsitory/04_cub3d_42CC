@@ -1,22 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   draw_frame.c                                       :+:      :+:    :+:   */
+/*   init_rays.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/24 08:36:45 by jschott           #+#    #+#             */
-/*   Updated: 2024/01/24 16:09:10 by jschott          ###   ########.fr       */
+/*   Created: 2024/01/24 15:43:27 by jschott           #+#    #+#             */
+/*   Updated: 2024/01/24 16:36:23 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-void	draw_frame(t_data *data)
+t_ray_result	**init_rays(void)
 {
-	draw_background(data->window, data->env);
-	draw_walls(data);
-	draw_map(data);
-	mlx_put_image_to_window(data->window->mlx, data->window->mlx_win, \
-							data->window->img, 0, 0);
+	t_ray_result	**rays;
+	int				i;
+
+	rays = (t_ray_result **) malloc (WINDOW_W * sizeof(t_ray_result *));
+	if (!rays)
+		return (NULL); // MEMORY MGMT TBD
+	i = -1;
+	while (++i < WINDOW_W)
+		rays[i] = (t_ray_result *) malloc (sizeof(t_ray_result)); // MEMORY MGMT TBD
+	return (rays);
 }

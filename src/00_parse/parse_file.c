@@ -6,13 +6,13 @@
 /*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 17:57:43 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/23 16:21:15 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/24 16:20:46 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-void	parse_file(t_data *data, char *filepath)
+/* void	parse_file(t_data *data, char *filepath)
 {
 	data->filepath = ft_strdup(filepath);
 	parse_textures(data);
@@ -20,9 +20,9 @@ void	parse_file(t_data *data, char *filepath)
 	parse_map(data);
 	check_invalid_lines(data);
 	parse_successful(data);
-}
+} */
 
-void	parse_textures(t_data *data)
+/* void	parse_textures(t_data *data)
 {
 	data->fd = open(data->filepath, O_RDONLY);
 	data->line = get_next_line(data->fd);
@@ -43,9 +43,9 @@ void	parse_textures(t_data *data)
 	}
 	free(data->line);
 	close(data->fd);
-}
+} */
 
-void	parse_colors(t_data *data)
+/* void	parse_colors(t_data *data)
 {
 	char	*line;
 
@@ -67,17 +67,17 @@ void	parse_colors(t_data *data)
 	data->res->floor_hex = convert_to_hex(data->res->floor_colors);
 	data->res->ceiling_hex = convert_to_hex(data->res->ceiling_colors);
 	close (data->fd);
-}
-
+} */
+/* 
 void	parse_map(t_data *data)
 {
 	read_map(data);
 	get_player_pos(data);
 	get_player_orientation(data);
 	check_map(data);
-}
+} */
 
-void	check_invalid_lines(t_data *data)
+/* void	check_invalid_lines(t_data *data)
 {
 	data->fd = open(data->filepath, O_RDONLY);
 	data->line = get_next_line(data->fd);
@@ -104,4 +104,4 @@ void	check_invalid_lines(t_data *data)
 	free(data->line);
 	data->line = NULL;
 	close(data->fd);
-}
+} */

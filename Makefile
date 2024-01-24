@@ -6,7 +6,7 @@
 #    By: jschott <jschott@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: Invalid date        by                   #+#    #+#              #
-#    Updated: 2024/01/24 12:20:33 by jschott          ###   ########.fr        #
+#    Updated: 2024/01/24 16:41:38 by jschott          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,35 +22,38 @@ NAME		= cub3D
 
 # SOURCES
 SRCS := main.c \
+		00_parse/check_map.c \
+		00_parse/init_data.c \
 		00_parse/parse_colors.c \
 		00_parse/parse_file.c \
 		00_parse/parse_helpers.c \
 		00_parse/parse_map.c \
-		00_parse/parse_textures.c \
-		00_parse/parse_xpm.c \
-		00_parse/check_map.c \
-		00_parse/init_data.c \
-		00_parse/window_init.c \
-		00_parse/scene_init.c \
 		00_parse/read_map.c \
-		01_cast/cast_ray.c \
-		01_cast/render_walls.c \
-		02_draw/draw_background.c \
-		02_draw/draw_fov.c \
+		00_parse/parse_xpm.c \
+		00_parse/parse_textures.c \
+		00_parse/init_window.c \
+		01_render/render_walls.c \
+		01_render/render_frame.c \
+		01_render/render_ray.c \
+		01_render/render_player.c \
+		00_parse/init_env.c \
+		00_parse/init_rays.c \
 		02_draw/draw_line.c \
 		02_draw/draw_map.c \
-		02_draw/draw_walls.c \
 		02_draw/draw_frame.c \
 		02_draw/draw_shader.c \
-		03_utils/input_controls.c \
-		03_utils/math_helper.c \
+		02_draw/draw_background.c \
+		02_draw/draw_walls.c \
 		03_utils/maths.c \
 		03_utils/utils.c \
+		03_utils/math_helper.c \
+		03_utils/vector_cpy.c \
+		03_utils/event_hooks.c \
 		04_free/free.c \
-		04_free/window_destroy.c 
-		# _archive/display_image.c \
-		# _archive/j_raycaster.c
-		
+		04_free/free_window.c \
+		04_free/free_env.c \
+		04_free/free_rays.c \
+		04_free/free_data.c 
 
 # DIRECTORIES AND PATHS
 INCLDIR		:= include/
@@ -74,8 +77,8 @@ HEADERS		:= $(addprefix $(INCLDIR)/, cub3D.h libft.h get_next_line.h ft_printf.h
 
 # FLAGS
 CFLAGS		:= -Wall -Wextra -Werror
-# DEBUGFLAGS	:= -g -fsanitize=address
-DEBUGFLAGS	:= -g
+DEBUGFLAGS	:= -g -fsanitize=address
+# DEBUGFLAGS	:= -g
 LIBFTFLAG	:= -L$(LIBFTDIR)
 LIBFTLIB	:= -lft
 LIBMLXFLAG	:= -L$(LIBMLXDIR)
@@ -103,7 +106,7 @@ $(NAME): $(HEADERS) $(LIBFT) $(OBJDIR) $(OBJS)
 $(OBJDIR):
 		mkdir $(OBJDIR)
 		mkdir $(OBJDIR)/00_parse
-		mkdir $(OBJDIR)/01_cast
+		mkdir $(OBJDIR)/01_render
 		mkdir $(OBJDIR)/02_draw
 		mkdir $(OBJDIR)/03_utils
 		mkdir $(OBJDIR)/04_free

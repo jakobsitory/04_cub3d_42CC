@@ -6,7 +6,7 @@
 /*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 18:57:45 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/23 16:21:15 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/24 16:12:25 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	exit_error(char *msg, t_data *data)
 	exit (1);
 }
 
-void	print_res(t_res *res)
+/* void	print_res(t_res *res)
 {
 	ft_printf("%s\n", res->north_text_path);
 	ft_printf("%s\n", res->east_text_path);
@@ -32,8 +32,8 @@ void	print_res(t_res *res)
 	, res->floor_colors[2], res->floor_colors);
 	ft_printf("%i %i %i -> %x\n", res->ceiling_colors[0], res->ceiling_colors[1] \
 	, res->ceiling_colors[2], res->ceiling_colors);
-}
-
+} */
+/* 
 void	print_map(t_map *map)
 {
 	print_string_array(map->map);
@@ -41,7 +41,7 @@ void	print_map(t_map *map)
 	ft_printf("Player Pos [x, y]: [%i, %i]\n", map->player_position[0], \
 	map->player_position[1]);
 	ft_printf("Player Orientation in degree: %i\n", map->player_orientation);
-}
+} */
 
 void	print_string_array(char **array)
 {

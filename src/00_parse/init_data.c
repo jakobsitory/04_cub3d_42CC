@@ -6,7 +6,7 @@
 /*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 19:06:18 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/23 16:21:15 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/24 17:18:41 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,23 +16,16 @@ t_data	*init_data(void)
 {
 	t_data	*data;
 
-	data = malloc(sizeof(t_data));
+	data = (t_data *) malloc(sizeof(t_data));
 	if (!data)
 		exit_error(MALLOC_ERR, data);
-	data->map = malloc(sizeof(t_map));
-	if (!data->map)
-		exit_error(MALLOC_ERR, data);
-	init_res(data);
-	data->line = NULL;
-	data->map->map_string = ft_strdup("");
-	data->map->map = NULL;
-	data->map->map_copy = NULL;
-	data->map->x_moves = create_possible_moves_x(data);
-	data->map->y_moves = create_possible_moves_y(data);
+	data->env = init_env(NULL);
+	data->rays = init_rays();;
+	data->window = init_window();;
 	return (data);
 }
 
-void	init_res(t_data *data)
+/* void	init_res(t_data *data)
 {
 	data->res = malloc(sizeof(t_res));
 	if (!data->res)
@@ -49,7 +42,7 @@ void	init_res(t_data *data)
 	data->res->floor_colors[2] = -1;
 	data->res->ceiling_hex = -1;
 	data->res->floor_hex = -1;
-}
+} */
 
 int	*create_possible_moves_x(t_data *data)
 {
@@ -93,12 +86,12 @@ char	**init_map(t_data *data)
 	char	**map;
 
 	i = 0;
-	map = malloc(sizeof(char *) * (data->map->map_size[1] + 1));
+	map = malloc(sizeof(char *) * (data->env->map_size[1] + 1));
 	if (!map)
 		exit_error(MALLOC_ERR, data);
-	while (i < data->map->map_size[1])
+	while (i < data->env->map_size[1])
 	{
-		map[i] = malloc(sizeof(char) * (data->map->map_size[0] + 1));
+		map[i] = malloc(sizeof(char) * (data->env->map_size[0] + 1));
 		if (!map[i])
 			exit_error(MALLOC_ERR, data);
 		i++;

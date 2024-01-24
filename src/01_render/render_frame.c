@@ -1,22 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   draw_frame.c                                       :+:      :+:    :+:   */
+/*   render_frame.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/24 08:36:45 by jschott           #+#    #+#             */
-/*   Updated: 2024/01/24 16:09:10 by jschott          ###   ########.fr       */
+/*   Created: 2024/01/24 12:24:06 by jschott           #+#    #+#             */
+/*   Updated: 2024/01/24 13:38:05 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-void	draw_frame(t_data *data)
+void	render_frame(t_ray_result **rays, t_env *env)
 {
-	draw_background(data->window, data->env);
-	draw_walls(data);
-	draw_map(data);
-	mlx_put_image_to_window(data->window->mlx, data->window->mlx_win, \
-							data->window->img, 0, 0);
+	render_rays(rays, env);
+	render_walls(rays, env);
 }

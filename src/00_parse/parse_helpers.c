@@ -6,13 +6,13 @@
 /*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 15:52:31 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/23 16:21:15 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/24 15:59:55 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-void	parse_successful(t_data *data)
+/* void	parse_successful(t_data *data)
 {
 	if (!data->res->floor_hex)
 		exit_error(COLOR_ERR, data);
@@ -75,3 +75,4 @@ int	convert_to_hex(int rgb[3])
 	hex = (rgb[0] << 16) | (rgb[1] << 8) | rgb[2];
 	return (hex);
 }
+ */

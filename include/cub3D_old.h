@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3D copy.h                                       :+:      :+:    :+:   */
+/*   cub3D_old.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 17:23:15 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/24 12:15:28 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/24 16:58:43 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,11 @@
 # include "ft_printf.h"
 # include "get_next_line.h"
 
-# define WINDOW_W 	960
-# define WINDOW_H	720
+# define WINDOW_W 	720
+# define WINDOW_H	960
 
 # define FOV			60
 # define MINIMAP_SIZE	.5
-# define PLAYER_SPEED	.1
 
 # define COLOR_CEILING		0x8833CCFF
 # define COLOR_FLOOR		0x88C99547
@@ -39,7 +38,7 @@
 # define COLOR_MAP_FLOOR	0x88FFFFFF
 # define COLOR_MAP_WALL		0x88000000
 
-#define NORTH_TEXTURE "resources/wall.xpm"
+#define NORTH_TEXTURE "resources/north.xpm"
 #define EAST_TEXTURE "resources/wall.xpm"
 #define SOUTH_TEXTURE "resources/wall.xpm"
 #define WEST_TEXTURE "resources/wall.xpm"
@@ -76,33 +75,28 @@
 
 //////////////////////////////-----STRUCTURES-----//////////////////////////////
 
-typedef struct s_window {
-	void	*mlx;
-	void	*mlx_win;
-	
+typedef struct s_line
+{
+	int		start[2];
+	int		end[2];
+	int		dx;
+	int		dy;
+	int		sx;
+	int		sy;
+	int		err;
+	int		e2;
+	int		color;
+}			t_line;
+
+typedef struct s_image {
 	void	*img;
-	char	*img_addr;
-	int		img_bits_per_pixel;
-	int		img_line_length;
-	int		img_endian;
-
-	int		fov_degrees;
-	int		center_x;
-	int		center_y;
-	int		px_per_ray;
-}			t_window;
-
-typedef struct s_ray_result {
-	float	degree;
-	float	distance;
-	float	x;
-	float	y;
-	int		line_height;
-	int		start_y;
-	int		end_y;
-	char	*texture_path;
-	t_xpm	*xpm;
-}			t_ray_result;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		width;
+	int		height;
+	int		endian;
+}			t_image;
 
 typedef struct s_xpm_color {
 	char				c;
@@ -120,38 +114,53 @@ typedef struct s_xpm {
 	int			fd;
 }				t_xpm;
 
-typedef struct s_data
-{
-	t_env			*env;
-	t_window		*window;
-	t_ray_result	**rays;
-}	t_data;
+typedef struct s_ray_result {
+	float	degree;
+	float	distance;
+	float	x;
+	float	y;
+	int		line_height;
+	int		start_y;
+	int		end_y;
+	char	*texture_path;
+	t_xpm	*xpm;
+}			t_ray_result;
 
-typedef struct s_env
-{
-	int		fd;
-	char	*filepath;
-	char	*line;
-	
-	char			**map;
-	int				map_size[2];
-	float			map_scale;
-	struct s_line	*map_ray; //evtl. remove
-	
-	float			player_position[2];
-	int				player_orientation;
+typedef struct s_window {
+	void	*mlx;
+	void	*mlx_win;
+	int		width;
+	int		height;
 
-	int				floor_hex;
-	int				ceiling_hex;
-	struct s_xpm	**wall_textures;
-}	t_env;
+	int		fov_degrees;
+	int		width_px;
+	int		height_px;
+	int		center_x;
+	int		center_y;
+	int		px_per_ray;
+}			t_window;
 
-// get rid of this
-typedef struct s_map
+typedef struct s_scene {
+	struct s_window		*window;
+	struct s_image		*image;
+
+	struct s_ray_result	**rays;
+	float				ray_resolution;
+	struct s_xpm		**textures;
+
+	char				**map;
+	int					map_size[2];
+	float				map_scale;
+	struct s_line		*map_ray;
+
+	float				player_position[2];
+	int					player_orientation;
+	int					player_direction[2];
+	float				player_speed;
+}			t_scene;
+
+typedef struct s_res
 {
-	int		fd;
-	char	*filepath;
-	char	*line;
 	char	*north_text_path;
 	char	*east_text_path;
 	char	*south_text_path;
@@ -160,6 +169,10 @@ typedef struct s_map
 	int		ceiling_colors[3];
 	int		floor_hex;
 	int		ceiling_hex;
+}	t_res;
+
+typedef struct s_map
+{
 	char	*map_string;
 	int		map_size[2];
 	int		map_square_scale;
@@ -170,6 +183,15 @@ typedef struct s_map
 	int		*x_moves;
 	int		*y_moves;
 }	t_map;
+
+typedef struct s_data
+{
+	int		fd;
+	char	*filepath;
+	t_res	*res;
+	char	*line;
+	t_map	*map;
+}	t_data;
 
 /////////////////////////////////-----MAIN-----/////////////////////////////////
 

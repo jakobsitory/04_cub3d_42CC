@@ -6,25 +6,25 @@
 /*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 12:12:27 by jschott           #+#    #+#             */
-/*   Updated: 2024/01/24 11:36:33 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/24 16:11:12 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-void	my_mlx_pixel_put(t_image *image, int x, int y, int color)
+void	draw_pixel(t_window *window, int x, int y, int color)
 {
 	char	*dst;
 
 	if (x >= 0 && y >= 0 && y <= WINDOW_H && x <= WINDOW_W)
 	{
-		dst = image->addr + (y * image->line_length + \
-							x * (image->bits_per_pixel / 8));
+		dst = window->img_addr + (y * window->img_line_length + \
+							x * (window->img_bits_per_pixel / 8));
 		*(unsigned int *)dst = color;
 	}
 }
 
-void	rectangle_fill(t_image *image, int start[2], int end[2], int color)
+void	draw_rectangle(t_window *window, int start[2], int end[2], int color)
 {
 	int	x;
 	int	y;
@@ -34,25 +34,25 @@ void	rectangle_fill(t_image *image, int start[2], int end[2], int color)
 	while (++y < end[1])
 	{
 		while (++x < end[0])
-			my_mlx_pixel_put(image, x, y, color);
+			draw_pixel(window, x, y, color);
 		x = start[0] - 1;
 	}
 }
 
-void	background_fill(t_scene *scene)
+void	draw_background(t_window *window, t_env *env)
 {
-	int	x;
-	int	y;
-	int	color;
-	float	distance = 0;
+	int		x;
+	int		y;
+	int		color;
+	float	distance;
 
 	x = -1;
 	y = -1;
-	color = COLOR_CEILING; // PLACEHOLDER
+	color = env->ceiling_hex;
 	while (++y < WINDOW_H)
 	{
 		if (y == WINDOW_H / 2)
-			color = COLOR_FLOOR; // PLACEHOLDER
+			color = env->floor_hex;
 		if (y <= WINDOW_H / 2)
 			distance = (float)(20 * y) / (float)(WINDOW_H - 70);
 		else if (y >= WINDOW_H / 2)
@@ -60,7 +60,7 @@ void	background_fill(t_scene *scene)
 
 		while (++x < WINDOW_W)
 		{
-			my_mlx_pixel_put(scene->image, x, y, color);
+			draw_pixel(window, x, y, color);
 			// draw_shader(scene->image, x, y, distance);
 		}
 		x = -1;

@@ -6,7 +6,7 @@
 /*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 09:47:49 by jschott           #+#    #+#             */
-/*   Updated: 2024/01/24 10:28:04 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/24 16:10:25 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,14 @@
 #define VIEW_DISTANCE	10
 #define COLOR_SHADOW	0x001B2029
 
-void	my_transparent_pixel_put(t_image *image, int x, int y, int color)
+void	my_transparent_pixel_put(t_window *window, int x, int y, int color)
 {
 	char *dst;
 
 	if (x >= 0 && y >= 0 && y <= WINDOW_H && x <= WINDOW_W)
 	{
-		dst = image->addr + (y * image->line_length + \
-				x * (image->bits_per_pixel / 8));
+		dst = window->img_addr + (y * window->img_line_length + \
+				x * (window->img_bits_per_pixel / 8));
 		unsigned int *dst_color = (unsigned int *)dst;
 		unsigned int alpha = (color >> 24) & 0xFF;
 		unsigned int red = (color >> 16) & 0xFF;
@@ -35,12 +35,12 @@ void	my_transparent_pixel_put(t_image *image, int x, int y, int color)
     }
 }
 
-void	draw_shader(t_image *image, int x, int y, float distance)
+void	draw_shader(t_window *window, int x, int y, float distance)
 {
 	if (distance >= VIEW_DISTANCE)
-		my_mlx_pixel_put(image, x, y, COLOR_SHADOW);
+		draw_pixel(window, x, y, COLOR_SHADOW);
 	int alpha = (int)(255 * distance / (float) VIEW_DISTANCE);
 	int color = COLOR_SHADOW;
 	color = color | (alpha << 24);
-	my_transparent_pixel_put(image, x, y, color);
+	my_transparent_pixel_put(window, x, y, color);
 }

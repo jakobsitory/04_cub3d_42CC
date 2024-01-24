@@ -1,22 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   draw_frame.c                                       :+:      :+:    :+:   */
+/*   free_rays.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/24 08:36:45 by jschott           #+#    #+#             */
-/*   Updated: 2024/01/24 16:09:10 by jschott          ###   ########.fr       */
+/*   Created: 2024/01/24 16:18:44 by jschott           #+#    #+#             */
+/*   Updated: 2024/01/24 16:30:34 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-void	draw_frame(t_data *data)
+void	free_rays(t_ray_result **rays)
 {
-	draw_background(data->window, data->env);
-	draw_walls(data);
-	draw_map(data);
-	mlx_put_image_to_window(data->window->mlx, data->window->mlx_win, \
-							data->window->img, 0, 0);
+	int	i;
+
+	if (!rays)
+		return ;
+	i = -1;
+	while (++i < WINDOW_W)
+		free(rays[i]);
+	free(rays);	
 }

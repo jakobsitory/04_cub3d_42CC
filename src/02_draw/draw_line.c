@@ -18,13 +18,13 @@
  * @param img The image to draw the line on.
  * @param line The line to be drawn.
  */
-void	draw_bresenham(t_image *img, t_line *line)
+void	draw_bresenham(t_window *window, t_line *line)
 {
 	while (1)
 	{
-		my_mlx_pixel_put(img, line->start[0], line->start[1], line->color);
+		draw_pixel(window, line->start[0], line->start[1], line->color);
 		if (line->start[0] == line->end[0] && line->start[1] == line->end[1])
-			break;
+			break ;
 		line->e2 = 2 * line->err;
 		if (line->e2 > -line->dy)
 		{
@@ -47,13 +47,11 @@ void	draw_bresenham(t_image *img, t_line *line)
  * @param end The ending coordinates of the line.
  * @param color The color of the line.
  */
-void	draw_line(t_scene *scene, int start[2], int end[2])
+void	draw_line(t_window *window, int start[2], int end[2], int color)
 {
-	int		color;
 	t_line	*line;
-	
-	color = COLOR_MAP_PLAYER;
-	line = scene->map_ray;
+
+	line = window->line_buffer;
 	line->start[0] = start[0];
 	line->start[1] = start[1];
 	line->end[0] = end[0];
@@ -71,5 +69,5 @@ void	draw_line(t_scene *scene, int start[2], int end[2])
 		line->sy = 1;
 	else
 		line->sy = -1;
-	draw_bresenham(scene->image, line);
+	draw_bresenham(window, line);
 }

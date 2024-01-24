@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cast_ray.c                                         :+:      :+:    :+:   */
+/*   render_ray.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 15:03:37 by jschott           #+#    #+#             */
-/*   Updated: 2024/01/23 17:24:06 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/24 12:39:03 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 /// @param pos current position (x,y) of the ray on the map
 /// @param dir direction the ray (x,y) is heading to
 /// @return 1 if wall has been hit, 0 if it has not hit a wall
-int	ray_collision(t_scene *scene, float dest[2], int dir[2])
+int	ray_collision(char **map, float dest[2], int dir[2])
 {
 	float	new_pos[2];
 
@@ -36,12 +36,12 @@ int	ray_collision(t_scene *scene, float dest[2], int dir[2])
 	else if (dir[0] == BACK)
 		new_pos[0] = floorf(dest[0]);
 	if (dir[1] == FRWD && !is_whole_number(new_pos[1]))
-		new_pos[1]= floorf(dest[1]);
+		new_pos[1] = floorf(dest[1]);
 	else if (dir[1] == BACK && is_whole_number(new_pos[1]))
 		--new_pos[1];
 	else if (dir[1] == BACK)
 		new_pos[1] = floorf(dest[1]);
-	if (scene->map[(int) new_pos[1]][(int) new_pos[0]] == '1')
+	if (map[(int) new_pos[1]][(int) new_pos[0]] == '1')
 		return (1);
 	return (0);
 }
@@ -94,54 +94,54 @@ void	set_direction(int dir[2], float angle)
 		dir[1] = HALT;
 }
 
-int	cast_ray(t_ray_result *ray,  t_scene *scene, float angle)
+int	cast_ray(t_ray_result *ray,  t_env *env, float angle)
 {
 	float	next[2];
 	int		dir[2];
 	float	diff[2];
 
 	set_direction(dir, angle);
-	next[0] = scene->player_position[0];
-	next[1] = scene->player_position[1];
-	while (!ray_collision(scene, next, dir))
+	next[0] = env->player_position[0];
+	next[1] = env->player_position[1];
+	while (!ray_collision(env->map, next, dir))
 	{
 		find_next(next, dir);
 		if (dir[0] != HALT && dir[1] != HALT)
 		{
-			diff[0] = (next[0] - scene->player_position[0]);
-			diff[1] = (next[1] - scene->player_position[1]);
+			diff[0] = (next[0] - env->player_position[0]);
+			diff[1] = (next[1] - env->player_position[1]);
 			if (ft_absf(diff[0] / sinf(degr_to_rad(angle))) \
 					< ft_absf(diff[1] / cosf(degr_to_rad(angle))))
 				next[1] = ft_absf(ft_absf(diff[0] / tanf(degr_to_rad(angle))) \
-							+ dir[1] * scene->player_position[1]);
+							+ dir[1] * env->player_position[1]);
 			else
 				next[0] = ft_absf(ft_absf(diff[1] * tanf(degr_to_rad(angle))) \
-							+ dir[0] * scene->player_position[0]);
+							+ dir[0] * env->player_position[0]);
 		}
 	}
-	ray->distance = get_distance(scene->player_position, next);
+	ray->distance = get_distance(env->player_position, next);
 	ray->x = next[0];
 	ray->y = next[1];
 	ray->degree = angle;
 	return (0);
 }
 
-void	cast_all_rays(t_scene *scene)
+void	render_rays(t_ray_result **rays, t_env *env)
 {
 	float	angle;
 	int		i;
 
-	if (scene->player_orientation > .5f * FOV)
-		angle = (float)((int)(scene->player_orientation - .5f * FOV)  % 360);
+	if (env->player_orientation > .5f * FOV)
+		angle = (float)((int)(env->player_orientation - .5f * FOV)  % 360);
 	else
-		angle = (float)(360.0f - .5f * FOV) + ((scene->player_orientation));
+		angle = (float)(360.0f - .5f * FOV) + ((env->player_orientation));
 	i = 0;
 	while (i < WINDOW_W)
 	{
-		angle += scene->ray_resolution;
+		angle += env->degr_per_ray;
 		if (angle >= 360)
 			angle -= 360;
-		cast_ray(scene->rays[i], scene, angle);
+		cast_ray(rays[i], env, angle);
 		i++;
 	}
 }

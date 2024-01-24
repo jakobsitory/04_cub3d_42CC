@@ -6,21 +6,21 @@
 /*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 19:57:38 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/23 16:21:15 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/24 15:58:04 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-void	check_map(t_data *data)
+/* void	check_map(t_data *data)
 {
 	if (!check_valid_chars(data->map->map, data))
 		exit_error(CHARS_ERR, data);
 	flood_fill(data, data->map->map_copy, data->map->player_position[0] \
 	, data->map->player_position[1]);
-}
+} */
 
-void	flood_fill(t_data *data, char **map, int x, int y)
+/* void	flood_fill(t_data *data, char **map, int x, int y)
 {
 	int	i;
 
@@ -38,7 +38,7 @@ void	flood_fill(t_data *data, char **map, int x, int y)
 		y + data->map->y_moves[i]);
 		i++;
 	}
-}
+} */
 
 int	is_valid_pos(char **map, int x, int y)
 {
@@ -48,7 +48,7 @@ int	is_valid_pos(char **map, int x, int y)
 	return (0);
 }
 
-int	check_valid_chars(char **map, t_data *data)
+/* int	check_valid_chars(char **map, t_data *data)
 {
 	int	x;
 	int	y;
@@ -74,7 +74,7 @@ int	check_valid_chars(char **map, t_data *data)
 		y++;
 	}
 	return (1);
-}
+} */
 
 int	is_valid_char(char c)
 {
