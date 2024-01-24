@@ -3,31 +3,47 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 17:22:00 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/24 12:21:43 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/24 16:50:15 by lgrimmei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
+
+void	print_env(t_env *env)
+{
+	printf("north txt: %s\n", env->wall_textures[0]->filepath);
+	printf("east txt: %s\n", env->wall_textures[1]->filepath);
+	printf("south txt: %s\n", env->wall_textures[2]->filepath);
+	printf("west txt: %s\n", env->wall_textures[3]->filepath);
+	print_string_array(env->map);
+	printf("map size: %i x %i\n", env->map_size[0], env->map_size[1]);
+	printf("player position: %f x %f\n", env->player_position[0], env->player_position[1]);
+	printf("player orientation: %i\n", env->player_orientation);
+	printf("floor hex: %x\n", env->floor_hex);
+	printf("ceiling hex -> %x\n", env->ceiling_hex);
+}
+
 int	main(int argc, char *argv[])
 {
-	t_scene	*scene;
+	//t_scene	*scene;
 	t_data	*data;
 
 	check_args(argc, argv);
 	data = init_data();
 	parse_file(data, argv[1]);
-	//free_data(data);
-
+	//print_env(data->env);
+/* 
 	scene = scene_init(data);
 	win_init(scene);
 	draw_frame(scene);
 	key_events(scene);
 	mlx_loop(scene->window->mlx);
 
-	win_destroy(scene);
+	win_destroy(scene); */
+	free_data(data);
 	return (0);
 }
 

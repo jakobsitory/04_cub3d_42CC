@@ -6,14 +6,14 @@
 /*   By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 17:27:29 by jschott           #+#    #+#             */
-/*   Updated: 2024/01/23 18:23:53 by lgrimmei         ###   ########.fr       */
+/*   Updated: 2024/01/24 13:10:14 by lgrimmei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "cub3D.h"
 
-t_scene	*scene_init(t_data *data)
+/* t_scene	*scene_init(t_data *data)
 {
 	t_scene	*scene;
 
@@ -40,10 +40,10 @@ t_scene	*scene_init(t_data *data)
 		return (NULL); // MEMORY MGMT TBD
 	for (int i = 0; i < WINDOW_W; i++)
 		scene->rays[i] = (t_ray_result *) malloc (sizeof(t_ray_result)); // MEMORY MGMT TBD
-	/* Place Player on Map */
+	 Place Player on Map 
 	scene->player_position[1] = data->map->player_position[1];
 	scene->player_position[0] = data->map->player_position[0];
 	scene->player_speed = .1f;
 	scene->player_orientation = data->map->player_orientation;
 	return (scene);
-}
+} */

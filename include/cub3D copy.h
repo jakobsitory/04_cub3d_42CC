@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D copy.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 17:23:15 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/24 12:15:28 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/24 12:24:51 by lgrimmei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,6 @@
 # define COLOR_MAP_FOV		0x88FF0000
 # define COLOR_MAP_FLOOR	0x88FFFFFF
 # define COLOR_MAP_WALL		0x88000000
-
-#define NORTH_TEXTURE "resources/wall.xpm"
-#define EAST_TEXTURE "resources/wall.xpm"
-#define SOUTH_TEXTURE "resources/wall.xpm"
-#define WEST_TEXTURE "resources/wall.xpm"
 
 # define LOOK_LEFT	65361
 # define LOOK_RIGHT	65363

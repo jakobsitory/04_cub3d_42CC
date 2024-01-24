@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_colors.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 17:56:12 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/23 16:21:15 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/24 13:55:53 by lgrimmei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ void	save_color(char *identifier, char *line, t_data *data)
 	free(line_trimmed);
 	valid_chars_color(line_trimmed_whitesp, data);
 	if (ft_strncmp(identifier, CEILING_ID, ft_strlen(identifier)) == 0)
-		save_next_hex(line_trimmed_whitesp, data->res->ceiling_colors, data);
+		save_next_hex(line_trimmed_whitesp, data->parser->ceiling_colors, data);
 	else if (ft_strncmp(identifier, FLOOR_ID, ft_strlen(identifier)) == 0)
-		save_next_hex(line_trimmed_whitesp, data->res->floor_colors, data);
+		save_next_hex(line_trimmed_whitesp, data->parser->floor_colors, data);
 	free(line_trimmed_whitesp);
 }
 
@@ -37,12 +37,12 @@ void	check_color_saved(t_data *data, char *identifier)
 {
 	if (ft_strncmp(identifier, CEILING_ID, ft_strlen(identifier)) == 0)
 	{
-		if (data->res->ceiling_colors[0] != -1)
+		if (data->parser->ceiling_colors[0] != -1)
 			exit_error(MULTIPLE_COLOR, data);
 	}
 	else if (ft_strncmp(identifier, FLOOR_ID, ft_strlen(identifier)) == 0)
 	{
-		if (data->res->floor_colors[0] != -1)
+		if (data->parser->floor_colors[0] != -1)
 			exit_error(MULTIPLE_COLOR, data);
 	}
 }

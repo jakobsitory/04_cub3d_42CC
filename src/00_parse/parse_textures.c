@@ -6,7 +6,7 @@
 /*   By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 19:12:26 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/23 18:27:53 by lgrimmei         ###   ########.fr       */
+/*   Updated: 2024/01/24 13:59:51 by lgrimmei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,27 +16,27 @@ void	save_text_if_empty(t_data *data, char *identifier, char *value)
 {
 	if (ft_strncmp(identifier, NORTH_ID, ft_strlen(identifier)) == 0)
 	{
-		if (data->res->north_text_path != NULL)
+		if (data->parser->north_text_path != NULL)
 			exit_error(MULTIPLE_TEXT, data);
-		data->res->north_text_path = ft_strdup(value);
+		data->parser->north_text_path = ft_strdup(value);
 	}
 	else if (ft_strncmp(identifier, EAST_ID, ft_strlen(identifier)) == 0)
 	{
-		if (data->res->east_text_path != NULL)
+		if (data->parser->east_text_path != NULL)
 			exit_error(MULTIPLE_TEXT, data);
-		data->res->east_text_path = ft_strdup(value);
+		data->parser->east_text_path = ft_strdup(value);
 	}
 	else if (ft_strncmp(identifier, SOUTH_ID, ft_strlen(identifier)) == 0)
 	{
-		if (data->res->south_text_path != NULL)
+		if (data->parser->south_text_path != NULL)
 			exit_error(MULTIPLE_TEXT, data);
-		data->res->south_text_path = ft_strdup(value);
+		data->parser->south_text_path = ft_strdup(value);
 	}
 	else if (ft_strncmp(identifier, WEST_ID, ft_strlen(identifier)) == 0)
 	{
-		if (data->res->west_text_path != NULL)
+		if (data->parser->west_text_path != NULL)
 			exit_error(MULTIPLE_TEXT, data);
-		data->res->west_text_path = ft_strdup(value);
+		data->parser->west_text_path = ft_strdup(value);
 	}
 }
 

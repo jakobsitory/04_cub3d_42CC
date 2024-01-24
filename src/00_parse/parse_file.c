@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_file.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 17:57:43 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/23 16:21:15 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/24 16:59:44 by lgrimmei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	parse_file(t_data *data, char *filepath)
 {
-	data->filepath = ft_strdup(filepath);
+	data->parser->filepath = ft_strdup(filepath);
 	parse_textures(data);
 	parse_colors(data);
 	parse_map(data);
@@ -24,33 +24,37 @@ void	parse_file(t_data *data, char *filepath)
 
 void	parse_textures(t_data *data)
 {
-	data->fd = open(data->filepath, O_RDONLY);
-	data->line = get_next_line(data->fd);
-	while (data->line)
+	data->parser->fd = open(data->parser->filepath, O_RDONLY);
+	data->parser->line = get_next_line(data->parser->fd);
+	while (data->parser->line)
 	{
-		if (ft_strncmp(data->line, NORTH_ID, 3) == 0)
-			save_identifier(NORTH_ID, data->line, data);
-		else if (ft_strncmp(data->line, SOUTH_ID, 3) == 0)
-			save_identifier(SOUTH_ID, data->line, data);
-		else if (ft_strncmp(data->line, WEST_ID, 3) == 0)
-			save_identifier(WEST_ID, data->line, data);
-		else if (ft_strncmp(data->line, EAST_ID, 3) == 0)
-			save_identifier(EAST_ID, data->line, data);
-		else if (ft_strncmp(data->line, "", 0) != 0)
+		if (ft_strncmp(data->parser->line, NORTH_ID, 3) == 0)
+			save_identifier(NORTH_ID, data->parser->line, data);
+		else if (ft_strncmp(data->parser->line, SOUTH_ID, 3) == 0)
+			save_identifier(SOUTH_ID, data->parser->line, data);
+		else if (ft_strncmp(data->parser->line, WEST_ID, 3) == 0)
+			save_identifier(WEST_ID, data->parser->line, data);
+		else if (ft_strncmp(data->parser->line, EAST_ID, 3) == 0)
+			save_identifier(EAST_ID, data->parser->line, data);
+		else if (ft_strncmp(data->parser->line, "", 0) != 0)
 			break ;
-		free(data->line);
-		data->line = get_next_line(data->fd);
+		free(data->parser->line);
+		data->parser->line = get_next_line(data->parser->fd);
 	}
-	free(data->line);
-	close(data->fd);
+	free(data->parser->line);
+	data->env->wall_textures[0] = parse_xpm(data->parser->north_text_path);
+	data->env->wall_textures[1] = parse_xpm(data->parser->east_text_path);
+	data->env->wall_textures[2] = parse_xpm(data->parser->south_text_path);
+	data->env->wall_textures[3] = parse_xpm(data->parser->west_text_path);
+	close(data->parser->fd);
 }
 
 void	parse_colors(t_data *data)
 {
 	char	*line;
 
-	data->fd = open(data->filepath, O_RDONLY);
-	line = get_next_line(data->fd);
+	data->parser->fd = open(data->parser->filepath, O_RDONLY);
+	line = get_next_line(data->parser->fd);
 	while (line)
 	{
 		if (ft_strncmp(line, FLOOR_ID, 2) == 0)
@@ -60,13 +64,13 @@ void	parse_colors(t_data *data)
 		else if (ft_strncmp(line, "", 0) != 0)
 			break ;
 		free(line);
-		line = get_next_line(data->fd);
+		line = get_next_line(data->parser->fd);
 	}
 	free(line);
 	check_hex_range(data);
-	data->res->floor_hex = convert_to_hex(data->res->floor_colors);
-	data->res->ceiling_hex = convert_to_hex(data->res->ceiling_colors);
-	close (data->fd);
+	data->env->floor_hex = convert_to_hex(data->parser->floor_colors);
+	data->env->ceiling_hex = convert_to_hex(data->parser->ceiling_colors);
+	close (data->parser->fd);
 }
 
 void	parse_map(t_data *data)
@@ -79,29 +83,29 @@ void	parse_map(t_data *data)
 
 void	check_invalid_lines(t_data *data)
 {
-	data->fd = open(data->filepath, O_RDONLY);
-	data->line = get_next_line(data->fd);
-	while (data->line)
+	data->parser->fd = open(data->parser->filepath, O_RDONLY);
+	data->parser->line = get_next_line(data->parser->fd);
+	while (data->parser->line)
 	{
-		if (ft_strncmp(data->line, NORTH_ID, 3) == 0 || 
-			ft_strncmp(data->line, SOUTH_ID, 3) == 0 || 
-			ft_strncmp(data->line, WEST_ID, 3) == 0 || 
-			ft_strncmp(data->line, EAST_ID, 3) == 0 || 
-			ft_strncmp(data->line, CEILING_ID, 2) == 0 || 
-			ft_strncmp(data->line, FLOOR_ID, 2) == 0 || 
-			ft_strncmp(data->line, "\n", 1) == 0)
+		if (ft_strncmp(data->parser->line, NORTH_ID, 3) == 0 || 
+			ft_strncmp(data->parser->line, SOUTH_ID, 3) == 0 || 
+			ft_strncmp(data->parser->line, WEST_ID, 3) == 0 || 
+			ft_strncmp(data->parser->line, EAST_ID, 3) == 0 || 
+			ft_strncmp(data->parser->line, CEILING_ID, 2) == 0 || 
+			ft_strncmp(data->parser->line, FLOOR_ID, 2) == 0 || 
+			ft_strncmp(data->parser->line, "\n", 1) == 0)
 		{
 		}
-		else if (only_spaces(data->line) == 1)
+		else if (only_spaces(data->parser->line) == 1)
 			exit_error(ONLY_SPACES, data);
-		else if (is_valid_map_line(data->line) == 1)
+		else if (is_valid_map_line(data->parser->line) == 1)
 			break ;
 		else
 			exit_error(INV_LINE, data);
-		free(data->line);
-		data->line = get_next_line(data->fd);
+		free(data->parser->line);
+		data->parser->line = get_next_line(data->parser->fd);
 	}
-	free(data->line);
-	data->line = NULL;
-	close(data->fd);
+	free(data->parser->line);
+	data->parser->line = NULL;
+	close(data->parser->fd);
 }

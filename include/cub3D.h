@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 17:23:15 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/24 12:21:15 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/24 14:24:40 by lgrimmei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,6 @@
 # define COLOR_MAP_FOV		0x88FF0000
 # define COLOR_MAP_FLOOR	0x88FFFFFF
 # define COLOR_MAP_WALL		0x88000000
-
-#define NORTH_TEXTURE "resources/north.xpm"
-#define EAST_TEXTURE "resources/wall.xpm"
-#define SOUTH_TEXTURE "resources/wall.xpm"
-#define WEST_TEXTURE "resources/wall.xpm"
 
 # define LOOK_LEFT	65361
 # define LOOK_RIGHT	65363
@@ -105,6 +100,7 @@ typedef struct s_xpm_color {
 }						t_xpm_color;
 
 typedef struct s_xpm {
+	char		*filepath;
 	int			rows;
 	int			columns;
 	int			colors_count;
@@ -159,39 +155,43 @@ typedef struct s_scene {
 	float				player_speed;
 }			t_scene;
 
-typedef struct s_res
+typedef struct s_env
 {
+	char			**map;
+	int				map_size[2];
+	float			map_scale;
+	//struct s_line	*map_ray; //evtl. remove
+	float			player_position[2];
+	int				player_orientation;
+	int				floor_hex;
+	int				ceiling_hex;
+	struct s_xpm	**wall_textures;
+	//int		map_square_scale; remove?
+}	t_env;
+
+typedef struct s_parser
+{
+	int		fd;
+	char	*filepath;
+	char	*line;
+	int		floor_colors[3];
+	int		ceiling_colors[3];
 	char	*north_text_path;
 	char	*east_text_path;
 	char	*south_text_path;
 	char	*west_text_path;
-	int		floor_colors[3];
-	int		ceiling_colors[3];
-	int		floor_hex;
-	int		ceiling_hex;
-}	t_res;
-
-typedef struct s_map
-{
 	char	*map_string;
-	int		map_size[2];
-	int		map_square_scale;
-	char	**map;
 	char	**map_copy;
-	int		player_position[2];
-	int		player_orientation;
-	int		*x_moves;
-	int		*y_moves;
-}	t_map;
+}	t_parser;
 
 typedef struct s_data
 {
-	int		fd;
-	char	*filepath;
-	t_res	*res;
-	char	*line;
-	t_map	*map;
+	t_parser		*parser;
+	t_env			*env;
+	t_window		*window;
+	t_ray_result	**rays;
 }	t_data;
+
 
 /////////////////////////////////-----MAIN-----/////////////////////////////////
 
@@ -205,6 +205,8 @@ void			init_res(t_data *data);
 int				*create_possible_moves_x(t_data *data);
 int				*create_possible_moves_y(t_data *data);
 char			**init_map(t_data *data);
+void			init_env(t_data *data);
+
 
 ////////////////////////////////-----WINDOW-----////////////////////////////////
 
@@ -263,7 +265,7 @@ t_xpm	*init_xpm(char *filename);
 ///////////////////////////////-----INIT DATA-----//////////////////////////////
 
 t_data			*init_data(void);
-void			init_res(t_data *data);
+//void			init_res(t_data *data);
 int				*create_possible_moves_x(t_data *data);
 int				*create_possible_moves_y(t_data *data);
 char			**init_map(t_data *data);
@@ -272,9 +274,9 @@ char			**init_map(t_data *data);
 ////////////////////////////////-----UTILS-----/////////////////////////////////
 
 void			exit_error(char *msg, t_data *data);
-void			print_res(t_res *res);
+//void			print_res(t_res *res);
 void			print_string_array(char **array);
-void			print_map(t_map *map);
+//void			print_map(t_map *map);
 
 ////////////////////////////////-----PARSE-----/////////////////////////////////
 
@@ -303,17 +305,17 @@ int				convert_to_hex(int rgb[3]);
 ////////////////////////////////-----FREE-----/////////////////////////////////
 
 void			free_data(t_data *data);
-void			free_res(t_data *data);
+void			free_parser(t_data *data);
+void			free_env(t_data *data);
 void			free_str_arr(char **arr);
-void			free_map(t_data *data);
 
 /////////////////////////////-----PARSE MAP-----////////////////////////////////
 
 void			parse_map(t_data *data);
 int				is_valid_map_line(char *line);
-void			calc_map_size(t_map *map);
-void			calc_no_lines(t_map *map);
-void			calc_line_length(t_map *map);
+void			calc_map_size(t_data *data);
+void			calc_no_lines(t_data *data);
+void			calc_line_length(t_data *data);
 char			**create_map_arr(t_data *data, int i, int j, int k);
 void			read_map(t_data *data);
 void			get_player_pos(t_data *data);
