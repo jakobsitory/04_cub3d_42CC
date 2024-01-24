@@ -6,7 +6,7 @@
 /*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 19:57:38 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/24 15:58:04 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/24 17:24:32 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,31 +14,38 @@
 
 /* void	check_map(t_data *data)
 {
-	if (!check_valid_chars(data->map->map, data))
+	if (!check_valid_chars(data->env->map, data))
 		exit_error(CHARS_ERR, data);
-	flood_fill(data, data->map->map_copy, data->map->player_position[0] \
-	, data->map->player_position[1]);
-} */
+	flood_fill(data, data->parser->map_copy, data->env->player_position[0] \
+	, data->env->player_position[1]);
+}
 
 /* void	flood_fill(t_data *data, char **map, int x, int y)
 {
 	int	i;
+	int	*x_moves;
+	int	*y_moves;
 
-	i = 0;
-	if (x >= data->map->map_size[0] || y >= data->map->map_size[1])
-		exit_error(MAP_ERR, data);
 	if (map[y][x] == '1' || map[y][x] == 'X')
 		return ;
-	if (!is_valid_pos(map, x, y))
+	x_moves = create_possible_moves_x(data);
+	y_moves = create_possible_moves_y(data);
+	i = 0;
+	if (x >= data->env->map_size[0] - 1|| y >= data->env->map_size[1] - 1 || !is_valid_pos(map, x, y))
+	{
+		free(x_moves);
+		free(y_moves);
 		exit_error(MAP_ERR, data);
+	}
 	map[y][x] = 'X';
 	while (i < 8)
 	{
-		flood_fill(data, map, x + data->map->x_moves[i], \
-		y + data->map->y_moves[i]);
+		flood_fill(data, map, x + x_moves[i], y + y_moves[i]);
 		i++;
 	}
-} */
+	free(x_moves);
+	free(y_moves);
+}
 
 int	is_valid_pos(char **map, int x, int y)
 {
@@ -57,9 +64,9 @@ int	is_valid_pos(char **map, int x, int y)
 	x = 0;
 	y = 0;
 	flag = 0;
-	while (y < data->map->map_size[1])
+	while (y < data->env->map_size[1])
 	{
-		while (x < data->map->map_size[0])
+		while (x < data->env->map_size[0])
 		{
 			if (!is_valid_char(map[y][x]))
 				return (0);

@@ -6,11 +6,31 @@
 /*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 19:06:18 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/24 17:18:41 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/24 17:24:38 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
+
+void	init_parser(t_data *data)
+{
+	data->parser = malloc(sizeof(t_parser));
+	if (!data->parser)
+		exit_error(MALLOC_ERR, data);
+	data->parser->line = NULL;
+	data->parser->map_string = ft_strdup("");
+	data->parser->map_copy = NULL;
+	data->parser->north_text_path = NULL;
+	data->parser->east_text_path = NULL;
+	data->parser->south_text_path = NULL;
+	data->parser->west_text_path = NULL;
+	data->parser->ceiling_colors[0] = -1;
+	data->parser->ceiling_colors[1] = -1;
+	data->parser->ceiling_colors[2] = -1;
+	data->parser->floor_colors[0] = -1;
+	data->parser->floor_colors[1] = -1;
+	data->parser->floor_colors[2] = -1;
+}
 
 t_data	*init_data(void)
 {
@@ -19,30 +39,23 @@ t_data	*init_data(void)
 	data = (t_data *) malloc(sizeof(t_data));
 	if (!data)
 		exit_error(MALLOC_ERR, data);
-	data->env = init_env(NULL);
-	data->rays = init_rays();;
-	data->window = init_window();;
+	init_env(data);
+	init_parser(data);
 	return (data);
 }
 
-/* void	init_res(t_data *data)
+void	init_env(t_data *data)
 {
-	data->res = malloc(sizeof(t_res));
-	if (!data->res)
+	data->env = malloc(sizeof(t_env));
+	if (!data->env)
 		exit_error(MALLOC_ERR, data);
-	data->res->north_text_path = NULL;
-	data->res->east_text_path = NULL;
-	data->res->south_text_path = NULL;
-	data->res->west_text_path = NULL;
-	data->res->ceiling_colors[0] = -1;
-	data->res->ceiling_colors[1] = -1;
-	data->res->ceiling_colors[2] = -1;
-	data->res->floor_colors[0] = -1;
-	data->res->floor_colors[1] = -1;
-	data->res->floor_colors[2] = -1;
-	data->res->ceiling_hex = -1;
-	data->res->floor_hex = -1;
-} */
+	data->env->wall_textures = malloc (sizeof(t_xpm *) * 4);
+	if (!data->env->wall_textures)
+		exit_error(MALLOC_ERR, data);
+	data->env->map = NULL;
+	data->env->ceiling_hex = -1;
+	data->env->floor_hex = -1;
+}
 
 int	*create_possible_moves_x(t_data *data)
 {

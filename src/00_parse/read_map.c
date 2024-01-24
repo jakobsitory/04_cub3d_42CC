@@ -6,7 +6,7 @@
 /*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 15:55:31 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/24 16:00:15 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/24 17:25:32 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,25 +17,25 @@ char	**create_map_arr(t_data *data, int i, int j, int k)
 	char	**map;
 
 	map = init_map(data);
-	while (data->map->map_string[i])
+	while (data->parser->map_string[i])
 	{
-		if (data->map->map_string[i] == '\n')
+		if (data->parser->map_string[i] == '\n')
 		{
-			while (k < data->map->map_size[0])
+			while (k < data->env->map_size[0])
 				map[j][k++] = '-';
 			map[j++][k] = '\0';
 			k = 0;
 		}
 		else
 		{
-			if (data->map->map_string[i] == ' ')
+			if (data->parser->map_string[i] == ' ')
 				map[j][k++] = '-';
 			else
-				map[j][k++] = data->map->map_string[i];
+				map[j][k++] = data->parser->map_string[i];
 		}
 		i++;
 	}
-	while (k < data->map->map_size[0])
+	while (k < data->env->map_size[0])
 		map[j][k++] = '-';
 	map[j][k] = '\0';
 	return (map);
@@ -56,13 +56,13 @@ int	is_valid_map_line(char *line)
 	return (0);
 }
 
-void	calc_map_size(t_map *map)
+void	calc_map_size(t_data *data)
 {
-	calc_no_lines(map);
-	calc_line_length(map);
+	calc_no_lines(data);
+	calc_line_length(data);
 }
 
-void	calc_no_lines(t_map *map)
+void	calc_no_lines(t_data *data)
 {
 	int	i;
 	int	lines;
@@ -70,36 +70,36 @@ void	calc_no_lines(t_map *map)
 	lines = 0;
 	i = 0;
 	lines++;
-	while (map->map_string[i])
+	while (data->parser->map_string[i])
 	{
-		if (map->map_string[i] == '\n')
+		if (data->parser->map_string[i] == '\n')
 			lines++;
 		i++;
 	}
-	map->map_size[1] = lines;
+	data->env->map_size[1] = lines;
 }
 
-void	calc_line_length(t_map *map)
+void	calc_line_length(t_data *data)
 {
 	int	i;
 	int	current_line_length;
 
 	i = 0;
 	current_line_length = 0;
-	map->map_size[0] = 0;
-	while (map->map_string[i])
+	data->env->map_size[0] = 0;
+	while (data->parser->map_string[i])
 	{
-		if (map->map_string[i] == '\n')
+		if (data->parser->map_string[i] == '\n')
 		{
-			if (current_line_length > map->map_size[0])
-				map->map_size[0] = current_line_length;
+			if (current_line_length > data->env->map_size[0])
+				data->env->map_size[0] = current_line_length;
 			current_line_length = 0;
 		}
 		else
 			current_line_length++;
 		i++;
 	}
-	if (current_line_length > map->map_size[0])
-		map->map_size[0] = current_line_length;
+	if (current_line_length > data->env->map_size[0])
+		data->env->map_size[0] = current_line_length;
 }
  */

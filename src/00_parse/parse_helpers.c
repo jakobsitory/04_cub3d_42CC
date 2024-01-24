@@ -6,7 +6,7 @@
 /*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 15:52:31 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/24 15:59:55 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/24 17:25:14 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,17 @@
 
 /* void	parse_successful(t_data *data)
 {
-	if (!data->res->floor_hex)
+	if (!data->env->floor_hex)
 		exit_error(COLOR_ERR, data);
-	if (!data->res->ceiling_hex)
+	if (!data->env->ceiling_hex)
 		exit_error(COLOR_ERR, data);
-	if (!data->res->north_text_path)
+	if (!data->parser->north_text_path)
 		exit_error(TEXTURE_ERR, data);
-	if (!data->res->east_text_path)
+	if (!data->parser->east_text_path)
 		exit_error(TEXTURE_ERR, data);
-	if (!data->res->south_text_path)
+	if (!data->parser->south_text_path)
 		exit_error(TEXTURE_ERR, data);
-	if (!data->res->west_text_path)
+	if (!data->parser->west_text_path)
 		exit_error(TEXTURE_ERR, data);
 }
 
@@ -49,9 +49,9 @@ void	check_hex_range(t_data *data)
 	i = 0;
 	while (i < 3)
 	{
-		if (!data->res->ceiling_colors[i])
+		if (!data->parser->ceiling_colors[i])
 			exit_error(COLOR_ERR, data);
-		n = data->res->ceiling_colors[i];
+		n = data->parser->ceiling_colors[i];
 		if (n > 255 || n < 0)
 			exit_error(COLOR_ERR, data);
 		i++;
@@ -59,9 +59,9 @@ void	check_hex_range(t_data *data)
 	i = 0;
 	while (i < 3)
 	{
-		if (!data->res->floor_colors[i])
+		if (!data->parser->floor_colors[i])
 			exit_error(COLOR_ERR, data);
-		n = data->res->floor_colors[i];
+		n = data->parser->floor_colors[i];
 		if (n > 255 || n < 0)
 			exit_error(COLOR_ERR, data);
 		i++;

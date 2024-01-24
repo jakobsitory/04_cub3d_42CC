@@ -1,9 +1,9 @@
 
-NO       ./resources/north
-NO       ./resources/north
-SO            ./resources/south
-WE         ./resources/west
-EA                            ./resources/east
+NO       ./resources/walls/north.xpm
+SO            ./resources/walls/south.xpm
+NO       ./resources/walls/north.xpm
+WE         ./resources/walls/west.xpm
+EA                            ./resources/walls/east.xpm
 
 F          50  ,  50  ,  50   
 C           255  ,   30    , 5 

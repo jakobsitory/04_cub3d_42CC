@@ -1,13 +1,15 @@
 
-NO       ./resources/north
-SO            ./resources/south
+NO       ./resources/walls/north.xpm
+SO            ./resources/walls/south.xpm
+
 F          50  ,  50  ,  50   
 
 C           255  ,   30    , 5
 
-WE         ./resources/west
+WE         ./resources/walls/west.xpm
 
-EA                            ./resources/east
+
+EA                            ./resources/walls/east.xpm
 
         1111111111111111111111111
         1000000000110000000000001

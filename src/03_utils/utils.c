@@ -6,7 +6,7 @@
 /*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 18:57:45 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/24 16:12:25 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/24 17:25:59 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 void	exit_error(char *msg, t_data *data)
 {
 	printf("Error\n");
-	if (msg)
+	if (msg || data)
 		printf("%s", msg);
-	if (data)
-		free_data(data);
+	/* if (data)
+		free_data(data); */
 	exit (1);
 }
 

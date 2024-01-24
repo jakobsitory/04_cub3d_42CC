@@ -6,65 +6,45 @@
 /*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 17:22:00 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/24 17:20:00 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/24 17:24:17 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-char **test_map(void)
+void	print_env(t_env *env)
 {
-    int i, j;
-    char **map = malloc(sizeof(char *) * 8);
-    if (!map)
-        return NULL;
-
-    for (i = 0; i < 8; i++)
-    {
-        map[i] = malloc(sizeof(char) * 9); // 8 for map size and 1 for null-terminator
-        if (!map[i])
-            return NULL;
-
-        for (j = 0; j < 8; j++)
-        {
-            if (i == 0 || i == 7 || j == 0 || j == 7)
-                map[i][j] = '1'; // Wall
-            else
-                map[i][j] = '0'; // Floor
-        }
-        map[i][j] = '\0'; // Null-terminator for string
-    }
-
-    return map;
+	printf("north txt: %s\n", env->wall_textures[0]->filepath);
+	printf("east txt: %s\n", env->wall_textures[1]->filepath);
+	printf("south txt: %s\n", env->wall_textures[2]->filepath);
+	printf("west txt: %s\n", env->wall_textures[3]->filepath);
+	print_string_array(env->map);
+	printf("map size: %i x %i\n", env->map_size[0], env->map_size[1]);
+	printf("player position: %f x %f\n", env->player_position[0], env->player_position[1]);
+	printf("player orientation: %i\n", env->player_orientation);
+	printf("floor hex: %x\n", env->floor_hex);
+	printf("ceiling hex -> %x\n", env->ceiling_hex);
 }
 
 int	main(int argc, char *argv[])
 {
+	//t_scene	*scene;
 	t_data	*data;
 	
 	// check_args(argc, argv);
 	data = (t_data *)malloc (sizeof(t_data));
 	data = init_data();
-	// parse_file(data, argv[1]);
-	//free_data(data);
+	parse_file(data, argv[1]);
+	//print_env(data->env);
+/* 
+	scene = scene_init(data);
+	win_init(scene);
+	draw_frame(scene);
+	key_events(scene);
+	mlx_loop(scene->window->mlx);
 
-	// data->env = init_env(map);
-	// data->window = init_window();
-	// data->rays = init_rays();
-
-	data->env->map = test_map();
-
-	// printf("img_address: %s\n", data->window->img_addr);
-
-
-	render_frame(data->rays, data->env);
-	draw_frame(data);
-	event_hooks(data);
-	printf("BYE\n");
-	mlx_loop(data->window->mlx);
-
+	win_destroy(scene); */
 	free_data(data);
-	printf("%s, %i", argv[0], argc);
 	return (0);
 }
 
