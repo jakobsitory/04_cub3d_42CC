@@ -6,7 +6,7 @@
 /*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 17:23:15 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/24 17:37:28 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/24 18:05:51 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # include "get_next_line.h"
 
 # define WINDOW_W 	960
-# define WINDOW_H	720
+# define WINDOW_H	480
 
 # define FOV			60
 # define MINIMAP_SIZE	.5
