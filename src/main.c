@@ -6,12 +6,11 @@
 /*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 17:22:00 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/24 08:39:52 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/24 12:21:43 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
-
 int	main(int argc, char *argv[])
 {
 	t_scene	*scene;
@@ -20,11 +19,14 @@ int	main(int argc, char *argv[])
 	check_args(argc, argv);
 	data = init_data();
 	parse_file(data, argv[1]);
+	//free_data(data);
+
 	scene = scene_init(data);
 	win_init(scene);
 	draw_frame(scene);
 	key_events(scene);
 	mlx_loop(scene->window->mlx);
+
 	win_destroy(scene);
 	return (0);
 }
