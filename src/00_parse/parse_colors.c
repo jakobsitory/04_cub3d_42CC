@@ -6,13 +6,13 @@
 /*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 17:56:12 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/24 17:25:03 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/24 17:45:44 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-/* void	save_color(char *identifier, char *line, t_data *data)
+void	save_color(char *identifier, char *line, t_data *data)
 {
 	char	*line_trimmed;
 	char	*line_trimmed_whitesp;
@@ -31,9 +31,9 @@
 	else if (ft_strncmp(identifier, FLOOR_ID, ft_strlen(identifier)) == 0)
 		save_next_hex(line_trimmed_whitesp, data->parser->floor_colors, data);
 	free(line_trimmed_whitesp);
-} */
+}
 
-/* void	check_color_saved(t_data *data, char *identifier)
+void	check_color_saved(t_data *data, char *identifier)
 {
 	if (ft_strncmp(identifier, CEILING_ID, ft_strlen(identifier)) == 0)
 	{
@@ -45,9 +45,9 @@
 		if (data->parser->floor_colors[0] != -1)
 			exit_error(MULTIPLE_COLOR, data);
 	}
-} */
+}
 
-/* char	*save_next_hex(char *line, int *array, t_data *data)
+char	*save_next_hex(char *line, int *array, t_data *data)
 {
 	int		i;
 	int		j;
@@ -70,7 +70,7 @@
 	if (*line != '\0')
 		exit_error(COLOR_ERR, data);
 	return (NULL);
-} */
+}
 
 int	valid_chars_color(char *str, t_data *data)
 {

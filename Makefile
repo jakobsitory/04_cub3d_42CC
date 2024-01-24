@@ -6,7 +6,7 @@
 #    By: jschott <jschott@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: Invalid date        by                   #+#    #+#              #
-#    Updated: 2024/01/24 16:41:38 by jschott          ###   ########.fr        #
+#    Updated: 2024/01/24 17:40:38 by jschott          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,22 +22,17 @@ NAME		= cub3D
 
 # SOURCES
 SRCS := main.c \
+		00_parse/init_window.c \
+		00_parse/init_rays.c \
 		00_parse/check_map.c \
 		00_parse/init_data.c \
 		00_parse/parse_colors.c \
 		00_parse/parse_file.c \
 		00_parse/parse_helpers.c \
 		00_parse/parse_map.c \
-		00_parse/read_map.c \
-		00_parse/parse_xpm.c \
 		00_parse/parse_textures.c \
-		00_parse/init_window.c \
-		01_render/render_walls.c \
-		01_render/render_frame.c \
-		01_render/render_ray.c \
-		01_render/render_player.c \
-		00_parse/init_env.c \
-		00_parse/init_rays.c \
+		00_parse/parse_xpm.c \
+		00_parse/read_map.c \
 		02_draw/draw_line.c \
 		02_draw/draw_map.c \
 		02_draw/draw_frame.c \
@@ -45,16 +40,19 @@ SRCS := main.c \
 		02_draw/draw_background.c \
 		02_draw/draw_walls.c \
 		03_utils/maths.c \
-		03_utils/utils.c \
 		03_utils/math_helper.c \
 		03_utils/vector_cpy.c \
 		03_utils/event_hooks.c \
-		04_free/free.c \
+		03_utils/utils.c \
 		04_free/free_window.c \
-		04_free/free_env.c \
+		04_free/free_data.c \
 		04_free/free_rays.c \
-		04_free/free_data.c 
-
+		04_free/free.c \
+		01_render/render_walls.c \
+		01_render/render_frame.c \
+		01_render/render_ray.c \
+		01_render/render_player.c
+	
 # DIRECTORIES AND PATHS
 INCLDIR		:= include/
 INCS		:= -I include/ -I /usr/include

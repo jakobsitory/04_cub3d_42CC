@@ -6,12 +6,12 @@
 /*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 19:12:26 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/24 17:25:27 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/24 17:43:58 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
-/* 
+
 void	save_text_if_empty(t_data *data, char *identifier, char *value)
 {
 	if (ft_strncmp(identifier, NORTH_ID, ft_strlen(identifier)) == 0)
@@ -101,4 +101,3 @@ char	*remove_whitespace(char *src, t_data *data)
 	}
 	return (res[j] = '\0', res);
 }
- */

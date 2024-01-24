@@ -6,7 +6,7 @@
 /*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 17:23:15 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/24 17:24:06 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/24 17:37:28 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,95 +72,6 @@
 
 //////////////////////////////-----STRUCTURES-----//////////////////////////////
 
-typedef struct s_line
-{
-	int		start[2];
-	int		end[2];
-	int		dx;
-	int		dy;
-	int		sx;
-	int		sy;
-	int		err;
-	int		e2;
-	int		color;
-}			t_line;
-
-typedef struct s_image {
-	void	*img;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		width;
-	int		height;
-	int		endian;
-}			t_image;
-
-typedef struct s_xpm_color {
-	char				c;
-	char				*hex_code;
-	struct s_xpm_color	*next;
-}						t_xpm_color;
-
-typedef struct s_xpm {
-	char		*filepath;
-	int			rows;
-	int			columns;
-	int			colors_count;
-	int			bytes_per_pixel;
-	t_xpm_color	*colors;
-	char		**lines;
-	int			fd;
-}				t_xpm;
-
-typedef struct s_ray_result {
-	float	degree;
-	float	distance;
-	float	x;
-	float	y;
-	int		line_height;
-	int		start_y;
-	int		end_y;
-	char	*texture_path;
-	t_xpm	*xpm;
-}			t_ray_result;
-
-typedef struct s_env
-{
-	int		fd;
-	char	*filepath;
-	char	*line;
-
-	char			**map;
-	int				map_size[2];
-	float			map_scale;
-
-	int		fov_degrees;
-	int		width_px;
-	int		height_px;
-	int		center_x;
-	int		center_y;
-	int		px_per_ray;
-}			t_window;
-
-typedef struct s_scene {
-	struct s_window		*window;
-	struct s_image		*image;
-
-	struct s_ray_result	**rays;
-	float				ray_resolution;
-	struct s_xpm		**textures;
-
-	char				**map;
-	int					map_size[2];
-	float				map_scale;
-	struct s_line		*map_ray;
-
-	float				player_position[2];
-	int					player_orientation;
-	int					player_direction[2];
-	float				player_speed;
-}			t_scene;
-
 typedef struct s_env
 {
 	char			**map;
@@ -172,6 +83,7 @@ typedef struct s_env
 	int				floor_hex;
 	int				ceiling_hex;
 	struct s_xpm	**wall_textures;
+	float			degr_per_ray;
 	//int		map_square_scale; remove?
 }	t_env;
 
@@ -189,6 +101,66 @@ typedef struct s_parser
 	char	*map_string;
 	char	**map_copy;
 }	t_parser;
+
+typedef struct s_xpm_color {
+	char				c;
+	char				*hex_code;
+	struct s_xpm_color	*next;
+}						t_xpm_color;
+
+typedef struct s_xpm {
+	int			rows;
+	int			columns;
+	int			colors_count;
+	int			bytes_per_pixel;
+	t_xpm_color	*colors;
+	char		**lines;
+	char		*filepath;
+	int			fd;
+}				t_xpm;
+
+typedef struct s_line
+{
+	int		start[2];
+	int		end[2];
+	int		dx;
+	int		dy;
+	int		sx;
+	int		sy;
+	int		err;
+	int		e2;
+	int		color;
+}			t_line;
+
+typedef struct s_window {
+	void	*mlx;
+	void	*mlx_win;
+
+	void	*img;
+	char	*img_addr;
+	int		img_bits_per_pixel;
+	int		img_line_length;
+	int		img_endian;
+
+	struct s_line	*line_buffer; //evtl. remove
+
+	int		center_x;
+	int		center_y;
+	int		px_per_ray;
+}			t_window;
+
+typedef struct s_ray_result {
+	float	degree;
+	float	distance;
+	float	x;
+	float	y;
+	int		line_height;
+	int		start_y;
+	int		end_y;
+	char	*texture_path;
+	t_xpm	*xpm;
+}			t_ray_result;
+
 
 typedef struct s_data
 {
@@ -209,11 +181,9 @@ void			exit_error(char *msg, t_data *data);
 
 t_data			*init_data(void);
 t_ray_result	**init_rays(void);
-t_env			*init_env(char **map);
 t_window		*init_window(void);
 
 t_xpm			*init_xpm(char *filename);
-void			init_res(t_data *data);
 int				*create_possible_moves_x(t_data *data);
 int				*create_possible_moves_y(t_data *data);
 char			**init_map(t_data *data);
@@ -222,8 +192,8 @@ void			init_env(t_data *data);
 
 ////////////////////////////////-----WINDOW-----////////////////////////////////
 
-int		win_init(t_scene *scene);
-int		win_destroy(t_scene *scene);
+// int		win_init(t_scene *scene);
+// int		win_destroy(t_scene *scene);
 
 ////////////////////////////////-----INPUT-----////////////////////////////////
 
@@ -278,7 +248,7 @@ void	print_xpm(t_xpm *xpm);
 
 //////////////////////////////---INITIALIZATION---//////////////////////////////
 
-t_scene	*scene_init(t_data *data);
+// t_scene	*scene_init(t_data *data);
 char 	**map_init(void);
 t_xpm	*init_xpm(char *filename);
 
@@ -365,7 +335,7 @@ t_xpm			*parse_xpm(char *filename);
 ////////////////////////////////-----FREE-----/////////////////////////////////
 
 void			free_data(t_data *data);
-void			free_env(t_env *env);
+// void			free_env(t_env *env);
 void			free_rays(t_ray_result **rays);
 int				free_window(t_window *window);
 

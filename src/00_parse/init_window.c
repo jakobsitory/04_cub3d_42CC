@@ -6,7 +6,7 @@
 /*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 10:25:00 by jschott           #+#    #+#             */
-/*   Updated: 2024/01/24 17:17:42 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/24 17:57:01 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,12 @@ t_window	*init_window(void)
 	}
 	// sleep(1); // SLEEPER	
 
-	window->img = mlx_new_image(window->mlx, WINDOW_W, WINDOW_H);
-	// window->img_line_length = 100;
-	// window->img_bits_per_pixel = 8;
-	// window->img_endian = 0;
-	window->img_addr = mlx_get_data_addr(window->img, \
-											&window->img_bits_per_pixel, \
-											&window->img_line_length, \
-											&window->img_endian);
-	printf("img_address: %s\n", window->img_addr);
+	window->img = mlx_new_image(window->mlx, WINDOW_H, WINDOW_H);
+	window->img_line_length = 100;
+	window->img_addr = mlx_get_data_addr(window->img, &window->img_bits_per_pixel, \
+								&window->img_line_length, &window->img_endian);
+	printf("img_address: %p\n", &window->img_addr);
+
 	window->line_buffer = (t_line *) malloc (sizeof (t_line));
 	if (!window->line_buffer)
 		return (NULL); //TBD ERROR MGMT

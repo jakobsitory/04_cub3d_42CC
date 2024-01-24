@@ -6,12 +6,12 @@
 /*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 15:32:59 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/24 17:26:06 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/24 17:34:32 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
-/* 
+
 void	free_data(t_data *data)
 {
 	free_env(data);

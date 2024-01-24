@@ -6,12 +6,12 @@
 /*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 15:18:32 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/24 17:25:20 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/24 17:46:03 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
-/* 
+
 void	read_map(t_data *data)
 {
 	char	*tmp;
@@ -78,4 +78,3 @@ void	get_player_pos(t_data *data)
 		y++;
 	}
 }
- */

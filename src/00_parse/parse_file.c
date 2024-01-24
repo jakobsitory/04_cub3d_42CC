@@ -6,13 +6,13 @@
 /*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 17:57:43 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/24 17:24:54 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/24 17:36:25 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-/* void	parse_file(t_data *data, char *filepath)
+void	parse_file(t_data *data, char *filepath)
 {
 	data->parser->filepath = ft_strdup(filepath);
 	parse_textures(data);
@@ -49,7 +49,7 @@ void	parse_textures(t_data *data)
 	close(data->parser->fd);
 }
 
-/* void	parse_colors(t_data *data)
+void	parse_colors(t_data *data)
 {
 	char	*line;
 

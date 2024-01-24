@@ -6,7 +6,7 @@
 /*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 17:22:00 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/24 17:24:17 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/24 17:54:09 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,19 +31,21 @@ int	main(int argc, char *argv[])
 	//t_scene	*scene;
 	t_data	*data;
 	
-	// check_args(argc, argv);
+	check_args(argc, argv);
 	data = (t_data *)malloc (sizeof(t_data));
 	data = init_data();
 	parse_file(data, argv[1]);
-	//print_env(data->env);
-/* 
-	scene = scene_init(data);
-	win_init(scene);
-	draw_frame(scene);
-	key_events(scene);
-	mlx_loop(scene->window->mlx);
+	print_env(data->env);
 
-	win_destroy(scene); */
+	data->window = init_window();
+	printf("img_address: %p\n", &data->window->img_addr);
+	data->rays = init_rays();
+	render_frame(data->rays, data->env);
+	draw_frame(data);
+	event_hooks(data);
+	mlx_loop(data->window->mlx);
+
+	// win_destroy(scene); */
 	free_data(data);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 19:06:18 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/24 17:24:38 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/24 17:38:01 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void	init_env(t_data *data)
 	data->env->map = NULL;
 	data->env->ceiling_hex = -1;
 	data->env->floor_hex = -1;
+	data->env->degr_per_ray = FOV / WINDOW_W;
 }
 
 int	*create_possible_moves_x(t_data *data)
