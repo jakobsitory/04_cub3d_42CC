@@ -6,7 +6,7 @@
 /*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 12:12:27 by jschott           #+#    #+#             */
-/*   Updated: 2024/01/23 16:21:15 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/24 11:36:33 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void	background_fill(t_scene *scene)
 	int	x;
 	int	y;
 	int	color;
+	float	distance = 0;
 
 	x = -1;
 	y = -1;
@@ -52,8 +53,16 @@ void	background_fill(t_scene *scene)
 	{
 		if (y == WINDOW_H / 2)
 			color = COLOR_FLOOR; // PLACEHOLDER
+		if (y <= WINDOW_H / 2)
+			distance = (float)(20 * y) / (float)(WINDOW_H - 70);
+		else if (y >= WINDOW_H / 2)
+			distance = 20.0f - ((float)(20 * y + 35) / (float)(WINDOW_H));
+
 		while (++x < WINDOW_W)
+		{
 			my_mlx_pixel_put(scene->image, x, y, color);
+			// draw_shader(scene->image, x, y, distance);
+		}
 		x = -1;
 	}
 }

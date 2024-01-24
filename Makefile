@@ -6,7 +6,7 @@
 #    By: jschott <jschott@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: Invalid date        by                   #+#    #+#              #
-#    Updated: 2024/01/23 16:20:50 by jschott          ###   ########.fr        #
+#    Updated: 2024/01/24 10:07:10 by jschott          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,6 +40,8 @@ SRCS := main.c \
 		02_draw/draw_line.c \
 		02_draw/draw_map.c \
 		02_draw/draw_walls.c \
+		02_draw/draw_frame.c \
+		02_draw/draw_shader.c \
 		03_utils/input_controls.c \
 		03_utils/math_helper.c \
 		03_utils/maths.c \

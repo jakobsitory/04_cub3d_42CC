@@ -6,26 +6,11 @@
 /*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 09:35:27 by jschott           #+#    #+#             */
-/*   Updated: 2024/01/23 17:06:45 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/24 08:38:33 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
-
-
-void	img_update(t_scene *scene)
-{
-	cast_all_rays(scene);
-	prepare_rays(scene);
-
-	/* Draw Scene */
-	background_fill(scene);
-	draw_walls(scene);
-	draw_map(scene);
-
-	mlx_put_image_to_window(scene->window->mlx, scene->window->mlx_win, \
-							scene->image->img, 0, 0);
-}
 
 int	win_close(t_window *window)
 {
@@ -42,7 +27,7 @@ void	update_orienation(t_scene *scene, int keycode)
 	if (scene->player_orientation < 0)
 		scene->player_orientation += 360;
 	scene->player_orientation %= 360;
-	img_update(scene);
+	draw_frame(scene);
 }
 
 void	update_position(t_scene *scene, int keycode)
@@ -67,7 +52,7 @@ void	update_position(t_scene *scene, int keycode)
 		return ;
 	scene->player_position[0] = new_pos[0];
 	scene->player_position[1] = new_pos[1];
-	img_update(scene);
+	draw_frame(scene);
 }
 
 int	keypress(int keycode, t_scene *scene)

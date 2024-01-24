@@ -6,7 +6,7 @@
 /*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 17:22:00 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/23 17:21:36 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/24 08:39:52 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,7 @@ int	main(int argc, char *argv[])
 	parse_file(data, argv[1]);
 	scene = scene_init(data);
 	win_init(scene);
-	cast_all_rays(scene);
-	prepare_rays(scene);
-	background_fill(scene);
-	draw_walls(scene);
-	draw_map(scene);
-	mlx_put_image_to_window(scene->window->mlx, scene->window->mlx_win, \
-							scene->image->img, 0, 0);
+	draw_frame(scene);
 	key_events(scene);
 	mlx_loop(scene->window->mlx);
 	win_destroy(scene);

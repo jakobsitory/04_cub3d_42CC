@@ -6,7 +6,7 @@
 /*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/01/23 17:18:00 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/24 11:45:18 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 
 #include "cub3D.h"
-
-# define BLACK 0xFFFFFF
 
 int	get_pixel_color(t_ray_result ray, int y)
 {
@@ -55,12 +53,11 @@ void	draw_walls(t_scene *scene)
 		{
 			color = get_pixel_color(*scene->rays[x], y);
 			y_range = (scene->rays[x]->end_y - scene->rays[x]->start_y) / 100;
-			while (y_range > 0)
+			while (y_range >= 0)
 			{
 				my_mlx_pixel_put(scene->image, x, y, color);
+				draw_shader(scene->image, x, y, scene->rays[x]->distance);
 				y++;
-				if (y > scene->rays[x]->end_y)
-					break ;
 				y_range--;
 			}
 		}
