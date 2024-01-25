@@ -6,7 +6,7 @@
 /*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 12:12:27 by jschott           #+#    #+#             */
-/*   Updated: 2024/01/24 18:04:38 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/25 11:57:12 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,11 @@ void	draw_background(t_window *window, t_env *env)
 		return ;
 	x = -1;
 	y = -1;
-	// color = env->ceiling_hex;
-	color = COLOR_CEILING;
+	color = env->ceiling_hex;
 	while (++y < WINDOW_H)
 	{
 		if (y == WINDOW_H / 2)
-			// color = env->floor_hex;
-			color = COLOR_FLOOR;
+			color = env->floor_hex;
 		if (y <= WINDOW_H / 2)
 			distance = (float)(20 * y) / (float)(WINDOW_H - 70);
 		else if (y >= WINDOW_H / 2)
@@ -65,7 +63,7 @@ void	draw_background(t_window *window, t_env *env)
 		while (++x < WINDOW_W)
 		{
 			draw_pixel(window, x, y, color);
-			// draw_shader(scene->image, x, y, distance);
+			draw_shader(window, x, y, distance);
 		}
 		x = -1;
 	}

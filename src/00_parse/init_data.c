@@ -6,7 +6,7 @@
 /*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 19:06:18 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/24 17:38:01 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/25 12:06:14 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ t_data	*init_data(void)
 		exit_error(MALLOC_ERR, data);
 	init_env(data);
 	init_parser(data);
+	data->rays = init_rays();
+	data->window = init_window();
 	return (data);
 }
 
@@ -55,7 +57,7 @@ void	init_env(t_data *data)
 	data->env->map = NULL;
 	data->env->ceiling_hex = -1;
 	data->env->floor_hex = -1;
-	data->env->degr_per_ray = FOV / WINDOW_W;
+	data->env->degr_per_ray = (float) FOV / (float) WINDOW_W;
 }
 
 int	*create_possible_moves_x(t_data *data)
@@ -110,6 +112,7 @@ char	**init_map(t_data *data)
 			exit_error(MALLOC_ERR, data);
 		i++;
 	}
+	data->env->map_scale = map_scale(data->env->map_size);
 	map[i] = NULL;
 	return (map);
 }

@@ -6,7 +6,7 @@
 /*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 15:03:18 by jschott           #+#    #+#             */
-/*   Updated: 2024/01/24 16:08:55 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/25 11:03:53 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,15 @@ int	map_scale(int map_size[2])
 {
 	float	win_aspect;
 	float	map_aspect;
+	int		scale;
 
 	win_aspect = (float) WINDOW_W / (int) WINDOW_H;
 	map_aspect = (float)(map_size[0] - 1) / (float)(map_size[1] - 1);
 	if (win_aspect < map_aspect)
-		return (WINDOW_W / (map_size[0] - 1));
-	return (WINDOW_H / (map_size[1] - 1));
+		scale = MINIMAP_SIZE * (WINDOW_W / (map_size[0] - 1));
+	else
+		scale = MINIMAP_SIZE * (WINDOW_H / (map_size[1] - 1));
+	return (scale);
 }
 
 int	draw_fov(t_window *window, t_ray_result **rays, t_env *env)

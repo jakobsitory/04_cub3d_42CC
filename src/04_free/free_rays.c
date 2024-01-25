@@ -6,7 +6,7 @@
 /*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 16:18:44 by jschott           #+#    #+#             */
-/*   Updated: 2024/01/24 16:30:34 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/25 12:01:45 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,5 @@ void	free_rays(t_ray_result **rays)
 	i = -1;
 	while (++i < WINDOW_W)
 		free(rays[i]);
-	free(rays);	
+	free(rays);
 }

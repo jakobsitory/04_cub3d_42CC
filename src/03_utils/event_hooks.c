@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   input_hooks.c                                      :+:      :+:    :+:   */
+/*   event_hooks.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 09:35:27 by jschott           #+#    #+#             */
-/*   Updated: 2024/01/24 15:36:08 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/25 12:00:21 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,15 @@ int	keypress(int keycode, t_data *data)
 	window = data->window;
 	if (keycode == ESCAPE)
 		return (win_close (window));
-	if (keycode == LOOK_LEFT || keycode == LOOK_RIGHT)
+	else if (keycode == LOOK_LEFT || keycode == LOOK_RIGHT)
 		render_player_orienation(data->env, keycode);
-	if (keycode == MOVE_BACK || keycode == MOVE_FRWD || \
+	else if (keycode == MOVE_BACK || keycode == MOVE_FRWD || \
 		keycode == MOVE_RIGHT || keycode == MOVE_LEFT)
 		render_player_position(data->env, keycode);
 	else
 		return (0);
-	render_frame(data->rays, data->env);
+	render_frame(data);
+	draw_frame(data);
 	return (0);
 }
 
