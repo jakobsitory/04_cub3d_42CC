@@ -6,7 +6,7 @@
 /*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 11:30:46 by jschott           #+#    #+#             */
-/*   Updated: 2024/01/25 12:10:45 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/25 12:31:16 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,22 +23,22 @@ void	assign_textures(t_ray_result *rays[], t_env *env)
 	while (++i < WINDOW_W)
 	{
 		// printf("%f, ", rays[i]->degree);
-		if ((int)rays[i]->degree <= 90 ||(int)rays[i]->degree >= 270)
+		if ((int)rays[i]->degree <= 90 || (int)rays[i]->degree >= 270)
 		{
 			if (is_whole_number(rays[i]->y))
 				rays[i]->xpm = env->wall_textures[0];
 		}
-		else if ((int)rays[i]->degree <= 180 &&(int)rays[i]->degree >= 0)
+		if ((int)rays[i]->degree <= 180 &&(int)rays[i]->degree >= 0)
 		{
 			if (is_whole_number(rays[i]->x))
 				rays[i]->xpm =  env->wall_textures[1];
 		}
-		else if ((int)rays[i]->degree <= 270 &&(int)rays[i]->degree >= 90)
+		if ((int)rays[i]->degree <= 270 &&(int)rays[i]->degree >= 90)
 		{
 			if (is_whole_number(rays[i]->y))
 				rays[i]->xpm =  env->wall_textures[2];
 		}
-		// else if (is_whole_number(rays[i]->x))
+		else if ((int)rays[i]->degree < 360 &&(int)rays[i]->degree > 180 && is_whole_number(rays[i]->x))
 			rays[i]->xpm =  env->wall_textures[3];
 		// print_xpm(rays[i]->xpm);
 	}
