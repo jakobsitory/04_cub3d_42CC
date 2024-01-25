@@ -6,7 +6,7 @@
 /*   By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 11:18:36 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/25 16:57:37 by lgrimmei         ###   ########.fr       */
+/*   Updated: 2024/01/25 18:46:16 by lgrimmei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 char	*get_hex_from_char(char c, t_xpm *xpm)
 {
+	t_xpm_color	*tmp;
 	t_xpm_color	*tmp;
 
 	tmp = xpm->colors;
@@ -27,6 +28,7 @@ char	*get_hex_from_char(char c, t_xpm *xpm)
 }
 
 int	hex_digit_to_int(char c)
+int	hex_digit_to_int(char c)
 {
 	if (c >= '0' && c <= '9')
 		return (c - '0');
@@ -38,6 +40,7 @@ int	hex_digit_to_int(char c)
 }
 
 int	hex_to_int(char *hex)
+int	hex_to_int(char *hex)
 {
 	int	r;
 	int	g;
@@ -48,7 +51,7 @@ int	hex_to_int(char *hex)
 	r = 0;
 	g = 0;
 	b = 0;
-	i = 1;
+	i = 0;
 	if (ft_strlen(hex) < 7 || hex[0] != '#')
 		return (-1);
 	while (i < 7)
@@ -64,5 +67,6 @@ int	hex_to_int(char *hex)
 			b = b * 16 + hex_digit_to_int(hex[i]);
 		i++;
 	}
+	return (((r & 0xFF) << 16) + ((g & 0xFF) << 8) + (b & 0xFF));
 	return (((r & 0xFF) << 16) + ((g & 0xFF) << 8) + (b & 0xFF));
 }

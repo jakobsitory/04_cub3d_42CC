@@ -6,7 +6,7 @@
 /*   By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 15:32:59 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/25 17:00:50 by lgrimmei         ###   ########.fr       */
+/*   Updated: 2024/01/25 18:47:45 by lgrimmei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,8 @@ void	free_env(t_data *data)
 	}
 	if (data->env->wall_textures)
 		free(data->env->wall_textures);
+	if (data->env->background_hex)
+		free(data->env->background_hex);
 	if (data->env)
 		free(data->env);
 }

@@ -6,7 +6,7 @@
 /*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 15:03:37 by jschott           #+#    #+#             */
-/*   Updated: 2024/01/25 11:50:22 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/25 18:31:24 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	find_next(float start[2], int dir[2])
 		else if (dir[0] == FRWD)
 			start[0] = ceilf(start[0]);
 		else if (dir[0] == BACK && is_whole_number(start[0]))
-			--start[0]; // = floorf(start[0]);
+			--start[0];
 		else if (dir[0] == BACK)
 			start[0] = floorf(start[0]);
 	}
@@ -94,37 +94,32 @@ void	set_direction(int dir[2], float angle)
 		dir[1] = HALT;
 }
 
-int	cast_ray(t_ray_result *ray,  t_env *env, float angle)
+int	cast_ray(t_ray_result *ray, t_env *env, float angle)
 {
 	float	next[2];
 	int		dir[2];
 	float	diff[2];
 
 	set_direction(dir, angle);
-	next[0] = env->player_position[0];
-	next[1] = env->player_position[1];
+	vector_cpy(next, env->player_position);
+	while (dir[0] * dir[1] == HALT && !ray_collision(env->map, next, dir))
+		find_next(next, dir);
 	while (!ray_collision(env->map, next, dir))
 	{
 		find_next(next, dir);
-		if (dir[0] != HALT && dir[1] != HALT)
-		{
-			diff[0] = (next[0] - env->player_position[0]);
-			diff[1] = (next[1] - env->player_position[1]);
-			if (ft_absf(diff[0] / sinf(degr_to_rad(angle))) \
-					< ft_absf(diff[1] / cosf(degr_to_rad(angle))))
-				next[1] = ft_absf(ft_absf(diff[0] / tanf(degr_to_rad(angle))) \
-							+ dir[1] * env->player_position[1]);
-			else
-				next[0] = ft_absf(ft_absf(diff[1] * tanf(degr_to_rad(angle))) \
-							+ dir[0] * env->player_position[0]);
-		}
+		diff[0] = (next[0] - env->player_position[0]);
+		diff[1] = (next[1] - env->player_position[1]);
+		if (ft_absf(diff[0] / sinf(degr_to_rad(angle))) \
+				< ft_absf(diff[1] / cosf(degr_to_rad(angle))))
+			next[1] = ft_absf(ft_absf(diff[0] / tanf(degr_to_rad(angle))) \
+						+ dir[1] * env->player_position[1]);
+		else
+			next[0] = ft_absf(ft_absf(diff[1] * tanf(degr_to_rad(angle))) \
+						+ dir[0] * env->player_position[0]);
 	}
-	ray->distance = get_distance(env->player_position, next);
 	ray->x = next[0];
 	ray->y = next[1];
-	ray->degree = angle;
-	// printf("cast: [%f, %f] at %fdgr with %f distance\n", next[0], next[1], angle, get_distance(env->player_position, next));
-	// printf("cast: [%f, %f] at %fdgr with %f distance\n", ray->x, ray->y, ray->degree, ray->distance);
+	ray->distance = get_distance(env->player_position, next);
 	return (0);
 }
 
@@ -133,22 +128,20 @@ int	render_rays(t_ray_result **rays, t_env *env)
 	float	angle;
 	int		i;
 
-	if (env->player_orientation > .5f * FOV)
-		angle = (float)((int)(env->player_orientation - .5f * FOV)  % 360);
+	if (env->player_orientation > .5f * PLAYER_FOV)
+		angle = (float)((int)(env->player_orientation - .5 * PLAYER_FOV) % 360);
 	else
-		angle = (float)(360.0f - .5f * FOV) + ((env->player_orientation));
+		angle = (float)(360.0f - .5f * PLAYER_FOV) + (env->player_orientation);
 	i = 0;
 	while (i < WINDOW_W)
 	{
-		// printf("%f ", angle);
 		angle += env->degr_per_ray;
 		if (angle >= 360)
 			angle -= 360;
 		if (cast_ray(rays[i], env, angle))
 			return (1);
-		// printf("cast: [%f, %f] at %fdgr with %f distance\n", rays[i]->x, rays[i]->y, rays[i]->degree, rays[i]->distance);
+		rays[i]->degree = angle;
 		i++;
 	}
 	return (0);
 }
-

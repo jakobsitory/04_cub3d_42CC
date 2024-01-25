@@ -6,7 +6,7 @@
 /*   By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 19:06:18 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/25 18:04:02 by lgrimmei         ###   ########.fr       */
+/*   Updated: 2024/01/25 18:44:36 by lgrimmei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ t_data	*init_data(void)
 		exit_error(MALLOC_ERR, data);
 	init_env(data);
 	init_parser(data);
-	data->rays = init_rays();
-	data->window = init_window();
+	data->rays = init_rays(data);
+	data->window = init_window(data);
 	return (data);
 }
 
@@ -54,6 +54,9 @@ void	init_env(t_data *data)
 	data->env->wall_textures = malloc (sizeof(t_xpm *) * 4);
 	if (!data->env->wall_textures)
 		exit_error(MALLOC_ERR, data);
+	data->env->background_hex = malloc ((WINDOW_W * WINDOW_H) * sizeof(int));
+	if (!data->env->background_hex)
+		exit_error(MALLOC_ERR, data);
 	data->env->wall_textures[0] = NULL;
 	data->env->wall_textures[1] = NULL;
 	data->env->wall_textures[2] = NULL;
@@ -61,9 +64,9 @@ void	init_env(t_data *data)
 	data->env->map = NULL;
 	data->env->ceiling_hex = -1;
 	data->env->floor_hex = -1;
-	data->env->degr_per_ray = (float) FOV / (float) WINDOW_W;
-	data->env->has_moved = 1;
-	data->env->has_rotated = 1;
+	data->env->degr_per_ray = (float) PLAYER_FOV / (float) WINDOW_W;
+	data->env->player_has_moved = 1;
+	data->env->player_has_rotated = 1;
 }
 
 t_xpm	*init_xpm(char *filename, t_data *data)

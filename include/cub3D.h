@@ -6,7 +6,7 @@
 /*   By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 17:23:15 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/25 18:09:22 by lgrimmei         ###   ########.fr       */
+/*   Updated: 2024/01/25 18:44:10 by lgrimmei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,18 +27,20 @@
 # define WINDOW_W 	960
 # define WINDOW_H	720
 
-# define FOV			60
-# define MINIMAP_SIZE	.3
-# define PLAYER_SPEED	.1
-# define PLAYER_SIZE	.1
+# define PLAYER_FOV				60
+# define PLAYER_SPEED			.1
+# define PLAYER_SIZE			.1
+# define PLAYER_VIEW_DISTANCE	10
 
-# define COLOR_CEILING		0x8833CCFF
-# define COLOR_FLOOR		0x88C99547
-# define COLOR_WALL_N		0x88FF5733
-# define COLOR_MAP_PLAYER	0x88FF0000
-# define COLOR_MAP_FOV		0x88FF0000
-# define COLOR_MAP_FLOOR	0x88FFFFFF
-# define COLOR_MAP_WALL		0x88000000
+# define MINIMAP_SIZE			.3
+
+# define COLOR_CEILING		0xFF33CCFF
+# define COLOR_FLOOR		0xFFC99547
+# define COLOR_MAP_PLAYER	0xFFFF0000
+# define COLOR_MAP_FOV		0xFFFF0000
+# define COLOR_MAP_FLOOR	0xFFFFFFFF
+# define COLOR_MAP_WALL		0xFF000000
+# define COLOR_SHADOW		0x001B2029
 
 # define LOOK_LEFT	65361
 # define LOOK_RIGHT	65363
@@ -55,13 +57,6 @@
 # define FLOOR_ID "F "
 # define CEILING_ID "C "
 
-#define NORTH_TEXTURE	"resources/walls/north.xpm"
-#define EAST_TEXTURE 	"resources/walls/east.xpm"
-#define SOUTH_TEXTURE	"resources/walls/south.xpm"
-#define WEST_TEXTURE 	"resources/walls/west.xpm"
-
-#define PI 3.14159265
-
 # define USAGE_ERR "Correct Usage: [./cub3d xxx.cub]\n"
 # define FILE_ERR "Unable to locate or read file\n"
 # define TEXTURE_ERR "Unable to locate or read texture file\n"
@@ -75,6 +70,8 @@
 # define ONLY_SPACES "Line with only spaces outside of map found\n"
 # define INV_LINE "Invalid Line found\n"
 # define RENDER_ERR "Error while rendering frame\n"
+# define WINDOW_ERR "Error while creating window\n"
+# define IMAGE_ERR "Error while creating image\n"
 
 //////////////////////////////-----STRUCTURES-----//////////////////////////////
 
@@ -85,12 +82,13 @@ typedef struct s_env
 	float			map_scale;
 	float			player_position[2];
 	int				player_orientation;
+	int				player_has_moved;
+	int				player_has_rotated;
 	int				floor_hex;
 	int				ceiling_hex;
+	unsigned int	*background_hex;
 	struct s_xpm	**wall_textures;
 	float			degr_per_ray;
-	int				has_moved;
-	int				has_rotated;
 }	t_env;
 
 typedef struct s_parser
@@ -139,21 +137,18 @@ typedef struct s_line
 }			t_line;
 
 typedef struct s_window {
-	void	*mlx;
-	void	*mlx_win;
-
-	void	*img;
-	char	*img_addr;
-	int		img_bits_per_pixel;
-	int		img_line_length;
-	int		img_endian;
-
-	struct s_line	*line_buffer; //evtl. remove
-
-	int		center_x;
-	int		center_y;
-	int		px_per_ray;
-}			t_window;
+	void			*mlx;
+	void			*mlx_win;
+	void			*img;
+	char			*img_addr;
+	int				img_bits_per_pixel;
+	int				img_line_length;
+	int				img_endian;
+	struct s_line	*line_buffer;
+	int				center_x;
+	int				center_y;
+	int				px_per_ray;
+}					t_window;
 
 typedef struct s_ray_result {
 	float	degree;
@@ -167,7 +162,6 @@ typedef struct s_ray_result {
 	t_xpm	*xpm;
 }			t_ray_result;
 
-
 typedef struct s_data
 {
 	t_parser		*parser;
@@ -175,7 +169,6 @@ typedef struct s_data
 	t_window		*window;
 	t_ray_result	**rays;
 }	t_data;
-
 
 /////////////////////////////////-----MAIN-----/////////////////////////////////
 
@@ -186,19 +179,18 @@ void			exit_error(char *msg, t_data *data);
 //////////////////////////////---INITIALIZATION---//////////////////////////////
 
 t_data			*init_data(void);
-t_ray_result	**init_rays(void);
-t_window		*init_window(void);
-t_xpm			*init_xpm(char *filename, t_data *data);
+t_ray_result	**init_rays(t_data *data);
+t_window		*init_window(t_data *data);
+t_xpm			*init_xpm(char *filename);
 int				*create_possible_moves_x(t_data *data);
 int				*create_possible_moves_y(t_data *data);
 char			**init_map(t_data *data);
 void			init_env(t_data *data);
-
-
-////////////////////////////////-----WINDOW-----////////////////////////////////
-
-// int		win_init(t_scene *scene);
-// int		win_destroy(t_scene *scene);
+char			**map_init(void);
+t_xpm			*init_xpm(char *filename);
+int				*create_possible_moves_x(t_data *data);
+int				*create_possible_moves_y(t_data *data);
+char			**init_map(t_data *data);
 
 ////////////////////////////////-----INPUT-----////////////////////////////////
 
@@ -208,15 +200,20 @@ void			event_hooks(t_data *data);
 
 void			render_frame(t_data *data);
 int				render_rays(t_ray_result **rays, t_env *env);
-int				cast_ray(t_ray_result *ray,  t_env *env, float angle);
+int				cast_ray(t_ray_result *ray, t_env *env, float angle);
 void			render_player(t_env *env, int keycode);
 void			render_player_position(t_env *env, int keycode);
 void			render_player_orienation(t_env *env, int keycode);
+void			render_transp_pixel(unsigned int *background, int x, int y, \
+									int color);
+void			render_shader(unsigned int	*background, int x, int y);
+void			render_background(t_env *env);
 void			set_direction(int dir[2], float angle);
 void			find_next(float start[2], int dir[2]);
 int				ray_collision(char **map, float dest[2], int dir[2]);
 int				render_walls(t_ray_result **rays);
-void			fix_fisheye(t_ray_result *rays[], int no_rays, int player_orientation);
+void			fix_fisheye(t_ray_result *rays[], int no_rays, \
+								int player_orientation);
 int				map_scale(int map_size[2]);
 void			assign_textures(t_ray_result *rays[], t_env *env);
 
@@ -229,8 +226,10 @@ int				draw_map(t_data *data);
 void			draw_floor(t_window *window, t_env *env);
 int				draw_player(t_window *window, t_env *env);
 int				draw_fov(t_window *window, t_ray_result **rays, t_env *env);
-void			draw_line(t_window *window, int start[2], int end[2], int color);
-void			draw_rectangle(t_window *window, int start[2], int end[2], int color);
+void			draw_line(t_window *window, \
+								int start[2], int end[2], int color);
+void			draw_rectangle(t_window *window, \
+								int start[2], int end[2], int color);
 int				get_pixel_color(t_ray_result ray, int y);
 void			draw_pixel(t_window *window, int x, int y, int color);
 void			draw_shader(t_window *window, int x, int y, float distance);
@@ -248,32 +247,8 @@ int				hex_to_int(char *hex);
 
 ////////////////////////////////----PARSING----////////////////////////////////
 
-void	print_xpm(t_xpm *xpm);
-
-//////////////////////////////---INITIALIZATION---//////////////////////////////
-
-// t_scene	*scene_init(t_data *data);
-char 	**map_init(void);
-
-///////////////////////////////-----INIT DATA-----//////////////////////////////
-
-t_data			*init_data(void);
-//void			init_res(t_data *data);
-int				*create_possible_moves_x(t_data *data);
-int				*create_possible_moves_y(t_data *data);
-char			**init_map(t_data *data);
-
-
-////////////////////////////////-----UTILS-----/////////////////////////////////
-
-void			exit_error(char *msg, t_data *data);
-//void			print_res(t_res *res);
-void			print_string_array(char **array);
-void			print_rays(t_ray_result **rays);
-//void			print_map(t_map *map);
-
-////////////////////////////////-----PARSE-----/////////////////////////////////
-
+t_xpm			*parse_xpm(char *filename);
+void			print_xpm(t_xpm *xpm);
 void			parse_file(t_data *data, char *filepath);
 void			check_invalid_lines(t_data *data);
 
@@ -295,14 +270,6 @@ void			valid_number_format(char *str, t_data *data);
 void			check_hex_range(t_data *data);
 int				convert_to_hex(int rgb[3]);
 
-
-////////////////////////////////-----FREE-----/////////////////////////////////
-
-void			free_data(t_data *data);
-void			free_parser(t_data *data);
-void			free_env(t_data *data);
-void			free_str_arr(char **arr);
-
 /////////////////////////////-----PARSE MAP-----////////////////////////////////
 
 void			parse_map(t_data *data);
@@ -315,11 +282,24 @@ void			read_map(t_data *data);
 void			get_player_pos(t_data *data);
 void			get_player_orientation(t_data *data);
 
+/////////////////////////////-----PARSE_XPM-----////////////////////////////////
+
+void			parse_xpm_info(t_xpm *xpm, char *line);
+void			add_new_color(t_xpm *xpm, char *line);
+void			print_xpm(t_xpm *xpm);
+t_xpm			*parse_xpm(char *filename);
+
 /////////////////////////////-----PARSE HELP-----///////////////////////////////
 
 void			parse_successful(t_data *data);
 int				only_spaces(char *line);
 
+////////////////////////////////-----UTILS-----/////////////////////////////////
+
+void			exit_error(char *msg, t_data *data);
+void			print_string_array(char **array);
+void			print_rays(t_ray_result **rays);
+void			vector_cpy(float dest[2], float src[2]);
 
 ///////////////////////////////-----MAP_CHECK-----//////////////////////////////
 
@@ -340,10 +320,12 @@ void			parse_xpm_lines(t_xpm *xpm, char **line, int *line_no, t_data *data);
 ////////////////////////////////-----FREE-----/////////////////////////////////
 
 void			free_data(t_data *data);
-// void			free_env(t_env *env);
+void			free_parser(t_data *data);
+void			free_env(t_data *data);
+void			free_str_arr(char **arr);
+void			free_data(t_data *data);
 void			free_rays(t_ray_result **rays);
 int				free_window(t_window *window);
-
 void			free_res(t_data *data);
 void			free_str_arr(char **arr);
 void			free_map(char **map);

@@ -6,7 +6,7 @@
 /*   By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/01/25 17:30:39 by lgrimmei         ###   ########.fr       */
+/*   Updated: 2024/01/25 18:45:54 by lgrimmei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,24 +45,23 @@ void	draw_walls(t_data *data)
 	int	color;
 	int	y_range;
 
-	x = 0;
-	while (x < WINDOW_W)
+	x = -1;
+	while (++x < WINDOW_W)
 	{
 		y = data->rays[x]->start_y;
-		while (y < data->rays[x]->end_y)
+		while (y < data->rays[x]->end_y && y < WINDOW_H)
 		{
 			color = get_pixel_color(*data->rays[x], y);
-			y_range = (data->rays[x]->end_y - data->rays[x]->start_y) / 200;
-			while (y_range >= 0)
+			y_range = (data->rays[x]->end_y - data->rays[x]->start_y) / 100;
+			while (y_range-- >= 0 && y < WINDOW_H)
 			{
-				if (y >= 0 && y <= WINDOW_H)
+				if (y <= WINDOW_H)
+				{
 					draw_pixel(data->window, x, y, color);
-				//draw_shader(data->window, x, y, data->rays[x]->distance);
+					draw_shader(data->window, x, y, data->rays[x]->distance);
+				}
 				y++;
-				y_range--;
 			}
 		}
-		y = 0;
-		x++;
 	}
 }
