@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_walls.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/01/24 16:11:37 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/24 19:28:10 by lgrimmei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ int	get_pixel_color(t_ray_result ray, int y)
 		rel_y = ray.x - (int)ray.x;
 	else
 		rel_y = 0;
-	column = ray.xpm->columns * rel_y;
+	printf("rely: %f columns %i\n", rel_y, ray.xpm->columns);
+	column = (ray.xpm->columns - 1) * rel_y;
 	row = ((float)(y - ray.start_y) / ray.line_height) * ray.xpm->rows;
 	color_hex_string = get_hex_from_char(ray.xpm->lines[row][column], ray.xpm);
 	color_hex = hex_to_int(color_hex_string);
@@ -51,7 +52,7 @@ void	draw_walls(t_data *data)
 			while (y_range >= 0)
 			{
 				draw_pixel(data->window, x, y, color);
-				draw_shader(data->window, x, y, data->rays[x]->distance);
+				//draw_shader(data->window, x, y, data->rays[x]->distance);
 				y++;
 				y_range--;
 			}

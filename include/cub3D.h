@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 17:23:15 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/24 18:05:51 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/24 19:05:22 by lgrimmei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,7 +182,6 @@ void			exit_error(char *msg, t_data *data);
 t_data			*init_data(void);
 t_ray_result	**init_rays(void);
 t_window		*init_window(void);
-
 t_xpm			*init_xpm(char *filename);
 int				*create_possible_moves_x(t_data *data);
 int				*create_possible_moves_y(t_data *data);
