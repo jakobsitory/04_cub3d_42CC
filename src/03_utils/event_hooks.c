@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   event_hooks.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 09:35:27 by jschott           #+#    #+#             */
-/*   Updated: 2024/01/25 12:00:21 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/25 15:25:22 by lgrimmei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,13 @@ int	keypress(int keycode, t_data *data)
 	else if (keycode == MOVE_BACK || keycode == MOVE_FRWD || \
 		keycode == MOVE_RIGHT || keycode == MOVE_LEFT)
 		render_player_position(data->env, keycode);
-	else
-		return (0);
-	render_frame(data);
-	draw_frame(data);
+	if (data->env->has_moved || data->env->has_rotated)
+	{
+		render_frame(data);
+		draw_frame(data);
+		data->env->has_rotated = 0;
+		data->env->has_moved = 0;
+	}
 	return (0);
 }
 

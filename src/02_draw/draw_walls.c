@@ -6,7 +6,7 @@
 /*   By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/01/24 19:28:10 by lgrimmei         ###   ########.fr       */
+/*   Updated: 2024/01/25 14:06:53 by lgrimmei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,12 @@ int	get_pixel_color(t_ray_result ray, int y)
 		rel_y = ray.x - (int)ray.x;
 	else
 		rel_y = 0;
-	printf("rely: %f columns %i\n", rel_y, ray.xpm->columns);
-	column = (ray.xpm->columns - 1) * rel_y;
+	if (((int)ray.degree <= 270 &&(int)ray.degree >= 90) && (is_whole_number(ray.y)))
+		rel_y = 1 - rel_y;
+	column = (ray.xpm->columns) * rel_y;
 	row = ((float)(y - ray.start_y) / ray.line_height) * ray.xpm->rows;
+	if (rel_y == 1)
+		column--;
 	color_hex_string = get_hex_from_char(ray.xpm->lines[row][column], ray.xpm);
 	color_hex = hex_to_int(color_hex_string);
 	return (color_hex);
@@ -51,7 +54,8 @@ void	draw_walls(t_data *data)
 			y_range = (data->rays[x]->end_y - data->rays[x]->start_y) / 100;
 			while (y_range >= 0)
 			{
-				draw_pixel(data->window, x, y, color);
+				if (y >= 0 && y <= WINDOW_H)
+					draw_pixel(data->window, x, y, color);
 				//draw_shader(data->window, x, y, data->rays[x]->distance);
 				y++;
 				y_range--;

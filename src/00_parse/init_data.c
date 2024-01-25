@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_data.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 19:06:18 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/25 12:06:14 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/25 14:24:59 by lgrimmei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ void	init_env(t_data *data)
 	data->env->ceiling_hex = -1;
 	data->env->floor_hex = -1;
 	data->env->degr_per_ray = (float) FOV / (float) WINDOW_W;
+	data->env->has_moved = 1;
+	data->env->has_rotated = 1;
 }
 
 int	*create_possible_moves_x(t_data *data)

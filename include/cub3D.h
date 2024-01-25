@@ -6,7 +6,7 @@
 /*   By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 17:23:15 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/25 12:35:05 by lgrimmei         ###   ########.fr       */
+/*   Updated: 2024/01/25 15:37:52 by lgrimmei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,8 @@ typedef struct s_env
 	int				ceiling_hex;
 	struct s_xpm	**wall_textures;
 	float			degr_per_ray;
+	int				has_moved;
+	int				has_rotated;
 }	t_env;
 
 typedef struct s_parser

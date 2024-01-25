@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 15:32:59 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/25 12:04:15 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/25 13:55:49 by lgrimmei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,14 +68,17 @@ void	free_env(t_data *data)
 {
 	if (data->env->map)
 		free_str_arr(data->env->map);
-	if (data->env->wall_textures[0])
-		free_xpm(data->env->wall_textures[0]);
-	if (data->env->wall_textures[1])
-		free_xpm(data->env->wall_textures[1]);
-	if (data->env->wall_textures[2])
-		free_xpm(data->env->wall_textures[2]);
-	if (data->env->wall_textures[3])
-		free_xpm(data->env->wall_textures[3]);
+	if (data->env->wall_textures)
+	{
+		if (data->env->wall_textures[0])
+			free_xpm(data->env->wall_textures[0]);
+		if (data->env->wall_textures[1])
+			free_xpm(data->env->wall_textures[1]);
+		if (data->env->wall_textures[2])
+			free_xpm(data->env->wall_textures[2]);
+		if (data->env->wall_textures[3])
+			free_xpm(data->env->wall_textures[3]);
+	}
 	if (data->env->wall_textures)
 		free(data->env->wall_textures);
 	if (data->env)

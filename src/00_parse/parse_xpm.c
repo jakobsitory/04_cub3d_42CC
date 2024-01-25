@@ -6,7 +6,7 @@
 /*   By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 11:20:41 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/24 18:13:54 by lgrimmei         ###   ########.fr       */
+/*   Updated: 2024/01/25 13:04:41 by lgrimmei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,6 +140,6 @@ t_xpm	*parse_xpm(char *filename)
 		get_next_line_wrapper(&line, &line_no, xpm->fd);
 	}
 	parse_xpm_lines(xpm, &line, &line_no);
-	printf("%i\n", xpm->columns);
+	//printf("%i\n", xpm->columns);
 	return (xpm);
 }

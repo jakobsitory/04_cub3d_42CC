@@ -6,7 +6,7 @@
 /*   By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 11:30:46 by jschott           #+#    #+#             */
-/*   Updated: 2024/01/25 12:36:46 by lgrimmei         ###   ########.fr       */
+/*   Updated: 2024/01/25 15:28:58 by lgrimmei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,31 +16,23 @@ void	assign_textures(t_ray_result *rays[], t_env *env)
 {
 	int	i;
 
-	// for (int i = 0; i < 4; i++)
-		// print_xpm(env->wall_textures[i]);
 	i = -1;
-	// printf("checking degrees:\n");
 	while (++i < WINDOW_W)
 	{
-		// printf("%f, ", rays[i]->degree);
-		if ((int)rays[i]->degree <= 90 || (int)rays[i]->degree >= 270)
+		if (((int)rays[i]->degree <= 90 || (int)rays[i]->degree >= 270) && (is_whole_number(rays[i]->y)))
 		{
-			if (is_whole_number(rays[i]->y))
 				rays[i]->xpm = env->wall_textures[0];
 		}
-		if ((int)rays[i]->degree <= 180 &&(int)rays[i]->degree >= 0)
+		if (((int)rays[i]->degree <= 180 &&(int)rays[i]->degree >= 0) && (is_whole_number(rays[i]->x)))
 		{
-			if (is_whole_number(rays[i]->x))
 				rays[i]->xpm =  env->wall_textures[1];
 		}
-		if ((int)rays[i]->degree <= 270 &&(int)rays[i]->degree >= 90)
+		if (((int)rays[i]->degree <= 270 &&(int)rays[i]->degree >= 90) && (is_whole_number(rays[i]->y)))
 		{
-			if (is_whole_number(rays[i]->y))
 				rays[i]->xpm =  env->wall_textures[2];
 		}
 		else if ((int)rays[i]->degree < 360 &&(int)rays[i]->degree > 180 && is_whole_number(rays[i]->x))
 			rays[i]->xpm =  env->wall_textures[3];
-		// print_xpm(rays[i]->xpm);
 	}
 }
 
@@ -75,9 +67,13 @@ int	render_walls(t_ray_result **rays)
 		rays[i]->line_height = (WINDOW_H) / rays[i]->distance;
 		rays[i]->start_y = (WINDOW_H / 2) - rays[i]->line_height / 2;
 		rays[i]->end_y =  (WINDOW_H / 2) + rays[i]->line_height / 2;
-/* 	printf("cast: [%f, %f] at %fdgr with %f distance, draw from %i to %i (%i length)\n", \
-	rays[i]->x, rays[i]->y, rays[i]->degree, rays[i]->distance,\
-	rays[i]->start_y, rays[i]->end_y, rays[i]->line_height); */
+ 		// if (rays[i]->start_y < 0)
+		// {
+			// rays[i]->start_y = 0;
+			// rays[i]->end_y = WINDOW_H;
+
+		// }
+		//printf("start y %i end y %i\n", rays[i]->start_y, rays[i]->end_y);
 	}
 	return (0);
 }
