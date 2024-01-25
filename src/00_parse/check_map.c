@@ -6,7 +6,7 @@
 /*   By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 19:57:38 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/25 16:38:35 by lgrimmei         ###   ########.fr       */
+/*   Updated: 2024/01/25 19:01:29 by lgrimmei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ void	flood_fill(t_data *data, char **map, int x, int y)
 	x_moves = create_possible_moves_x(data);
 	y_moves = create_possible_moves_y(data);
 	i = 0;
-	if (x >= data->env->map_size[0] - 1 ||\
-	 y >= data->env->map_size[1] - 1 || !is_valid_pos(map, x, y))
+	if (x >= data->env->map_size[0] - 1 || \
+	y >= data->env->map_size[1] - 1 || !is_valid_pos(map, x, y))
 	{
 		free(x_moves);
 		free(y_moves);

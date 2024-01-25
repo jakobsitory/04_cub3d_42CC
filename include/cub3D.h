@@ -6,7 +6,7 @@
 /*   By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 17:23:15 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/25 18:44:10 by lgrimmei         ###   ########.fr       */
+/*   Updated: 2024/01/25 19:06:16 by lgrimmei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,10 @@
 # include "libft.h"
 # include "ft_printf.h"
 # include "get_next_line.h"
+
+#ifndef SHADER
+# define SHADER 0
+# endif
 
 # define WINDOW_W 	960
 # define WINDOW_H	720
@@ -181,13 +185,12 @@ void			exit_error(char *msg, t_data *data);
 t_data			*init_data(void);
 t_ray_result	**init_rays(t_data *data);
 t_window		*init_window(t_data *data);
-t_xpm			*init_xpm(char *filename);
 int				*create_possible_moves_x(t_data *data);
 int				*create_possible_moves_y(t_data *data);
 char			**init_map(t_data *data);
 void			init_env(t_data *data);
 char			**map_init(void);
-t_xpm			*init_xpm(char *filename);
+t_xpm			*init_xpm(char *filename, t_data *data);
 int				*create_possible_moves_x(t_data *data);
 int				*create_possible_moves_y(t_data *data);
 char			**init_map(t_data *data);
@@ -247,7 +250,6 @@ int				hex_to_int(char *hex);
 
 ////////////////////////////////----PARSING----////////////////////////////////
 
-t_xpm			*parse_xpm(char *filename);
 void			print_xpm(t_xpm *xpm);
 void			parse_file(t_data *data, char *filepath);
 void			check_invalid_lines(t_data *data);
@@ -282,13 +284,6 @@ void			read_map(t_data *data);
 void			get_player_pos(t_data *data);
 void			get_player_orientation(t_data *data);
 
-/////////////////////////////-----PARSE_XPM-----////////////////////////////////
-
-void			parse_xpm_info(t_xpm *xpm, char *line);
-void			add_new_color(t_xpm *xpm, char *line);
-void			print_xpm(t_xpm *xpm);
-t_xpm			*parse_xpm(char *filename);
-
 /////////////////////////////-----PARSE HELP-----///////////////////////////////
 
 void			parse_successful(t_data *data);
@@ -315,7 +310,8 @@ void			parse_xpm_info(t_xpm *xpm, char *line);
 void			add_new_color(t_xpm *xpm, char *line, t_data *data);
 void			print_xpm(t_xpm *xpm);
 t_xpm			*parse_xpm(char *filename, t_data *data);
-void			parse_xpm_lines(t_xpm *xpm, char **line, int *line_no, t_data *data);
+void			parse_xpm_lines(t_xpm *xpm, char **line, int *line_no, \
+				t_data *data);
 
 ////////////////////////////////-----FREE-----/////////////////////////////////
 

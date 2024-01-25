@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   init_window.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 10:25:00 by jschott           #+#    #+#             */
-/*   Updated: 2024/01/25 18:07:17 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/25 19:01:42 by lgrimmei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
-
 
 t_window	*init_window(t_data *data)
 {

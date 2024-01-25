@@ -6,7 +6,7 @@
 /*   By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 11:20:41 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/25 18:45:01 by lgrimmei         ###   ########.fr       */
+/*   Updated: 2024/01/25 19:02:07 by lgrimmei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,27 +47,6 @@ void	add_new_color(t_xpm *xpm, char *line, t_data *data)
 			tmp = tmp->next;
 		tmp->next = color;
 	}
-}
-
-void	print_xpm(t_xpm *xpm)
-{
-	t_xpm_color	*tmp_color;
-	int			i;
-
-	printf("---GENERAL:---\n%i, %i, %i, %i\n", xpm->rows, xpm->columns, \
-				xpm->colors_count, xpm->bytes_per_pixel);
-	tmp_color = xpm->colors;
-	printf("---COLORS---\n");
-	while (tmp_color)
-	{
-		printf("%c->%s\n", tmp_color->c, tmp_color->hex_code);
-		tmp_color = tmp_color->next;
-	}
-	printf("---IMAGE:---\n");
-	i = -1;
-	while (++i < xpm->rows)
-		printf("%s\n", xpm->lines[i]);
-	printf("---END---\n");
 }
 
 void	get_next_line_wrapper(char **line, int *line_no, int fd)

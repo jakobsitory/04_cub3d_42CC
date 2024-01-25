@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_background.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 15:44:18 by jschott           #+#    #+#             */
-/*   Updated: 2024/01/25 18:17:30 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/25 19:17:33 by lgrimmei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	render_background(t_env *env)
 		x = -1;
 	}
 	y = -1;
-	while (++y < WINDOW_H)
+	while (SHADER && ++y < WINDOW_H)
 	{
 		while (++x < WINDOW_W)
 			render_shader(env->background_hex, x, y);
