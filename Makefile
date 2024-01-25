@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+         #
+#    By: jschott <jschott@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: Invalid date        by                   #+#    #+#              #
-#    Updated: 2024/01/24 18:11:55 by lgrimmei         ###   ########.fr        #
+#    Updated: 2024/01/25 16:47:28 by jschott          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,7 +51,8 @@ SRCS := main.c \
 		01_render/render_walls.c \
 		01_render/render_frame.c \
 		01_render/render_ray.c \
-		01_render/render_player.c
+		01_render/render_player.c \
+		01_render/render_background.c
 	
 # DIRECTORIES AND PATHS
 INCLDIR		:= include/
@@ -75,8 +76,8 @@ HEADERS		:= $(addprefix $(INCLDIR)/, cub3D.h libft.h get_next_line.h ft_printf.h
 
 # FLAGS
 CFLAGS		:= -Wall -Wextra -Werror
-# DEBUGFLAGS	:= -g -fsanitize=address
-DEBUGFLAGS	:= -g
+DEBUGFLAGS	:= -g -fsanitize=address
+# DEBUGFLAGS	:= -g
 LIBFTFLAG	:= -L$(LIBFTDIR)
 LIBFTLIB	:= -lft
 LIBMLXFLAG	:= -L$(LIBMLXDIR)

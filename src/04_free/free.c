@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 15:32:59 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/25 13:55:49 by lgrimmei         ###   ########.fr       */
+/*   Updated: 2024/01/25 16:41:54 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,8 @@ void	free_env(t_data *data)
 	}
 	if (data->env->wall_textures)
 		free(data->env->wall_textures);
+	if (data->env->background_hex)
+		free(data->env->background_hex);
 	if (data->env)
 		free(data->env);
 }

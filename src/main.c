@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 17:22:00 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/25 13:48:44 by lgrimmei         ###   ########.fr       */
+/*   Updated: 2024/01/25 18:04:00 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ void	print_env(t_env *env)
 	print_xpm(env->wall_textures[3]);
 	print_string_array(env->map);
 	printf("map size: %i x %i\n", env->map_size[0], env->map_size[1]);
-	printf("player position: %f x %f\n", env->player_position[0], env->player_position[1]);
+	printf("player position: %f x %f\n", \
+			env->player_position[0], env->player_position[1]);
 	printf("player orientation: %i\n", env->player_orientation);
 	printf("floor hex: %x\n", env->floor_hex);
 	printf("ceiling hex -> %x\n", env->ceiling_hex);
@@ -28,20 +29,16 @@ void	print_env(t_env *env)
 
 int	main(int argc, char *argv[])
 {
-	//t_scene	*scene;
 	t_data	*data;
-	
+
 	check_args(argc, argv);
 	data = init_data();
 	parse_file(data, argv[1]);
-
-	// data->window = init_window();
-	// data->rays = init_rays();
 	render_frame(data);
+	render_background(data->env);
 	draw_frame(data);
 	event_hooks(data);
 	mlx_loop(data->window->mlx);
-
 	free_data(data);
 	return (0);
 }

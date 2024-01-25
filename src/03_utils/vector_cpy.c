@@ -6,16 +6,16 @@
 /*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 12:40:14 by jschott           #+#    #+#             */
-/*   Updated: 2024/01/24 12:42:01 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/25 18:32:05 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-void	vector_cpy(float *dest[2], float src[2])
+void	vector_cpy(float dest[2], float src[2])
 {
 	if (!dest || !src)
 		return ;
-	(*dest)[0] = src[0];
-	(*dest)[1] = src[1];
+	dest[0] = src[0];
+	dest[1] = src[1];
 }

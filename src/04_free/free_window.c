@@ -6,7 +6,7 @@
 /*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 11:08:22 by jschott           #+#    #+#             */
-/*   Updated: 2024/01/25 12:02:27 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/25 18:31:51 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,4 +22,3 @@ int	free_window(t_window *window)
 	free (window);
 	return (0);
 }
-
