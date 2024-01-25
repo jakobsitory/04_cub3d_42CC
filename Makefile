@@ -6,7 +6,7 @@
 #    By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: Invalid date        by                   #+#    #+#              #
-#    Updated: 2024/01/24 18:11:55 by lgrimmei         ###   ########.fr        #
+#    Updated: 2024/01/25 17:01:02 by lgrimmei         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,8 +44,8 @@ SRCS := main.c \
 		03_utils/vector_cpy.c \
 		03_utils/event_hooks.c \
 		03_utils/utils.c \
+		03_utils/create_move_arrays.c \
 		04_free/free_window.c \
-		04_free/free_data.c \
 		04_free/free_rays.c \
 		04_free/free.c \
 		01_render/render_walls.c \

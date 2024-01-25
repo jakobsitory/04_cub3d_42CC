@@ -6,7 +6,7 @@
 /*   By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 17:23:15 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/25 15:37:52 by lgrimmei         ###   ########.fr       */
+/*   Updated: 2024/01/25 18:09:22 by lgrimmei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,7 +188,7 @@ void			exit_error(char *msg, t_data *data);
 t_data			*init_data(void);
 t_ray_result	**init_rays(void);
 t_window		*init_window(void);
-t_xpm			*init_xpm(char *filename);
+t_xpm			*init_xpm(char *filename, t_data *data);
 int				*create_possible_moves_x(t_data *data);
 int				*create_possible_moves_y(t_data *data);
 char			**init_map(t_data *data);
@@ -248,14 +248,12 @@ int				hex_to_int(char *hex);
 
 ////////////////////////////////----PARSING----////////////////////////////////
 
-t_xpm	*parse_xpm(char *filename);
 void	print_xpm(t_xpm *xpm);
 
 //////////////////////////////---INITIALIZATION---//////////////////////////////
 
 // t_scene	*scene_init(t_data *data);
 char 	**map_init(void);
-t_xpm	*init_xpm(char *filename);
 
 ///////////////////////////////-----INIT DATA-----//////////////////////////////
 
@@ -334,9 +332,10 @@ int				is_valid_char(char c);
 /////////////////////////////-----PARSE_XPM-----////////////////////////////////
 
 void			parse_xpm_info(t_xpm *xpm, char *line);
-void			add_new_color(t_xpm *xpm, char *line);
+void			add_new_color(t_xpm *xpm, char *line, t_data *data);
 void			print_xpm(t_xpm *xpm);
-t_xpm			*parse_xpm(char *filename);
+t_xpm			*parse_xpm(char *filename, t_data *data);
+void			parse_xpm_lines(t_xpm *xpm, char **line, int *line_no, t_data *data);
 
 ////////////////////////////////-----FREE-----/////////////////////////////////
 

@@ -6,7 +6,7 @@
 /*   By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 18:57:45 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/25 13:30:44 by lgrimmei         ###   ########.fr       */
+/*   Updated: 2024/01/25 18:10:19 by lgrimmei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	exit_error(char *msg, t_data *data)
 {
 	printf("Error\n");
-	if (msg || data)
+	if (msg)
 		printf("%s", msg);
 	if (data)
 		free_data(data);

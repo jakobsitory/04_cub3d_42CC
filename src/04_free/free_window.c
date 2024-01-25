@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_window.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 11:08:22 by jschott           #+#    #+#             */
-/*   Updated: 2024/01/25 12:02:27 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/25 17:00:43 by lgrimmei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,4 +22,3 @@ int	free_window(t_window *window)
 	free (window);
 	return (0);
 }
-

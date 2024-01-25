@@ -6,7 +6,7 @@
 /*   By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 11:20:41 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/25 13:04:41 by lgrimmei         ###   ########.fr       */
+/*   Updated: 2024/01/25 18:09:37 by lgrimmei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,14 @@ void	parse_xpm_info(t_xpm *xpm, char *line)
 	free(tr_line);
 }
 
-void	add_new_color(t_xpm *xpm, char *line)
+void	add_new_color(t_xpm *xpm, char *line, t_data *data)
 {
 	t_xpm_color	*color;
 	t_xpm_color	*tmp;
 
 	color = malloc(sizeof(t_xpm_color));
 	if (!color)
-		return ;
+		exit_error(MALLOC_ERR, data);
 	color->c = line[1];
 	color->hex_code = ft_substr(line, 5, ft_strlen(line) - 8);
 	color->next = NULL;
@@ -77,38 +77,14 @@ void	get_next_line_wrapper(char **line, int *line_no, int fd)
 	(*line_no)++;
 }
 
-t_xpm	*init_xpm(char *filename)
-{
-	t_xpm	*xpm;
-
-	xpm = malloc(sizeof(t_xpm));
-	if (!xpm)
-		return (NULL);
-	xpm->filepath = ft_strdup(filename);
-	xpm->colors = NULL; // You should not malloc here as you set it to NULL in the next line
-	xpm->fd = open(filename, O_RDONLY);
-	if (xpm->fd < 0)
-	{
-		printf("could not open xpm: %s\n", filename);
-		exit (0); //CLEAN EXIT TBD
-	}
-	xpm->lines = NULL;
-	xpm->rows = 0;
-	xpm->columns = 0;
-	xpm->colors_count = 0;
-	xpm->bytes_per_pixel = 0;
-
-	return (xpm);
-}
-
-void	parse_xpm_lines(t_xpm *xpm, char **line, int *line_no)
+void	parse_xpm_lines(t_xpm *xpm, char **line, int *line_no, t_data *data)
 {
 	int	i;
 
 	i = 0;
 	xpm->lines = malloc(sizeof(char *) * (xpm->rows + 1));
 	if (!xpm->lines)
-		return ;
+		exit_error(MALLOC_ERR, data);
 	while (i < xpm->rows)
 	{
 		xpm->lines[i] = ft_substr(*line, 1, ft_strlen(*line) - 4);
@@ -118,7 +94,7 @@ void	parse_xpm_lines(t_xpm *xpm, char **line, int *line_no)
 	xpm->lines[i] = NULL;
 }
 
-t_xpm	*parse_xpm(char *filename)
+t_xpm	*parse_xpm(char *filename, t_data *data)
 {
 	char	*line;
 	int		line_no;
@@ -126,7 +102,7 @@ t_xpm	*parse_xpm(char *filename)
 
 	if (!filename)
 		return (0);
-	xpm = init_xpm(filename);
+	xpm = init_xpm(filename, data);
 	line_no = 0;
 	line = get_next_line(xpm->fd);
 	while (line_no < 2)
@@ -136,10 +112,9 @@ t_xpm	*parse_xpm(char *filename)
 	get_next_line_wrapper(&line, &line_no, xpm->fd);
 	while (line_no <= xpm->colors_count + 2)
 	{
-		add_new_color(xpm, line);
+		add_new_color(xpm, line, data);
 		get_next_line_wrapper(&line, &line_no, xpm->fd);
 	}
-	parse_xpm_lines(xpm, &line, &line_no);
-	//printf("%i\n", xpm->columns);
+	parse_xpm_lines(xpm, &line, &line_no, data);
 	return (xpm);
 }

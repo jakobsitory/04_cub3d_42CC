@@ -6,7 +6,7 @@
 /*   By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 14:25:24 by jschott           #+#    #+#             */
-/*   Updated: 2024/01/25 15:34:36 by lgrimmei         ###   ########.fr       */
+/*   Updated: 2024/01/25 17:17:43 by lgrimmei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	render_player_position(t_env *env, int keycode)
 	set_direction(dir, angle);
 	new_pos[0] += cosf(degr_to_rad(angle)) * PLAYER_SPEED;
 	new_pos[1] += sinf(degr_to_rad(angle)) * PLAYER_SPEED;
-	if (env->map[(int)(new_pos[1] + dir[1] * PLAYER_SPEED)][(int)(new_pos[0] + dir[0] * PLAYER_SPEED)] == '1')
+	if (env->map[(int)(new_pos[1] + dir[0] * PLAYER_SPEED)][(int)(new_pos[0] + dir[1] * PLAYER_SPEED)] == '1')
 	{
 		printf("%f %f\n", new_pos[0], new_pos[1]);
 		env->has_moved = 0;

@@ -6,7 +6,7 @@
 /*   By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/01/25 14:06:53 by lgrimmei         ###   ########.fr       */
+/*   Updated: 2024/01/25 17:30:39 by lgrimmei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ int	get_pixel_color(t_ray_result ray, int y)
 		rel_y = ray.x - (int)ray.x;
 	else
 		rel_y = 0;
-	if (((int)ray.degree <= 270 &&(int)ray.degree >= 90) && (is_whole_number(ray.y)))
+	if (((int)ray.degree <= 270 && (int)ray.degree >= 90) && \
+	(is_whole_number(ray.y)))
 		rel_y = 1 - rel_y;
 	column = (ray.xpm->columns) * rel_y;
 	row = ((float)(y - ray.start_y) / ray.line_height) * ray.xpm->rows;
@@ -51,7 +52,7 @@ void	draw_walls(t_data *data)
 		while (y < data->rays[x]->end_y)
 		{
 			color = get_pixel_color(*data->rays[x], y);
-			y_range = (data->rays[x]->end_y - data->rays[x]->start_y) / 100;
+			y_range = (data->rays[x]->end_y - data->rays[x]->start_y) / 200;
 			while (y_range >= 0)
 			{
 				if (y >= 0 && y <= WINDOW_H)

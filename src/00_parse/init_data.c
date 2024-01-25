@@ -6,7 +6,7 @@
 /*   By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 19:06:18 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/25 14:24:59 by lgrimmei         ###   ########.fr       */
+/*   Updated: 2024/01/25 18:04:02 by lgrimmei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,10 @@ void	init_env(t_data *data)
 	data->env->wall_textures = malloc (sizeof(t_xpm *) * 4);
 	if (!data->env->wall_textures)
 		exit_error(MALLOC_ERR, data);
+	data->env->wall_textures[0] = NULL;
+	data->env->wall_textures[1] = NULL;
+	data->env->wall_textures[2] = NULL;
+	data->env->wall_textures[3] = NULL;
 	data->env->map = NULL;
 	data->env->ceiling_hex = -1;
 	data->env->floor_hex = -1;
@@ -62,40 +66,24 @@ void	init_env(t_data *data)
 	data->env->has_rotated = 1;
 }
 
-int	*create_possible_moves_x(t_data *data)
+t_xpm	*init_xpm(char *filename, t_data *data)
 {
-	int	*x_moves;
+	t_xpm	*xpm;
 
-	x_moves = malloc(8 * sizeof(int));
-	if (!x_moves) 
+	xpm = malloc(sizeof(t_xpm));
+	if (!xpm)
 		exit_error(MALLOC_ERR, data);
-	x_moves[0] = -1;
-	x_moves[1] = 0;
-	x_moves[2] = 1;
-	x_moves[3] = -1;
-	x_moves[4] = 1;
-	x_moves[5] = -1;
-	x_moves[6] = 0;
-	x_moves[7] = 1;
-	return (x_moves);
-}
-
-int	*create_possible_moves_y(t_data *data)
-{
-	int	*y_moves;
-
-	y_moves = malloc(8 * sizeof(int));
-	if (!y_moves) 
-		exit_error(MALLOC_ERR, data);
-	y_moves[0] = 1;
-	y_moves[1] = 1;
-	y_moves[2] = 1;
-	y_moves[3] = 0;
-	y_moves[4] = 0;
-	y_moves[5] = -1;
-	y_moves[6] = -1;
-	y_moves[7] = -1;
-	return (y_moves);
+	xpm->filepath = ft_strdup(filename);
+	xpm->colors = NULL;
+	xpm->fd = open(filename, O_RDONLY);
+	if (xpm->fd < 0)
+		exit_error(TEXTURE_ERR, data);
+	xpm->lines = NULL;
+	xpm->rows = 0;
+	xpm->columns = 0;
+	xpm->colors_count = 0;
+	xpm->bytes_per_pixel = 0;
+	return (xpm);
 }
 
 char	**init_map(t_data *data)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_file.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 17:57:43 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/25 12:09:01 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/25 18:04:49 by lgrimmei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,12 @@ void	parse_textures(t_data *data)
 		data->parser->line = get_next_line(data->parser->fd);
 	}
 	free(data->parser->line);
-	data->env->wall_textures[0] = parse_xpm(data->parser->north_text_path);
-	data->env->wall_textures[1] = parse_xpm(data->parser->east_text_path);
-	data->env->wall_textures[2] = parse_xpm(data->parser->south_text_path);
-	data->env->wall_textures[3] = parse_xpm(data->parser->west_text_path);
+	data->env->wall_textures[0] = parse_xpm(data->parser->north_text_path, \
+	data);
+	data->env->wall_textures[1] = parse_xpm(data->parser->east_text_path, data);
+	data->env->wall_textures[2] = parse_xpm(data->parser->south_text_path, \
+	data);
+	data->env->wall_textures[3] = parse_xpm(data->parser->west_text_path, data);
 	close(data->parser->fd);
 }
 

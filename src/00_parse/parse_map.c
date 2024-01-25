@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 15:18:32 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/24 17:46:03 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/25 16:44:20 by lgrimmei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,17 @@ void	read_map(t_data *data)
 
 void	get_player_orientation(t_data *data)
 {
-	if (data->env->map[(int)data->env->player_position[1]][(int)data->env->player_position[0]] == 'N')
+	if (data->env->map[(int)data->env->player_position[1]] \
+	[(int)data->env->player_position[0]] == 'N')
 		data->env->player_orientation = 0;
-	else if (data->env->map[(int)data->env->player_position[1]][(int)data->env->player_position[0]] == 'E')
+	else if (data->env->map[(int)data->env->player_position[1]] \
+	[(int)data->env->player_position[0]] == 'E')
 		data->env->player_orientation = 90;
-	else if (data->env->map[(int)data->env->player_position[1]][(int)data->env->player_position[0]] == 'S')
+	else if (data->env->map[(int)data->env->player_position[1]] \
+	[(int)data->env->player_position[0]] == 'S')
 		data->env->player_orientation = 180;
-	else if (data->env->map[(int)data->env->player_position[1]][(int)data->env->player_position[0]] == 'W')
+	else if (data->env->map[(int)data->env->player_position[1]] \
+	[(int)data->env->player_position[0]] == 'W')
 		data->env->player_orientation = 270;
 }
 
