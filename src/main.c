@@ -6,7 +6,7 @@
 /*   By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 17:22:00 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/24 19:06:04 by lgrimmei         ###   ########.fr       */
+/*   Updated: 2024/01/25 12:35:54 by lgrimmei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,12 @@ int	main(int argc, char *argv[])
 	t_data	*data;
 	
 	check_args(argc, argv);
-	data = (t_data *)malloc (sizeof(t_data));
 	data = init_data();
 	parse_file(data, argv[1]);
 	print_env(data->env);
 
 	data->window = init_window();
-	//printf("img_address: %p\n", &data->window->img_addr);
+	printf("img_address: %p\n", &data->window->img_addr);
 	data->rays = init_rays();
 	render_frame(data->rays, data->env);
 	draw_frame(data);
@@ -50,7 +49,7 @@ int	main(int argc, char *argv[])
 	mlx_loop(data->window->mlx);
 
 	// win_destroy(scene); */
-	//free_data(data);
+	free_data(data);
 	return (0);
 }
 

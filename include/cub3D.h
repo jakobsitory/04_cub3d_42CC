@@ -6,7 +6,7 @@
 /*   By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 17:23:15 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/24 19:05:22 by lgrimmei         ###   ########.fr       */
+/*   Updated: 2024/01/25 12:35:05 by lgrimmei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@
 # include "get_next_line.h"
 
 # define WINDOW_W 	960
-# define WINDOW_H	480
+# define WINDOW_H	720
 
 # define FOV			60
-# define MINIMAP_SIZE	.5
+# define MINIMAP_SIZE	.3
 # define PLAYER_SPEED	.1
 # define PLAYER_SIZE	.1
 
@@ -55,6 +55,11 @@
 # define FLOOR_ID "F "
 # define CEILING_ID "C "
 
+#define NORTH_TEXTURE	"resources/walls/north.xpm"
+#define EAST_TEXTURE 	"resources/walls/east.xpm"
+#define SOUTH_TEXTURE	"resources/walls/south.xpm"
+#define WEST_TEXTURE 	"resources/walls/west.xpm"
+
 #define PI 3.14159265
 
 # define USAGE_ERR "Correct Usage: [./cub3d xxx.cub]\n"
@@ -69,6 +74,7 @@
 # define MULTIPLE_COLOR "Multiple Definitions of Colors\n"
 # define ONLY_SPACES "Line with only spaces outside of map found\n"
 # define INV_LINE "Invalid Line found\n"
+# define RENDER_ERR "Error while rendering frame\n"
 
 //////////////////////////////-----STRUCTURES-----//////////////////////////////
 
@@ -77,14 +83,12 @@ typedef struct s_env
 	char			**map;
 	int				map_size[2];
 	float			map_scale;
-	//struct s_line	*map_ray; //evtl. remove
 	float			player_position[2];
 	int				player_orientation;
 	int				floor_hex;
 	int				ceiling_hex;
 	struct s_xpm	**wall_textures;
 	float			degr_per_ray;
-	//int		map_square_scale; remove?
 }	t_env;
 
 typedef struct s_parser
@@ -200,8 +204,8 @@ void			event_hooks(t_data *data);
 
 ////////////////////////////////-----RENDER-----////////////////////////////////
 
-void			render_frame(t_ray_result **rays, t_env *env);
-void			render_rays(t_ray_result **rays, t_env *env);
+void			render_frame(t_data *data);
+int				render_rays(t_ray_result **rays, t_env *env);
 int				cast_ray(t_ray_result *ray,  t_env *env, float angle);
 void			render_player(t_env *env, int keycode);
 void			render_player_position(t_env *env, int keycode);
@@ -209,10 +213,10 @@ void			render_player_orienation(t_env *env, int keycode);
 void			set_direction(int dir[2], float angle);
 void			find_next(float start[2], int dir[2]);
 int				ray_collision(char **map, float dest[2], int dir[2]);
-void			render_walls(t_ray_result **rays, t_env *env);
+int				render_walls(t_ray_result **rays);
 void			fix_fisheye(t_ray_result *rays[], int no_rays, int player_orientation);
 int				map_scale(int map_size[2]);
-void			assign_textures(t_ray_result *rays[], t_xpm **textures, int end);
+void			assign_textures(t_ray_result *rays[], t_env *env);
 
 /////////////////////////////////-----DRAW-----/////////////////////////////////
 
@@ -265,6 +269,7 @@ char			**init_map(t_data *data);
 void			exit_error(char *msg, t_data *data);
 //void			print_res(t_res *res);
 void			print_string_array(char **array);
+void			print_rays(t_ray_result **rays);
 //void			print_map(t_map *map);
 
 ////////////////////////////////-----PARSE-----/////////////////////////////////

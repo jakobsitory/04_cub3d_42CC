@@ -6,7 +6,7 @@
 /*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 18:57:45 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/24 17:25:59 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/25 10:45:22 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ void	exit_error(char *msg, t_data *data)
 		free_data(data); */
 	exit (1);
 }
-
-/* void	print_res(t_res *res)
+/* 
+void	print_res(t_res *res)
 {
 	ft_printf("%s\n", res->north_text_path);
 	ft_printf("%s\n", res->east_text_path);
@@ -54,4 +54,24 @@ void	print_string_array(char **array)
 		i++;
 	}
 	ft_printf("\n", array[i]);
+}
+
+void	print_rays(t_ray_result **rays)
+{
+	int	i;
+
+	i = -1;
+	while (++i < WINDOW_W)
+	{
+		printf("\npos\t[%f, %f]\ndegr\t%f\ndist\t%f\nheight\t%i [%i to %i]\ntxtr\t %s", \
+	/* 	printf("\npos\t[%f, %f]\ndegr\t%f\ndist\t%f\n", \ */
+		rays[i]->x, \
+		rays[i]->y, \
+		rays[i]->degree, \
+		rays[i]->distance, \
+		rays[i]->line_height, \
+		rays[i]->start_y, \
+		rays[i]->end_y, \
+		rays[i]->xpm->filepath);
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 15:32:59 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/24 17:34:32 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/25 12:04:15 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void	free_data(t_data *data)
 {
+	free_window(data->window);
+	free_rays(data->rays);
 	free_env(data);
 	free_parser(data);
 	if (data)
@@ -42,9 +44,10 @@ void	free_parser(t_data *data)
 		free(data->parser); 
 }
 
-void	free_xpm(t_xpm *xpm) {
-	t_xpm_color *tmp;
-	t_xpm_color *next;
+void	free_xpm(t_xpm *xpm)
+{
+	t_xpm_color	*tmp;
+	t_xpm_color	*next;
 
 	if (xpm->filepath)
 		free(xpm->filepath);

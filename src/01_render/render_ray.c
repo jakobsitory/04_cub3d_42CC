@@ -6,7 +6,7 @@
 /*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 15:03:37 by jschott           #+#    #+#             */
-/*   Updated: 2024/01/24 17:37:05 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/25 11:50:22 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,10 +123,12 @@ int	cast_ray(t_ray_result *ray,  t_env *env, float angle)
 	ray->x = next[0];
 	ray->y = next[1];
 	ray->degree = angle;
+	// printf("cast: [%f, %f] at %fdgr with %f distance\n", next[0], next[1], angle, get_distance(env->player_position, next));
+	// printf("cast: [%f, %f] at %fdgr with %f distance\n", ray->x, ray->y, ray->degree, ray->distance);
 	return (0);
 }
 
-void	render_rays(t_ray_result **rays, t_env *env)
+int	render_rays(t_ray_result **rays, t_env *env)
 {
 	float	angle;
 	int		i;
@@ -138,11 +140,15 @@ void	render_rays(t_ray_result **rays, t_env *env)
 	i = 0;
 	while (i < WINDOW_W)
 	{
+		// printf("%f ", angle);
 		angle += env->degr_per_ray;
 		if (angle >= 360)
 			angle -= 360;
-		cast_ray(rays[i], env, angle);
+		if (cast_ray(rays[i], env, angle))
+			return (1);
+		// printf("cast: [%f, %f] at %fdgr with %f distance\n", rays[i]->x, rays[i]->y, rays[i]->degree, rays[i]->distance);
 		i++;
 	}
+	return (0);
 }
 
