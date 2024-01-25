@@ -6,7 +6,7 @@
 /*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 09:47:49 by jschott           #+#    #+#             */
-/*   Updated: 2024/01/25 18:04:24 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/25 19:31:38 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	my_transparent_pixel_put(t_window *window, int x, int y, int color)
 	}
 }
 
-void	draw_shader(t_window *window, int x, int y, float distance)
+void	draw_shade(t_window *window, int x, int y, float distance)
 {
 	int	alpha;
 	int	color;

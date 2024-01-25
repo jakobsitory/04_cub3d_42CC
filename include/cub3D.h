@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 17:23:15 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/25 19:06:16 by lgrimmei         ###   ########.fr       */
+/*   Updated: 2024/01/25 19:30:06 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@
 # include "ft_printf.h"
 # include "get_next_line.h"
 
-#ifndef SHADER
-# define SHADER 0
+# ifndef SHADER
+#  define SHADER 0
 # endif
 
 # define WINDOW_W 	960
@@ -235,7 +235,7 @@ void			draw_rectangle(t_window *window, \
 								int start[2], int end[2], int color);
 int				get_pixel_color(t_ray_result ray, int y);
 void			draw_pixel(t_window *window, int x, int y, int color);
-void			draw_shader(t_window *window, int x, int y, float distance);
+void			draw_shade(t_window *window, int x, int y, float distance);
 
 /////////////////////////////////-----MATH-----/////////////////////////////////
 
