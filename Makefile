@@ -6,7 +6,7 @@
 #    By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: Invalid date        by                   #+#    #+#              #
-#    Updated: 2024/01/25 19:25:46 by lgrimmei         ###   ########.fr        #
+#    Updated: 2024/01/26 12:50:43 by lgrimmei         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -80,9 +80,9 @@ SHADERFLAG := -D SHADER=1
 else
 SHADERFLAG := -D SHADER=0
 endif
-DEBUGFLAGS	:= -g -fsanitize=address
 
-#DEBUGFLAGS	:= -g
+#DEBUGFLAGS	:= -g -fsanitize=address
+DEBUGFLAGS	:= -g
 LIBFTFLAG	:= -L$(LIBFTDIR)
 LIBFTLIB	:= -lft
 LIBMLXFLAG	:= -L$(LIBMLXDIR)

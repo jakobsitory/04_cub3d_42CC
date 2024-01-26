@@ -6,26 +6,11 @@
 /*   By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 17:22:00 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/25 18:50:44 by lgrimmei         ###   ########.fr       */
+/*   Updated: 2024/01/26 12:48:40 by lgrimmei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
-
-void	print_env(t_env *env)
-{
-	print_xpm(env->wall_textures[0]);
-	print_xpm(env->wall_textures[1]);
-	print_xpm(env->wall_textures[2]);
-	print_xpm(env->wall_textures[3]);
-	print_string_array(env->map);
-	printf("map size: %i x %i\n", env->map_size[0], env->map_size[1]);
-	printf("player position: %f x %f\n", \
-			env->player_position[0], env->player_position[1]);
-	printf("player orientation: %i\n", env->player_orientation);
-	printf("floor hex: %x\n", env->floor_hex);
-	printf("ceiling hex -> %x\n", env->ceiling_hex);
-}
 
 int	main(int argc, char *argv[])
 {

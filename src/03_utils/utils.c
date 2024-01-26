@@ -6,7 +6,7 @@
 /*   By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 18:57:45 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/25 19:03:53 by lgrimmei         ###   ########.fr       */
+/*   Updated: 2024/01/26 13:04:13 by lgrimmei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	exit_error(char *msg, t_data *data)
 		free_data(data);
 	exit (1);
 }
-
+/* 
 void	print_string_array(char **array)
 {
 	int	i;
@@ -29,10 +29,10 @@ void	print_string_array(char **array)
 	i = 0;
 	while (array[i])
 	{
-		ft_printf("'%s'\n", array[i]);
+		printf("'%s'\n", array[i]);
 		i++;
 	}
-	ft_printf("\n", array[i]);
+	printf("\n");
 }
 
 void	print_rays(t_ray_result **rays)
@@ -75,3 +75,19 @@ void	print_xpm(t_xpm *xpm)
 		printf("%s\n", xpm->lines[i]);
 	printf("---END---\n");
 }
+
+void	print_env(t_env *env)
+{
+	print_xpm(env->wall_textures[0]);
+	print_xpm(env->wall_textures[1]);
+	print_xpm(env->wall_textures[2]);
+	print_xpm(env->wall_textures[3]);
+	print_string_array(env->map);
+	printf("map size: %i x %i\n", env->map_size[0], env->map_size[1]);
+	printf("player position: %f x %f\n", \
+			env->player_position[0], env->player_position[1]);
+	printf("player orientation: %i\n", env->player_orientation);
+	printf("floor hex: %x\n", env->floor_hex);
+	printf("ceiling hex -> %x\n", env->ceiling_hex);
+}
+ */

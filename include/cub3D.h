@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 17:23:15 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/25 19:30:06 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/26 12:49:16 by lgrimmei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -295,6 +295,7 @@ void			exit_error(char *msg, t_data *data);
 void			print_string_array(char **array);
 void			print_rays(t_ray_result **rays);
 void			vector_cpy(float dest[2], float src[2]);
+void			print_env(t_env *env);
 
 ///////////////////////////////-----MAP_CHECK-----//////////////////////////////
 
