@@ -6,7 +6,7 @@
 #    By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: Invalid date        by                   #+#    #+#              #
-#    Updated: 2024/01/26 12:50:43 by lgrimmei         ###   ########.fr        #
+#    Updated: 2024/01/30 12:44:20 by lgrimmei         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -75,7 +75,7 @@ HEADERS		:= $(addprefix $(INCLDIR)/, cub3D.h libft.h get_next_line.h ft_printf.h
 # FLAGS
 CFLAGS		:= -Wall -Wextra -Werror
 
-ifeq ($(MAKECMDGOALS),shader)
+ifeq ($(MAKECMDGOALS),bonus)
 SHADERFLAG := -D SHADER=1
 else
 SHADERFLAG := -D SHADER=0
@@ -99,7 +99,7 @@ OBJS		:= $(addprefix $(OBJDIR), $(OBJ))
 # RULES
 all: $(NAME) $(LIBFT)
 
-shader: all
+bonus: all
 
 # Compile libft.a
 $(LIBFT): $(LIBFTDIR)*.c
@@ -143,4 +143,4 @@ re:		fclean all
 val: $(NAME)
 	valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./cub3D
 
-.PHONY:	all clean fclean re shader
+.PHONY:	all clean fclean re bonus

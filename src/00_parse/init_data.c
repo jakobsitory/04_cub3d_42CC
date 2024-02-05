@@ -6,7 +6,7 @@
 /*   By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 19:06:18 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/25 19:02:20 by lgrimmei         ###   ########.fr       */
+/*   Updated: 2024/02/01 20:50:22 by lgrimmei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	init_parser(t_data *data)
 	if (!data->parser)
 		exit_error(MALLOC_ERR, data);
 	data->parser->line = NULL;
+	data->parser->line_trimmed = NULL;
 	data->parser->map_string = ft_strdup("");
 	data->parser->map_copy = NULL;
 	data->parser->north_text_path = NULL;
@@ -30,6 +31,8 @@ void	init_parser(t_data *data)
 	data->parser->floor_colors[0] = -1;
 	data->parser->floor_colors[1] = -1;
 	data->parser->floor_colors[2] = -1;
+	data->parser->x_moves = create_possible_moves_x(data);
+	data->parser->y_moves = create_possible_moves_y(data);
 }
 
 t_data	*init_data(void)

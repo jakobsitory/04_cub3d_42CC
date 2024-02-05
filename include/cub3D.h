@@ -6,7 +6,7 @@
 /*   By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 17:23:15 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/26 12:49:16 by lgrimmei         ###   ########.fr       */
+/*   Updated: 2024/02/01 20:50:05 by lgrimmei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ typedef struct s_parser
 	int		fd;
 	char	*filepath;
 	char	*line;
+	char	*line_trimmed;
 	int		floor_colors[3];
 	int		ceiling_colors[3];
 	char	*north_text_path;
@@ -108,6 +109,8 @@ typedef struct s_parser
 	char	*west_text_path;
 	char	*map_string;
 	char	**map_copy;
+	int		*x_moves;
+	int		*y_moves;
 }	t_parser;
 
 typedef struct s_xpm_color {

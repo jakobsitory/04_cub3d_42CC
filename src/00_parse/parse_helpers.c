@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_helpers.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 15:52:31 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/24 17:45:06 by jschott          ###   ########.fr       */
+/*   Updated: 2024/01/30 13:06:09 by lgrimmei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	parse_successful(t_data *data)
 {
-	if (!data->env->floor_hex)
+	if (data->env->floor_hex == -1)
 		exit_error(COLOR_ERR, data);
-	if (!data->env->ceiling_hex)
+	if (data->env->ceiling_hex == -1)
 		exit_error(COLOR_ERR, data);
 	if (!data->parser->north_text_path)
 		exit_error(TEXTURE_ERR, data);
@@ -49,7 +49,7 @@ void	check_hex_range(t_data *data)
 	i = 0;
 	while (i < 3)
 	{
-		if (!data->parser->ceiling_colors[i])
+		if (data->parser->ceiling_colors[i] == -1)
 			exit_error(COLOR_ERR, data);
 		n = data->parser->ceiling_colors[i];
 		if (n > 255 || n < 0)
@@ -59,7 +59,7 @@ void	check_hex_range(t_data *data)
 	i = 0;
 	while (i < 3)
 	{
-		if (!data->parser->floor_colors[i])
+		if (data->parser->floor_colors[i] == -1)
 			exit_error(COLOR_ERR, data);
 		n = data->parser->floor_colors[i];
 		if (n > 255 || n < 0)

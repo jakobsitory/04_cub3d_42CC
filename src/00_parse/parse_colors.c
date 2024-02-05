@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_colors.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 17:56:12 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/24 17:45:44 by jschott          ###   ########.fr       */
+/*   Updated: 2024/02/01 21:38:01 by lgrimmei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,29 +88,28 @@ int	valid_chars_color(char *str, t_data *data)
 
 void	valid_number_format(char *str, t_data *data)
 {
-	int	numbers;
-	int	commas;
-	int	i;
+	int	nu;
+	int	co;
+	int	flag;
 
-	numbers = 0;
-	commas = 0;
-	i = 0;
-	while (i < (int)ft_strlen(str))
+	nu = 0;
+	co = 0;
+	flag = 0;
+	while (*str != '\0')
 	{
-		while (str[i] > 47 && str[i] < 57)
+		if (*str >= '0' && *str <= '9')
+			flag = 1;
+		else 
 		{
-			i++;
-			if (!(str[i] > 47 && str[i] < 57))
-				numbers++;
+			if (flag)
+				nu++;
+			if (*str == ',')
+				co++;
+			flag = 0;
 		}
-		while (str[i] == ',')
-		{
-			i++;
-			commas++;
-		}
-		i++;
+		str++;
 	}
-	if ((numbers == 3 && commas == 2))
+	if (((nu == 3 && co == 2) && !flag) || ((nu == 2 && co == 2) && flag))
 		return ;
 	exit_error(COLOR_ERR, data);
 }

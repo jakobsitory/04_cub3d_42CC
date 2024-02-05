@@ -6,7 +6,7 @@
 /*   By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 19:12:26 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/25 18:06:05 by lgrimmei         ###   ########.fr       */
+/*   Updated: 2024/02/01 20:55:41 by lgrimmei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,20 +42,19 @@ void	save_text_if_empty(t_data *data, char *identifier, char *value)
 
 void	save_identifier(char *identifier, char *line, t_data *data)
 {
-	char	*line_trimmed;
-
 	line += ft_strlen(identifier);
 	check_texture_file(line, data);
-	line_trimmed = ft_strtrim(line, " \n");
+	data->parser->line_trimmed = ft_strtrim(line, " \n");
 	if (ft_strncmp(identifier, NORTH_ID, ft_strlen(identifier)) == 0)
-		save_text_if_empty(data, identifier, line_trimmed);
+		save_text_if_empty(data, identifier, data->parser->line_trimmed);
 	else if (ft_strncmp(identifier, EAST_ID, ft_strlen(identifier)) == 0)
-		save_text_if_empty(data, identifier, line_trimmed);
+		save_text_if_empty(data, identifier, data->parser->line_trimmed);
 	else if (ft_strncmp(identifier, SOUTH_ID, ft_strlen(identifier)) == 0)
-		save_text_if_empty(data, identifier, line_trimmed);
+		save_text_if_empty(data, identifier, data->parser->line_trimmed);
 	else if (ft_strncmp(identifier, WEST_ID, ft_strlen(identifier)) == 0)
-		save_text_if_empty(data, identifier, line_trimmed);
-	free(line_trimmed);
+		save_text_if_empty(data, identifier, data->parser->line_trimmed);
+	free(data->parser->line_trimmed);
+	data->parser->line_trimmed = NULL;
 }
 
 void	check_texture_file(char *path, t_data *data)
@@ -65,7 +64,10 @@ void	check_texture_file(char *path, t_data *data)
 	path = ft_strtrim(path, " \n");
 	fd = open(path, O_RDONLY);
 	if (fd < 1)
+	{
+		free(path);
 		exit_error(TEXTURE_ERR, data);
+	}
 	close(fd);
 	free(path);
 }

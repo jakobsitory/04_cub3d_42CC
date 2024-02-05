@@ -6,7 +6,7 @@
 /*   By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 17:57:43 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/25 18:04:49 by lgrimmei         ###   ########.fr       */
+/*   Updated: 2024/02/01 21:00:46 by lgrimmei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,22 +53,20 @@ void	parse_textures(t_data *data)
 
 void	parse_colors(t_data *data)
 {
-	char	*line;
-
 	data->parser->fd = open(data->parser->filepath, O_RDONLY);
-	line = get_next_line(data->parser->fd);
-	while (line)
+	data->parser->line = get_next_line(data->parser->fd);
+	while (data->parser->line)
 	{
-		if (ft_strncmp(line, FLOOR_ID, 2) == 0)
-			save_color(FLOOR_ID, line, data);
-		else if (ft_strncmp(line, CEILING_ID, 2) == 0)
-			save_color(CEILING_ID, line, data);
-		else if (ft_strncmp(line, "", 0) != 0)
+		if (ft_strncmp(data->parser->line, FLOOR_ID, 2) == 0)
+			save_color(FLOOR_ID, data->parser->line, data);
+		else if (ft_strncmp(data->parser->line, CEILING_ID, 2) == 0)
+			save_color(CEILING_ID, data->parser->line, data);
+		else if (ft_strncmp(data->parser->line, "", 0) != 0)
 			break ;
-		free(line);
-		line = get_next_line(data->parser->fd);
+		free(data->parser->line);
+		data->parser->line = get_next_line(data->parser->fd);
 	}
-	free(line);
+	free(data->parser->line);
 	check_hex_range(data);
 	data->env->floor_hex = convert_to_hex(data->parser->floor_colors);
 	data->env->ceiling_hex = convert_to_hex(data->parser->ceiling_colors);

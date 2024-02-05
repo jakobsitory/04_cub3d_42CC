@@ -6,7 +6,7 @@
 /*   By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 19:57:38 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/25 19:01:29 by lgrimmei         ###   ########.fr       */
+/*   Updated: 2024/02/01 20:46:10 by lgrimmei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,29 +23,19 @@ void	check_map(t_data *data)
 void	flood_fill(t_data *data, char **map, int x, int y)
 {
 	int	i;
-	int	*x_moves;
-	int	*y_moves;
 
 	if (map[y][x] == '1' || map[y][x] == 'X')
 		return ;
-	x_moves = create_possible_moves_x(data);
-	y_moves = create_possible_moves_y(data);
 	i = 0;
 	if (x >= data->env->map_size[0] - 1 || \
 	y >= data->env->map_size[1] - 1 || !is_valid_pos(map, x, y))
-	{
-		free(x_moves);
-		free(y_moves);
 		exit_error(MAP_ERR, data);
-	}
 	map[y][x] = 'X';
 	while (i < 8)
 	{
-		flood_fill(data, map, x + x_moves[i], y + y_moves[i]);
+		flood_fill(data, map, x + data->parser->x_moves[i], y + data->parser->y_moves[i]);
 		i++;
 	}
-	free(x_moves);
-	free(y_moves);
 }
 
 int	is_valid_pos(char **map, int x, int y)

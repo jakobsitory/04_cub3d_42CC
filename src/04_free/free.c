@@ -6,7 +6,7 @@
 /*   By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 15:32:59 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/25 18:47:45 by lgrimmei         ###   ########.fr       */
+/*   Updated: 2024/02/01 20:50:35 by lgrimmei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,36 @@ void	free_data(t_data *data)
 		free(data);
 }
 
+/* void	free_moves_array(int *array)
+{
+	if (array[0])
+		free(array[0]);
+	if (array[1])
+		free(array[1]);
+	if (array[2])
+		free(array[2]);
+	if (array[3])
+		free(array[3]);
+	if (array[4])
+		free(array[4]);
+	if (array[5])
+		free(array[5]);
+	if (array[6])
+		free(array[6]);
+	if (array[7])
+		free(array[7]);
+	if (array)
+		free(array);
+} */
+
 void	free_parser(t_data *data)
 {
 	if (data->parser->filepath)
 		free(data->parser->filepath);
 	if (data->parser->line)
 		free(data->parser->line);
+	if (data->parser->line_trimmed)
+		free(data->parser->line_trimmed);
 	if (data->parser->north_text_path)
 		free(data->parser->north_text_path);
 	if (data->parser->east_text_path)
@@ -40,8 +64,12 @@ void	free_parser(t_data *data)
 		free(data->parser->map_string);
 	if (data->parser->map_copy)
 		free_str_arr(data->parser->map_copy);
+	if (data->parser->x_moves != NULL)
+		free(data->parser->x_moves);
+	if (data->parser->y_moves != NULL)
+		free(data->parser->y_moves);
 	if (data->parser)
-		free(data->parser); 
+		free(data->parser);
 }
 
 void	free_xpm(t_xpm *xpm)

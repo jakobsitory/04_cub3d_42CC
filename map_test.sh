@@ -31,7 +31,7 @@ for map_path in "${map_paths[@]}"
 do
   echo -e "\n++++++++++ $map_path ++++++++++\n"
   # Run valgrind
-  valgrind --leak-check=full -q ./cub3D $map_path > output.txt 2>&1
+  valgrind --leak-check=full --show-leak-kinds=all -q ./cub3D $map_path > output.txt 2>&1
   # Print output
   cat output.txt
 done
