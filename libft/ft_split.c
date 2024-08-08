@@ -3,131 +3,134 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgrimmei <lgrimmei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/07 15:22:49 by lgrimmei          #+#    #+#             */
-/*   Updated: 2023/08/01 16:09:35 by lgrimmei         ###   ########.fr       */
+/*   Created: 2023/05/12 13:59:06 by jschott           #+#    #+#             */
+/*   Updated: 2024/08/08 10:25:08 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-//#include "stdio.h"
-
-/* size_t	ft_strlen(const char *s)
-{
-	int	i;
-
-	i = 0;
-	while (s[i] != '\0')
-	{
-		i++;
-	}
-	return (i);
-}
-
-unsigned int	ft_strlcpy(char *dest, char *src, unsigned int size)
-{
-	unsigned int	i;
-	unsigned int	j;
-
-	j = ft_strlen(src);
-	i = 0;
-	if (!dest || !src)
-		return (0);
-	if (size != 0)
-	{
-		while (src[i] && i < size - 1)
-		{
-			dest[i] = src[i];
-			i++;
-		}
-		dest[i] = '\0';
-	}
-	return (j);
-} */
-
-int	count_words(const char *s, char c)
+/**
+ * Counts the number of words in a string, separated by a specified character.
+ * 
+ * @param s The string to count words in.
+ * @param c The character used as a separator.
+ * @return The number of words in the string.
+ */
+int	ft_words_in_str(char const *s, char c)
 {
 	int		count;
+	int		i;
 
+	i = 0;
 	count = 0;
-	while (*s)
+	while (s[i] != '\0')
 	{
-		while (*s == c && *s)
-			s++;
-		if (*s)
-		{
+		while (s[i] == c && s[i] != '\0')
+			i++;
+		if (s[i] != c && s[i] != '\0')
 			count++;
-			while (*s != c && *s)
-				s++;
-		}
+		while (s[i] != c && s[i] != '\0')
+			i++;
 	}
 	return (count);
 }
 
-int	get_word_length(const char *s, char c)
+/**
+ * Frees all allocated memory in an array of strings and the array itself.
+ * 
+ * @param arr The array of strings to free.
+ */
+void	ft_freeall(char **arr)
 {
-	int	len;
+	int	i;
 
-	len = 0;
-	while (*s != c && *s)
-	{
-		len++;
-		s++;
-	}
-	return (len);
+	i = 0;
+	while (arr)
+		free(arr[i++]);
+	free (arr);
 }
 
-void	copy_word(char **arr, const char *str, int len, int index)
+/**
+ * Allocates and copies a substring into a new string, freeing allocated memory on failure.
+ * 
+ * @param pos The starting position in the string from which to copy.
+ * @param len The number of characters to copy.
+ * @param words An array of strings to be freed in case of allocation failure.
+ * @return A pointer to the newly allocated string, or NULL if allocation fails.
+ */
+char	*ft_writestr(char *pos, int len, char **words)
 {
-	arr[index] = malloc(len + 1);
-	if (arr[index] != NULL)
-	{
-		ft_strlcpy(arr[index], (char *) str, len + 1);
-		arr[index][len] = '\0';
-	}
-}
+	char	*word;
 
-char	**ft_split(const char *s, char c)
-{
-	int		words;
-	char	**res;
-	int		index;
-	int		len;
-
-	words = count_words(s, c);
-	if (!words)
+	word = (char *) malloc (len + 1);
+	if (word == NULL)
+	{	
+		ft_freeall(words);
 		return (NULL);
-	res = malloc((words + 1) * sizeof(char *));
-	if (!res)
-		return (NULL);
-	index = 0;
-	while (*s)
-	{
-		while (*s == c && *s)
-			s++;
-		len = get_word_length(s, c);
-		if (len > 0)
-			copy_word(res, s, len, index++);
-		s += len;
 	}
-	res[index] = NULL;
-	return (res);
+	ft_strlcpy(word, pos, len + 1);
+	return (word);
 }
 
-/* int main(void)
+/**
+ * Searches for the first character in a string that is not equal to a specified character.
+ * 
+ * @param s The string to search.
+ * @param c The character to compare against, represented as an int.
+ * @return A pointer to the first character in `s` that is not `c`, or NULL if no such character exists.
+ */
+char	*ft_strnchr(char *s, int c)
 {
-	char *string = "-";
-	char c = ' ';
-	
-	char **tab = ft_split(string, c);
-	printf("\nRESULT\n");
-	int i = 0;
-	while (tab[i])
-	{
-		printf("%s\n", tab[i]);
+	int		i;
+
+	i = 0;
+	while (s[i] != '\0')
+	{	
+		if (s[i] != (char) c)
+			return (&s[i]);
 		i++;
 	}
-	printf("%s\n", tab[i]);
-} */
+	return (NULL);
+}
+
+/**
+ * Splits a string into words separated by occurrences of a specified character.
+ * 
+ * This function allocates and returns an array of strings obtained by splitting `s`
+ * using the character `c` as a delimiter. The array is terminated by a NULL pointer.
+ * 
+ * @param s The string to split.
+ * @param c The delimiter character.
+ * @return An array of strings representing the words in `s`. NULL if an allocation fails.
+ */
+char	**ft_split(char const *s, char c)
+{
+	int		i;
+	int		count;
+	char	**words;
+	int		wordlen;
+	char	*pos;
+
+	count = ft_words_in_str(s, c);
+	words = (char **) ft_calloc (count + 1, sizeof(char *));
+	if (!words)
+		return (NULL);
+	pos = (char *) s;
+	i = 0;
+	wordlen = 0;
+	while (i + 1 <= count)
+	{
+		pos = ft_strnchr(&pos[wordlen], c);
+		if (ft_strchr(pos, c))
+			wordlen = ft_strchr(pos, c) - pos;
+		else
+			wordlen = ft_strlen(pos);
+		words[i] = ft_writestr(pos, wordlen, words);
+		i++;
+	}
+	words[count] = 0;
+	return (words);
+}

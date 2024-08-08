@@ -3,27 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isascii.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgrimmei <lgrimmei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/02 14:35:36 by lgrimmei          #+#    #+#             */
-/*   Updated: 2023/08/22 13:16:09 by lgrimmei         ###   ########.fr       */
+/*   Created: 2023/05/02 14:19:53 by jschott           #+#    #+#             */
+/*   Updated: 2024/08/08 10:37:37 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
+/**
+ * Checks if a character is part of the ASCII character set.
+ * 
+ * @param c The integer value of the character to be checked.
+ * @return Returns 1024 if `c` is part of the ASCII character set, 0 otherwise.
+ */
 int	ft_isascii(int c)
 {
-	if (c >= 0 && c <= 127)
-	{
+	if (((000 <= c) && (c <= 127)))
 		return (1);
-	}
-	return (0);
+	else
+		return (0);
 }
-
-/*
-int	main(void) {
-	printf("%d\n", ft_isascii('2'));
-	printf("%d\n", isascii('2'));
-}
-*/

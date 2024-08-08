@@ -3,50 +3,43 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/04 10:04:47 by lgrimmei          #+#    #+#             */
-/*   Updated: 2023/12/08 13:04:16 by lgrimmei         ###   ########.fr       */
+/*   Created: 2023/05/02 14:33:43 by jschott           #+#    #+#             */
+/*   Updated: 2024/08/08 10:19:39 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <bsd/string.h>
 
-char	*ft_strnstr(const char	*big, const char *little, size_t len)
+/**
+ * Locates a substring in a string, searching up to a maximum length.
+ * 
+ * @param big The string to search in.
+ * @param little The substring to search for.
+ * @param len The maximum number of characters to search.
+ * @return A pointer to the beginning of the located substring, or NULL if the substring is not found.
+ */
+char	*ft_strnstr(const char *big, const char *little, size_t len)
 {
-	int		i;
-	int		j;
-	int		lent;
+	size_t	i;
+	char	*pos;
 
-	lent = len;
+	if (little[0] == '\0' || big == little)
+		return ((char *) big);
 	i = 0;
-	j = 0;
-	if (little[0] == 0)
-		return ((char *)&big[0]);
-	while (big[i] && (lent < 0 || i < (int)len))
+	if (!ft_strchr(big, little[0]))
+		return (NULL);
+	pos = ft_strchr(big, little[0]);
+	i = pos - big + i;
+	while ((i + (size_t) ft_strlen(little) <= len))
 	{
-		if (big[i] == little[j])
+		if (!ft_strncmp(pos, (char *) little, ft_strlen(little)))
 		{
-			j++;
-			if (little[j] == '\0')
-				return ((char *)&big[i - j + 1]);
+			return (pos);
 		}
-		else
-		{
-			i = i - j;
-			j = 0;
-		}
-		i++;
+		pos = ft_strchr(&big[i + 1], little[0]);
+		i = pos - big;
 	}
 	return (NULL);
 }
-
-/* 
-int	main(void)
-{
-	char little[] = "abcd";
-	char big[] = "aaabcabcd";
-	printf("%s\n", ft_strnstr(big, little, 9));
-	printf("%s\n", strnstr(big, little, 9));
-} */

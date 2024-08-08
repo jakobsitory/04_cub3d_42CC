@@ -6,12 +6,18 @@
 /*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 19:03:31 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/25 19:29:56 by jschott          ###   ########.fr       */
+/*   Updated: 2024/08/08 12:59:52 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
-
+/**
+ * Calculates the color of a pixel on a wall based on the raycasting results and the vertical position of the pixel.
+ * 
+ * @param ray The raycasting result containing information about the wall hit.
+ * @param y The vertical position of the pixel on the screen.
+ * @return The color of the pixel in hexadecimal format as an integer.
+ */
 int	get_pixel_color(t_ray_result ray, int y)
 {
 	float	rel_y;
@@ -37,7 +43,11 @@ int	get_pixel_color(t_ray_result ray, int y)
 	color_hex = hex_to_int(color_hex_string);
 	return (color_hex);
 }
-
+/**
+ * Draws the walls in the game window based on raycasting results. 
+ * 
+ * @param data Pointer to the t_data structure containing game data and settings, including raycasting results and window information.
+ */
 void	draw_walls(t_data *data)
 {
 	int	x;

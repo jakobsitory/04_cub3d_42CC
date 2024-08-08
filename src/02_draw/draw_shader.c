@@ -6,12 +6,20 @@
 /*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 09:47:49 by jschott           #+#    #+#             */
-/*   Updated: 2024/01/25 19:31:38 by jschott          ###   ########.fr       */
+/*   Updated: 2024/08/08 13:01:07 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
+/**
+ * Blends a color with the pixel at the specified coordinates, considering the alpha value of the color for transparency.
+ * 
+ * @param window Pointer to the t_window structure containing window and image information.
+ * @param x The x-coordinate of the pixel.
+ * @param y The y-coordinate of the pixel.
+ * @param color The color to blend, including its alpha value for transparency.
+ */
 void	my_transparent_pixel_put(t_window *window, int x, int y, int color)
 {
 	char			*dst;
@@ -40,6 +48,14 @@ void	my_transparent_pixel_put(t_window *window, int x, int y, int color)
 	}
 }
 
+/**
+ * Applies a shading effect to a pixel based on its distance from the player, to simulate lighting.
+ * 
+ * @param window Pointer to the t_window structure containing window and image information.
+ * @param x The x-coordinate of the pixel.
+ * @param y The y-coordinate of the pixel.
+ * @param distance The distance of the pixel from the player.
+ */
 void	draw_shade(t_window *window, int x, int y, float distance)
 {
 	int	alpha;

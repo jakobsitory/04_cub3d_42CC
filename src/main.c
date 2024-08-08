@@ -3,15 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 17:22:00 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/01/26 12:48:40 by lgrimmei         ###   ########.fr       */
+/*   Updated: 2024/08/08 13:02:46 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
+/**
+ * The main function of the game. It initializes the game data, parses the configuration file, renders the game frame, sets up event hooks, and starts the game loop.
+ * 
+ * @param argc The number of command-line arguments.
+ * @param argv The array of command-line arguments.
+ * @return Always returns 0.
+ */
 int	main(int argc, char *argv[])
 {
 	t_data	*data;
@@ -28,6 +35,12 @@ int	main(int argc, char *argv[])
 	return (0);
 }
 
+/**
+ * Validates the command-line arguments to ensure there is exactly one argument (the configuration file) and that it has a .cub extension.
+ * 
+ * @param argc The number of command-line arguments.
+ * @param argv The array of command-line arguments.
+ */
 void	check_args(int argc, char **argv)
 {
 	int	fd;

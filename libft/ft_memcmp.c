@@ -3,39 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgrimmei <lgrimmei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/03 15:08:30 by lgrimmei          #+#    #+#             */
-/*   Updated: 2023/05/09 17:46:18 by lgrimmei         ###   ########.fr       */
+/*   Created: 2023/05/02 14:33:30 by jschott           #+#    #+#             */
+/*   Updated: 2024/08/08 10:27:41 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+/**
+ * Compares two memory areas.
+ * 
+ * @param s1 Pointer to the first memory area.
+ * @param s2 Pointer to the second memory area.
+ * @param n Number of bytes to compare.
+ * @return An integer less than, equal to, or greater than zero, depending on the comparison result.
+ */
 int	ft_memcmp(const void *s1, const void *s2, size_t n)
 {
-	unsigned char	*s1_ptr;
-	unsigned char	*s2_ptr;
-	int				i;
+	size_t				i;
+	const unsigned char	*ptr1;
+	const unsigned char	*ptr2;
 
-	s1_ptr = (unsigned char *)s1;
-	s2_ptr = (unsigned char *)s2;
 	i = 0;
-	while (i < (int)n)
+	ptr1 = s1;
+	ptr2 = s2;
+	if (n == 0)
+		return (0);
+	while (i < n)
 	{
-		if (s1_ptr[i] != s2_ptr[i])
-			return (s1_ptr[i] - s2_ptr[i]);
+		if (ptr1[i] != ptr2[i])
+			return (ptr1[i] - ptr2[i]);
 		i++;
 	}
 	return (0);
 }
-
-/*
-int main(void)
-{
-	char *str1 = "Hello";
-	char *str2 = "Hel";
-	printf("%d\n", ft_memcmp(str1, str2, 4));
-	printf("%d\n", memcmp(str1, str2, 4));
-}
-*/

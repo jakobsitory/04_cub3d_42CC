@@ -1,24 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_bzero.c                                         :+:      :+:    :+:   */
+/*   ft_printc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/02 14:20:55 by jschott           #+#    #+#             */
-/*   Updated: 2024/08/08 10:38:51 by jschott          ###   ########.fr       */
+/*   Created: 2023/06/02 15:15:49 by jschott           #+#    #+#             */
+/*   Updated: 2024/08/08 10:54:16 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
 /**
- * Sets the first `n` bytes of the memory area pointed to by `s` to zero.
+ * Prints a character to the standard output.
  * 
- * @param s Pointer to the memory area to be zeroed.
- * @param n Number of bytes to set to zero.
+ * @param c The character to be printed, passed as an integer but cast to a char within the function.
+ * @return Always returns 1, indicating the number of characters printed.
  */
-void	ft_bzero(void *s, size_t n)
+int	ft_printc(int c)
 {
-	ft_memset (s, 0, n);
+	ft_putchar_fd((char) c, 1);
+	return (1);
 }

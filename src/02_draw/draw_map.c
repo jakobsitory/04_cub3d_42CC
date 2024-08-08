@@ -6,12 +6,18 @@
 /*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 15:03:18 by jschott           #+#    #+#             */
-/*   Updated: 2024/01/25 15:57:14 by jschott          ###   ########.fr       */
+/*   Updated: 2024/08/08 13:01:52 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
+/**
+ * Calculates the scale factor for drawing the map based on the window and map sizes.
+ * 
+ * @param map_size Array containing the width and height of the map.
+ * @return The scale factor as an integer.
+ */
 int	map_scale(int map_size[2])
 {
 	float	win_aspect;
@@ -27,6 +33,14 @@ int	map_scale(int map_size[2])
 	return (scale);
 }
 
+/**
+ * Draws the field of view (FOV) lines from the player's position to the edges of the visible area based on raycasting results.
+ * 
+ * @param window Pointer to the t_window structure containing window and image information.
+ * @param rays Array of raycasting results.
+ * @param env Pointer to the t_env structure containing environment settings, including player position and map scale.
+ * @return Always returns 0.
+ */
 int	draw_fov(t_window *window, t_ray_result **rays, t_env *env)
 {
 	int		start[2];
@@ -54,6 +68,12 @@ int	draw_fov(t_window *window, t_ray_result **rays, t_env *env)
 	return (0);
 }
 
+/**
+ * Draws the player's position on the map.
+ * 
+ * @param window Pointer to the t_window structure containing window and image information.
+ * @param env Pointer to the t_env structure containing environment settings, including player position and map scale.
+ */
 int	draw_player(t_window *window, t_env *env)
 {
 	int		start[2];
@@ -73,6 +93,12 @@ int	draw_player(t_window *window, t_env *env)
 	return (0);
 }
 
+/**
+ * Draws the floor of the map, distinguishing between wall and floor tiles based on the map data.
+ * 
+ * @param window Pointer to the t_window structure containing window and image information.
+ * @param env Pointer to the t_env structure containing environment settings, including map size and scale.
+ */
 void	draw_floor(t_window *window, t_env *env)
 {
 	int	start[2];
@@ -102,6 +128,12 @@ void	draw_floor(t_window *window, t_env *env)
 	}
 }
 
+/**
+ * Renders the entire map, including floor, player position, and field of view lines.
+ * 
+ * @param data Pointer to the t_data structure containing all necessary data for drawing the map.
+ * @return Always returns 0.
+ */
 int	draw_map(t_data *data)
 {
 	draw_floor(data->window, data->env);

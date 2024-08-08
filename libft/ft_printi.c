@@ -1,24 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_bzero.c                                         :+:      :+:    :+:   */
+/*   ft_printi.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/02 14:20:55 by jschott           #+#    #+#             */
-/*   Updated: 2024/08/08 10:38:51 by jschott          ###   ########.fr       */
+/*   Created: 2023/06/02 15:15:49 by jschott           #+#    #+#             */
+/*   Updated: 2024/08/08 10:54:27 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
 /**
- * Sets the first `n` bytes of the memory area pointed to by `s` to zero.
+ * Prints an integer to the standard output and returns the number of digits.
  * 
- * @param s Pointer to the memory area to be zeroed.
- * @param n Number of bytes to set to zero.
+ * @param i The integer to be printed.
+ * @return The number of digits in `i`.
  */
-void	ft_bzero(void *s, size_t n)
+int	ft_printi(int i)
 {
-	ft_memset (s, 0, n);
+	ft_putnbr_fd(i, 1);
+	if (i < 0)
+		return (ft_itodigs((long int)i));
+	else
+		return (ft_itodigs((long int) i));
 }

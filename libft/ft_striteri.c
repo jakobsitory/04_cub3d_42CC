@@ -3,19 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   ft_striteri.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgrimmei <lgrimmei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/08 17:43:15 by lgrimmei          #+#    #+#             */
-/*   Updated: 2023/05/08 18:53:11 by lgrimmei         ###   ########.fr       */
+/*   Created: 2023/05/22 17:10:44 by jschott           #+#    #+#             */
+/*   Updated: 2024/08/08 10:22:20 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-void	ft_striteri(char *s, void (*f)(unsigned int, char*))
+#include "libft.h"
+
+/**
+ * Applies a function to each character of a string, with the character's index.
+ * 
+ * @param s The string on which to iterate.
+ * @param f The function to apply to each character and its index.
+ */
+void	ft_striteri(char *s, void (*f) (unsigned int, char*))
 {
-	int		i;
+	unsigned int	i;
 
 	i = 0;
-	while (s[i] && f)
+	while (s[i] != '\0')
 	{
 		f(i, &s[i]);
 		i++;

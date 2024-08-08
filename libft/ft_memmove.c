@@ -3,50 +3,47 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgrimmei <lgrimmei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/02 16:19:00 by lgrimmei          #+#    #+#             */
-/*   Updated: 2023/05/10 12:31:36 by lgrimmei         ###   ########.fr       */
+/*   Created: 2023/05/02 14:21:25 by jschott           #+#    #+#             */
+/*   Updated: 2024/08/08 10:26:33 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+/**
+ * Copies `n` bytes from memory area `src` to memory area `dest`.
+ * 
+ * @param dest Pointer to the destination memory area.
+ * @param src Pointer to the source memory area.
+ * @param n Number of bytes to copy.
+ * @return A pointer to the destination memory area `dest`.
+ */
 void	*ft_memmove(void *dest, const void *src, size_t n)
 {
-	char	*destptr;
-	char	*srcptr;
-	size_t	i;
+	int			i;
+	char		*cdest;
+	const char	*csrc;
 
-	destptr = (char *)dest;
-	srcptr = (char *)src;
-	if (!destptr && !srcptr)
-		return (dest);
 	i = 0;
-	if (src < dest)
+	cdest = (char *) dest;
+	csrc = (const char *) src;
+	if (cdest <= csrc && (src || dest))
 	{
-		while (i < n)
+		while (i < (int) n)
 		{
-			destptr[n - 1 - i] = srcptr[n - 1 - i];
+			cdest[i] = csrc[i];
 			i++;
 		}
 	}
-	else
-		ft_memcpy(dest, src, n);
+	else if (src || dest)
+	{
+		while (n > 0)
+		{
+			cdest[n - 1] = csrc[n - 1];
+			n--;
+		}
+	}
 	return (dest);
 }
-
-/*
-int	main(void)
-{
-	char str[] = "Hello";
-	char str2[] = "Hello";
-	char src[] = "Byeeeee";
-	printf("%s\n", str);
-	printf("%s\n", str2);
-	ft_memmove(str, src, 5);
-	memmove(str2, src, 5);
-	printf("%s\n", str);
-	printf("%s\n", str2);
-}
-*/

@@ -3,34 +3,49 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgrimmei <lgrimmei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/09 15:27:18 by lgrimmei          #+#    #+#             */
-/*   Updated: 2023/05/09 16:31:28 by lgrimmei         ###   ########.fr       */
+/*   Created: 2023/05/24 14:36:55 by jschott           #+#    #+#             */
+/*   Updated: 2024/08/08 10:29:43 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+/**
+ * Applies a function to the content of each element of a list, creating a new list.
+ * 
+ * @param lst The original list to map over.
+ * @param f The function to apply to each element's content.
+ * @param del The function to delete the content of an element if needed.
+ * @return A new list with each element's content being the result of applying `f` to the original
+ *         element's content, or NULL if an error occurs.
+ */
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 {
-	t_list	*res;
-	t_list	*new;
+	t_list	*newlst;
+	t_list	*newlstel;
 
-	if (!lst || !f || !del)
+	if (!f || !lst || !del)
 		return (NULL);
-	new = ft_lstnew(f(lst->content));
-	if (!new)
-		return (NULL);
-	res = new;
-	while (lst->next)
+	newlstel = ft_lstnew(f(lst->content));
+	if (!newlstel)
 	{
-		lst = lst->next;
-		new = ft_lstnew(f(lst->content));
-		if (!new)
-			ft_lstclear(&res, del);
-		ft_lstadd_back(&res, new);
-		new = new->next;
+		del(newlstel->content);
+		return (NULL);
 	}
-	return (res);
+	newlst = newlstel;
+	lst = lst->next;
+	while (lst)
+	{
+		newlstel = ft_lstnew(f(lst->content));
+		if (!newlstel)
+		{
+			ft_lstclear(&newlst, del);
+			return (NULL);
+		}
+		ft_lstadd_back(&newlst, newlstel);
+		lst = lst->next;
+	}
+	return (newlst);
 }

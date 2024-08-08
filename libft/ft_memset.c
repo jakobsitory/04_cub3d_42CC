@@ -3,38 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgrimmei <lgrimmei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/02 15:38:12 by lgrimmei          #+#    #+#             */
-/*   Updated: 2023/05/03 13:14:57 by lgrimmei         ###   ########.fr       */
+/*   Created: 2023/05/02 14:20:43 by jschott           #+#    #+#             */
+/*   Updated: 2024/08/08 10:26:18 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+/**
+ * Fills the first `n` bytes of the memory area pointed to by `s` with the constant byte `c`.
+ * 
+ * @param s Pointer to the memory area to be filled.
+ * @param c The byte value to fill the memory area with, passed as an `int`.
+ * @param n The number of bytes to fill.
+ * @return The original pointer `s` to the memory area.
+ */
 void	*ft_memset(void *s, int c, size_t n)
 {
-	char	character;
-	char	*ptr;
-	size_t	i;
+	unsigned char	*ptr;
+	size_t			i;
 
-	character = c;
-	ptr = (char *)s;
+	ptr = s;
 	i = 0;
 	while (i < n)
 	{
-		ptr[i] = character;
+		ptr[i] = c;
 		i++;
 	}
-	return (ptr);
+	return (s);
 }
-
-/*
-int	main(void)
-{
-	char str[] = "Hello Hello";
-	printf("%s\n", str);
-	ft_memset(str, '$', 5);
-	printf("%s\n", str);
-}
-*/

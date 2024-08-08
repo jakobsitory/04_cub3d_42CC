@@ -3,15 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   init_window.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 10:25:00 by jschott           #+#    #+#             */
-/*   Updated: 2024/01/25 19:01:42 by lgrimmei         ###   ########.fr       */
+/*   Updated: 2024/08/08 12:51:54 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
+/**
+ * Initializes the window component of the t_data structure for the cub3D project. Allocates memory for the t_window structure,
+ * initializes the MiniLibX window, and creates an image to be used for rendering. Sets initial values for image properties and
+ * allocates memory for a line buffer used in rendering.
+ * 
+ * @param data Pointer to the t_data structure, used for error handling.
+ * @return Pointer to the initialized t_window structure.
+ */
 t_window	*init_window(t_data *data)
 {
 	t_window	*window;

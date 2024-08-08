@@ -3,46 +3,47 @@
 /*                                                        :::      ::::::::   */
 /*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/04 14:40:25 by lgrimmei          #+#    #+#             */
-/*   Updated: 2023/11/10 00:29:52 by lgrimmei         ###   ########.fr       */
+/*   Created: 2023/05/10 16:12:18 by jschott           #+#    #+#             */
+/*   Updated: 2024/08/08 10:17:25 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+/**
+ * Allocates and returns a substring from the string `s`.
+ * 
+ * @param s The string from which to create the substring.
+ * @param start The start index of the substring in `s`.
+ * @param len The maximum length of the substring.
+ * @return The newly created substring, or NULL if the allocation fails.
+ */
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	char		*res;
-	size_t		size;
-	size_t		i;
+	char	*substr;
+	size_t	i;
 
-	if (!s)
-		return (NULL);
-	size = ft_strlen(s);
-	if (start >= size)
-		return (ft_strdup(""));
-	if (len >= size)
-		res = (char *)malloc(sizeof(char) * (size - start + 1));
-	else
-		res = (char *)malloc(sizeof(char) * (len + 1));
-	if (!res)
-		return (NULL);
 	i = 0;
-	while (i < len && s[start + i])
+	if ((long int) len < 0)
+		len = ft_strlen(s);
+	if ((long int) len + start >= ft_strlen(s))
+		len = ft_strlen(s) - start;
+	substr = (char *) malloc ((unsigned long int)len + 1);
+	if (substr == NULL)
+		return (NULL);
+	if (!s || len <= 0 || start >= (unsigned int) ft_strlen(s))
 	{
-		res[i] = s[start + i];
+		free(substr);
+		substr = ft_strdup("\0");
+		return (substr);
+	}
+	while (s[start + i] != '\0' && i < len)
+	{
+		substr[i] = s[start + i];
 		i++;
 	}
-	res[i] = 0;
-	return (res);
+	substr[i] = '\0';
+	return (substr);
 }
-
-/* int	main(void)
-{
-	char *str = "0123456789";
-	char *res = ft_substr(str, 9, 10);
-	printf("%s\n", res);
-	free(res);
-} */

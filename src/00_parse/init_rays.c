@@ -6,12 +6,20 @@
 /*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 15:43:27 by jschott           #+#    #+#             */
-/*   Updated: 2024/01/25 17:53:11 by jschott          ###   ########.fr       */
+/*   Updated: 2024/08/08 12:51:42 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
+/**
+ * Allocates and initializes an array of t_ray_result pointers, one for each vertical slice of the game window, to store the results
+ * of raycasting operations. Each t_ray_result structure contains information about a ray's intersection with walls, such as distance
+ * and the wall's texture.
+ * 
+ * @param data Pointer to the t_data structure, used for error handling.
+ * @return Pointer to the array of t_ray_result pointers.
+ */
 t_ray_result	**init_rays(t_data *data)
 {
 	t_ray_result	**rays;

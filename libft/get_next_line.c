@@ -3,129 +3,167 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgrimmei <lgrimmei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/19 11:30:25 by lgrimmei          #+#    #+#             */
-/*   Updated: 2023/08/21 13:41:58 by lgrimmei         ###   ########.fr       */
+/*   Created: 2023/06/20 11:32:02 by jschott           #+#    #+#             */
+/*   Updated: 2024/08/08 10:54:47 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-int	ft_no_newline(const char *s)
+/**
+ * Shortens a string by removing the content up to and including the first newline character.
+ * 
+ * @param line The original string to be shortened.
+ * @return A new string that starts after the first newline in `line`, or NULL under certain conditions.
+ */
+char	*shorten(char *line)
 {
-	int	i;
+	char	*rest;
+	int		rest_len;
 
-	i = 0;
-	if (!s)
+	rest = NULL;
+	if (!ft_strchr(line, '\n') || ft_strlen(line) == 1)
 	{
-		return (1);
+		free (line);
+		return (NULL);
 	}
-	while (s[i])
+	if (0 == ft_strchr(line, '\n') - line - ft_strlen(line) + 1)
 	{
-		if (s[i] == '\n')
-			return (0);
-		i++;
+		free (line);
+		return (NULL);
 	}
-	return (1);
+	rest_len = ft_strlen(ft_strchr(line, '\n'));
+	rest = (char *) malloc (rest_len + 1);
+	if (!rest)
+		return (NULL);
+	ft_strlcpy(rest, ft_strchr(line, '\n') + 1, rest_len);
+	free (line);
+	return (rest);
 }
 
-int	clean_res_get_start(char *res)
+/**
+ * Extracts a line from a string, including the newline character.
+ * 
+ * @param line The original string from which to extract the line.
+ * @return A new string containing the extracted line, or NULL if memory allocation fails.
+ */
+char	*extract(char *line)
 {
-	int	start;
+	char	*result;
 
-	start = 0;
-	while (res[start])
+	result = NULL;
+	if (!ft_strchr(line, '\n') || (ft_strlen(line) == 1 && BUFFER_SIZE > 1))
 	{
-		if (res[start] == '\n')
-		{
-			start++;
+		result = (char *) malloc (ft_strlen(line) + 1);
+		if (!result)
+			return (NULL);
+		ft_strlcpy(result, line, ft_strlen(line) + 1);
+	}
+	else
+	{
+		result = (char *) malloc (ft_strchr(line, '\n') - line + 2);
+		if (!result)
+			return (NULL);
+		ft_strlcpy(result, line, ft_strchr(line, '\n') - line + 2);
+	}
+	return (result);
+}
+
+/**
+ * Helper function to append buffer content to a line until a newline is found.
+ * returns the updated line.
+ * 
+ * @param fd The file descriptor from which to read.
+ * @param r_len Pointer to an integer that stores the read length.
+ * @param line The initial line to which buffer content is appended.
+ * @param buffer The buffer used for reading from `fd`.
+ * @return The updated line after appending buffer content, or NULL if memory allocation fails.
+ */
+char	*al_helper(int fd, int *r_len, char *line, char *buffer)
+{
+	char	*new_line;
+
+	if (!line)
+	{
+		line = (char *) malloc (1);
+		if (!line)
+			return (NULL);
+		line[0] = '\0';
+	}
+	while ((*r_len) > 0)
+	{
+		buffer[(*r_len)] = '\0';
+		new_line = ft_strjoin(line, buffer);
+		free (line);
+		if (ft_strchr(new_line, '\n'))
 			break ;
-		}
-		start++;
+		line = new_line;
+		(*r_len) = read(fd, buffer, BUFFER_SIZE);
 	}
-	return (start);
+	return (new_line);
 }
 
-char	*clean_res(char *res, int bread)
+/**
+ * Reads from a file descriptor and appends the content to a line until a newline is found.
+ * 
+ * @param fd The file descriptor from which to read.
+ * @param r_len Pointer to an integer that stores the read length.
+ * @param line The initial line to which the read content is appended.
+ * @return The updated line after reading and appending content, or NULL in case of errors.
+ */
+char	*add_line(int fd, int *r_len, char *line)
 {
-	char	*new;
-	int		i;
-	int		start;
+	char	*buffer;
+	char	*new_line;
 
-	if (bread == -1)
-		return (free(res), NULL);
-	i = 0;
-	if (!res)
+	new_line = 0;
+	buffer = (char *) malloc(BUFFER_SIZE + 1);
+	if (!buffer)
 		return (NULL);
-	start = clean_res_get_start(res);
-	if (!res[start])
-		return (free(res), NULL);
-	new = malloc(((int)ft_strlen_gnl(res) + 1) * sizeof(char));
-	if (!new)
-		return (NULL);
-	while (i < (int)ft_strlen_gnl(res) - start)
+	(*r_len) = read(fd, buffer, BUFFER_SIZE);
+	if ((*r_len) == 0)
+		new_line = line;
+	else if ((*r_len) > 0)
+		new_line = al_helper(fd, r_len, line, buffer);
+	if ((*r_len) < 0)
 	{
-		new[i] = res[i + start];
-		i++;
+		free (line);
+		free (new_line);
+		free (buffer);
+		return (NULL);
 	}
-	new[i] = '\0';
-	return (free(res), new);
+	free(buffer);
+	return (new_line);
 }
 
-char	*get_full_line(char *res, int bread)
-{
-	char	*line;
-	int		i;
-	int		len;
-
-	if (bread == -1)
-		return (NULL);
-	i = 0;
-	len = 0;
-	if (!res)
-		return (NULL);
-	while (res[len])
-	{
-		len++;
-		if (res[len - 1] == '\n')
-			break ;
-	}
-	line = ft_calloc_gnl(len + 1, 1);
-	while (i < len)
-	{
-		line[i] = res[i];
-		i++;
-	}
-	line[i] = '\0';
-	return (line);
-}
-
+/**
+ * Retrieves the next line from a file descriptor, including the newline character.
+ * 
+ * @param fd The file descriptor from which to read.
+ * @return The next line from the file descriptor, or NULL if no more lines are available or in case of errors.
+ */
 char	*get_next_line(int fd)
 {
-	char		*line;
-	char		*buffer;
-	static char	*res;
-	int			bread;
+	static char	*line;
+	int			*r_len;
+	int			read_len;
+	char		*result;
 
+	result = NULL;
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	bread = 1;
-	while (ft_no_newline(res) == 1)
+	r_len = &read_len;
+	read_len = 1;
+	if (!line || !ft_strchr(line, '\n'))
+		line = add_line(fd, r_len, line);
+	if (line && read_len >= 0)
 	{
-		buffer = ft_calloc_gnl((BUFFER_SIZE + 1) * sizeof(char), 1);
-		if (!buffer)
-			return (NULL);
-		bread = read(fd, buffer, BUFFER_SIZE);
-		if (bread <= 0)
-		{
-			free (buffer);
-			break ;
-		}
-		res = ft_strjoin_gnl(res, buffer);
-		free(buffer);
+		result = extract(line);
+		line = shorten(line);
 	}
-	line = get_full_line(res, bread);
-	res = clean_res(res, bread);
-	return (line);
+	else if (read_len < 0)
+		free (line);
+	return (result);
 }

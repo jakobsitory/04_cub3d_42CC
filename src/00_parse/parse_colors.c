@@ -3,15 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   parse_colors.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 17:56:12 by lgrimmei          #+#    #+#             */
-/*   Updated: 2024/02/01 21:38:01 by lgrimmei         ###   ########.fr       */
+/*   Updated: 2024/08/08 12:55:06 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
+/**
+ * Parses and saves the color values from a configuration line for either the ceiling or the floor in the cub3D game. The function
+ * processes the line by trimming newline characters, removing extra whitespaces, and validating the format and characters of the
+ * color values. The color values are expected to be in RGB format, separated by commas. If the color for the specified identifier
+ * (ceiling or floor) has already been set, or if the format is invalid, the program exits with an error.
+ * 
+ * @param identifier A string indicating whether the color is for the ceiling (CEILING_ID) or the floor (FLOOR_ID).
+ * @param line The configuration line containing the color values.
+ * @param data Pointer to the t_data structure containing game data and settings.
+ */
 void	save_color(char *identifier, char *line, t_data *data)
 {
 	char	*line_trimmed;
@@ -33,6 +43,14 @@ void	save_color(char *identifier, char *line, t_data *data)
 	free(line_trimmed_whitesp);
 }
 
+/**
+ * Checks if the color for either the ceiling or the floor has already been saved in the parser component of the t_data structure.
+ * If the color for the specified identifier (ceiling or floor) has already been set, the program exits with an error to prevent
+ * multiple definitions of the same color.
+ * 
+ * @param data Pointer to the t_data structure containing game data and settings.
+ * @param identifier A string indicating whether the color is for the ceiling (CEILING_ID) or the floor (FLOOR_ID).
+ */
 void	check_color_saved(t_data *data, char *identifier)
 {
 	if (ft_strncmp(identifier, CEILING_ID, ft_strlen(identifier)) == 0)
@@ -47,6 +65,16 @@ void	check_color_saved(t_data *data, char *identifier)
 	}
 }
 
+/**
+ * Parses a line of text to extract and save RGB color values into an array. The function iterates over the line, extracting numbers
+ * separated by commas, and converts them to integers representing RGB values. If the line contains more characters after extracting
+ * three values, or if the format is incorrect, the program exits with an error.
+ * 
+ * @param line The line of text containing RGB values separated by commas.
+ * @param array An array where the parsed RGB values are stored.
+ * @param data Pointer to the t_data structure for error handling.
+ * @return Always returns NULL. Used to indicate the end of processing.
+ */
 char	*save_next_hex(char *line, int *array, t_data *data)
 {
 	int		i;
@@ -72,6 +100,14 @@ char	*save_next_hex(char *line, int *array, t_data *data)
 	return (NULL);
 }
 
+/**
+ * Validates that a string contains only numeric characters or commas. This function is used to ensure that a line specifying color
+ * values contains valid characters before parsing. If invalid characters are found, the program exits with an error.
+ * 
+ * @param str The string to be validated.
+ * @param data Pointer to the t_data structure for error handling.
+ * @return Returns 1 if the string contains only valid characters, indicating it is safe to proceed with parsing.
+ */
 int	valid_chars_color(char *str, t_data *data)
 {
 	int	i;
@@ -86,6 +122,14 @@ int	valid_chars_color(char *str, t_data *data)
 	return (1);
 }
 
+/**
+ * Validates the format of a string containing numeric RGB values separated by commas. This function checks that there are exactly
+ * three numbers separated by two commas, and that the string ends after the third number. If the format is incorrect, the program
+ * exits with an error.
+ * 
+ * @param str The string containing RGB values to be validated.
+ * @param data Pointer to the t_data structure for error handling.
+ */
 void	valid_number_format(char *str, t_data *data)
 {
 	int	nu;

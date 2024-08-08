@@ -3,43 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgrimmei <lgrimmei@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/04 12:48:35 by lgrimmei          #+#    #+#             */
-/*   Updated: 2023/11/09 18:03:16 by lgrimmei         ###   ########.fr       */
+/*   Created: 2023/05/04 08:32:54 by jschott           #+#    #+#             */
+/*   Updated: 2024/08/08 10:22:38 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+/**
+ * Duplicates a string.
+ * 
+ * @param s The string to duplicate.
+ * @return A pointer to the newly allocated string, or NULL if the allocation fails.
+ */
 char	*ft_strdup(const char *s)
 {
-	int		len;
-	char	*dest;
+	char	*dup;
 	int		i;
 
 	i = 0;
-	len = ft_strlen(s);
-	dest = (char *) malloc((len + 1) * sizeof(char));
-	if (dest == NULL)
+	dup = (char *) malloc (ft_strlen (s) + 1);
+	if (!dup)
 		return (NULL);
-	while (s[i])
+	while (s[i] != '\0')
 	{
-		dest[i] = s[i];
+		dup[i] = (char) s[i];
 		i++;
 	}
-	dest[i] = '\0';
-	return (dest);
+	dup[i] = '\0';
+	return (dup);
 }
-
-/*
-#include<stdio.h>
-int	main(void)
-{
-	char	src[] = "Hello";
-	//ft_strdup(src);
-	printf("duplicate: %s\n", ft_strdup(src));
-	printf("original: %s\n", src);
-	return (0);
-}
-*/

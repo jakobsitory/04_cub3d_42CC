@@ -3,45 +3,38 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgrimmei <lgrimmei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/02 16:03:35 by lgrimmei          #+#    #+#             */
-/*   Updated: 2023/05/04 13:08:14 by lgrimmei         ###   ########.fr       */
+/*   Created: 2023/05/02 14:21:11 by jschott           #+#    #+#             */
+/*   Updated: 2024/08/08 10:26:46 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+/**
+ * Copies `n` bytes from memory area `src` to memory area `dest`.
+ * 
+ * @param dest Pointer to the destination memory area.
+ * @param src Pointer to the source memory area.
+ * @param n Number of bytes to copy.
+ * @return A pointer to the destination memory area `dest`.
+ */
 void	*ft_memcpy(void *dest, const void *src, size_t n)
 {
-	char	*destptr;
-	char	*srcptr;
-	size_t	i;
+	int			i;
+	char		*cdest;
+	const char	*csrc;
 
-	destptr = (char *)dest;
-	srcptr = (char *)src;
+	cdest = (char *) dest;
+	csrc = (const char *) src;
 	i = 0;
-	if (!destptr && !srcptr)
+	if (!src && !dest)
 		return (dest);
-	while (i < n)
+	while (i < (int) n)
 	{
-		destptr[i] = srcptr[i];
+		cdest[i] = csrc[i];
 		i++;
 	}
-	return (dest);
+	return ((void *) cdest);
 }
-
-/*
-int	main(void)
-{
-	char str[] = "";
-	char str2[] = "";
-	char src[] = "";
-	printf("%s\n", str);
-	printf("%s\n", str2);
-	ft_memcpy((void*)0, (void*)0, 1);
-	memcpy((void*)0, (void*)0, 1);
-	printf("%s\n", str);
-	printf("%s\n", str2);
-}
-*/

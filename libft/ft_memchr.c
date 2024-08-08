@@ -3,39 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgrimmei <lgrimmei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/03 14:25:24 by lgrimmei          #+#    #+#             */
-/*   Updated: 2023/05/10 13:25:39 by lgrimmei         ###   ########.fr       */
+/*   Created: 2023/05/02 14:33:18 by jschott           #+#    #+#             */
+/*   Updated: 2024/08/08 10:28:52 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+/**
+ * Searches for the first occurrence of a character in a memory area.
+ * 
+ * @param s Pointer to the memory area to be searched.
+ * @param c The character to search for, represented as an int but treated as an unsigned char.
+ * @param n The number of bytes to be scanned.
+ * @return A pointer to the matching byte in the memory area, or NULL if `c` is not found.
+ */
 void	*ft_memchr(const void *s, int c, size_t n)
 {
-	size_t			i;
-	unsigned char	*ptr;
+	int					i;
+	const unsigned char	*ptr;
 
-	ptr = (unsigned char *)s;
 	i = 0;
-	if (!n)
-		return (NULL);
-	while (i < n)
+	ptr = s;
+	while (i < (int)n)
 	{
-		if (ptr[i] == (unsigned char)c)
-			return ((void *)&ptr[i]);
+		if (ptr[i] == (unsigned char) c)
+			return ((void *)(ptr + i));
 		i++;
 	}
 	return (NULL);
 }
-
-/* int	main(void)
-{
-	char s[] = {0, 1, 2 ,3 ,4 ,5};
-	char *res1 = memchr(s, 2, 4);
-	printf("%s\n", res1);
-	char *res2 = ft_memchr(s, 2, 4);
-	printf("%s\n", res2);
-}
- */

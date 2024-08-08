@@ -1,24 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_bzero.c                                         :+:      :+:    :+:   */
+/*   ft_abs.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/02 14:20:55 by jschott           #+#    #+#             */
-/*   Updated: 2024/08/08 10:38:51 by jschott          ###   ########.fr       */
+/*   Created: 2023/08/11 11:55:49 by jschott           #+#    #+#             */
+/*   Updated: 2024/08/08 10:54:50 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
 /**
- * Sets the first `n` bytes of the memory area pointed to by `s` to zero.
+ * Computes the absolute value of a long integer.
  * 
- * @param s Pointer to the memory area to be zeroed.
- * @param n Number of bytes to set to zero.
+ * @param num The long integer whose absolute value is to be computed.
+ * @return The absolute value of `num`.
  */
-void	ft_bzero(void *s, size_t n)
+int	ft_abs(long int num)
 {
-	ft_memset (s, 0, n);
+	if (num < 0)
+		return (-num);
+	return (num);
 }

@@ -6,12 +6,20 @@
 /*   By: jschott <jschott@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 12:12:27 by jschott           #+#    #+#             */
-/*   Updated: 2024/01/25 17:09:03 by jschott          ###   ########.fr       */
+/*   Updated: 2024/08/08 13:02:17 by jschott          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
+/**
+ * Draws a single pixel at the specified coordinates with the given color.
+ * 
+ * @param window Pointer to the t_window structure containing window and image information.
+ * @param x The x-coordinate of the pixel.
+ * @param y The y-coordinate of the pixel.
+ * @param color The color of the pixel.
+ */
 void	draw_pixel(t_window *window, int x, int y, int color)
 {
 	char	*dst;
@@ -24,6 +32,14 @@ void	draw_pixel(t_window *window, int x, int y, int color)
 	}
 }
 
+/**
+ * Draws a rectangle on the window by filling in pixels between start and end coordinates with the specified color.
+ * 
+ * @param window Pointer to the t_window structure containing window and image information.
+ * @param start Array of two integers specifying the starting x and y coordinates.
+ * @param end Array of two integers specifying the ending x and y coordinates.
+ * @param color The color to fill the rectangle with.
+ */
 void	draw_rectangle(t_window *window, int start[2], int end[2], int color)
 {
 	int	x;
@@ -39,6 +55,12 @@ void	draw_rectangle(t_window *window, int start[2], int end[2], int color)
 	}
 }
 
+/**
+ * Fills the entire window background with a color specified for each pixel, based on the environment settings.
+ * 
+ * @param window Pointer to the t_window structure containing window and image information.
+ * @param env Pointer to the t_env structure containing environment settings, including the background color array.
+ */
 void	draw_background(t_window *window, t_env *env)
 {
 	int		x;
