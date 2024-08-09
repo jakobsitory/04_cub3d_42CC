@@ -1,6 +1,8 @@
 # **cub3D**
 The cub3D project is a challenge within the 42 School curriculum aimed at deepening students' understanding of computer graphics, raycasting, and game development in C. The goal is to create a 3D game engine similar to the classic Wolfenstein 3D, using a 2D map to render a 3D world.
 
+![](./cubed_demo.gif)
+
 ## **Task**
 The task was to implement a program that renders a 3D scene from a 2D map using raycasting. The program needs to handle various tasks such as:
 
